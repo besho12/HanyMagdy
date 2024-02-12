@@ -81,7 +81,7 @@
                         <div class="sign-area">
                             <div class="sign-hader">
                                 <img src="<?=$this->application_model->getBranchImage($branch_id, 'logo')?>" height="54" alt="">
-                                <h2 style="font-weight: bold;">Parents Service Center</h2>
+                                <h3 style="font-weight: bold; text-decoration:underline;">PARENTS SERVICE CENTER</h3>
                             </div>
                             <?php echo form_open($this->uri->uri_string()); ?>
                                 <div class="form-group <?php if (form_error('email')) echo 'has-error'; ?>">
