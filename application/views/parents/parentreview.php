@@ -1,93 +1,152 @@
 
+
+
+
+
 <!doctype html>
-<html class="fixed sidebar-left-sm sidebar-light">
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta content="width=device-width,initial-scale=1" name="viewport">
+	<meta name="keywords" content="">
+	<meta name="description" content="<?php echo $global_config['institute_name'] ?>">
+	<meta name="author" content="<?php echo $global_config['institute_name'] ?>">
+	<title><?php echo translate('login');?></title>
+	<link rel="shortcut icon" href="<?php echo base_url('assets/images/favicon.png');?>">
     
-<?php $this->load->view('layout/header.php');?>
+    <!-- Web Fonts  -->
+	<link href="<?php echo is_secure('fonts.googleapis.com/css?family=Signika:300,400,600,700');?>" rel="stylesheet"> 
+	<link rel="stylesheet" href="<?php echo base_url('assets/vendor/bootstrap/css/bootstrap.css');?>">
+	<link rel="stylesheet" href="<?php echo base_url('assets/vendor/font-awesome/css/all.min.css'); ?>">
+	<script src="<?php echo base_url('assets/vendor/jquery/jquery.js');?>"></script>
+	
+	<!-- sweetalert js/css -->
+	<link rel="stylesheet" href="<?php echo base_url('assets/vendor/sweetalert/sweetalert-custom.css');?>">
+	<script src="<?php echo base_url('assets/vendor/sweetalert/sweetalert.min.js');?>"></script>
+	<!-- login page style css -->
+	<link rel="stylesheet" href="<?php echo base_url('assets/login_page/css/style.css');?>">
+	<script type="text/javascript">
+		var base_url = '<?php echo base_url() ?>';
+	</script>
 
-<header class="header">
-    <div class="logo-env">
-        <a href="http://localhost/HanyMagdy/dashboard" class="logo">
-            <img src="http://localhost/HanyMagdy/uploads/app_image/logo-small.png" height="40">
-		</a>
-        
-		<div class="visible-xs toggle-sidebar-left" data-toggle-class="sidebar-left-opened" data-target="html" data-fire-event="sidebar-left-opened">
-            <i class="fa fa-bars" aria-label="Toggle sidebar"></i>
-		</div>
-	</div>
-</header>
+    <style>
+        .sign-area {
+            background-color: #fff;
+            box-shadow: 3px 3px 10px rgb(0 0 0 / 40%) !important;
+            color: #000 !important;
+        }
+        .sign-area::before {
+            border-right: 60px solid #fff;
+        }
+    </style>
+</head>
+	<body style="background-color: #ddd;">
+        <div class="auth-main">
+            <div class="container">
+                <div class="slideIn">
+                    <!-- image and information -->
+                    <div class="col-lg-4 col-lg-offset-1 col-md-4 col-md-offset-1 col-sm-12 col-xs-12 no-padding fitxt-center">
+                        <div class="image-area">
+                        <div class="content">
+                            <div class="image-hader">
+                                <h2><?php echo translate('welcome_to');?></h2>
+                            </div>
+                            <div class="center img-hol-p">
+                                <img src="<?=$this->application_model->getBranchImage($branch_id, 'logo')?>" height="60" alt="School">
+                            </div>
+                            <div class="address">
+                                <p><?php echo $global_config['address'];?></p>
+                            </div>			
+                            <div class="f-social-links center">
+                                <a href="<?php echo $global_config['facebook_url'];?>" target="_blank">
+                                    <span class="fab fa-facebook-f"></span>
+                                </a>
+                                <a href="<?php echo $global_config['twitter_url'];?>" target="_blank">
+                                    <span class="fab fa-twitter"></span>
+                                </a>
+                                <a href="<?php echo $global_config['linkedin_url'];?>" target="_blank">
+                                    <span class="fab fa-linkedin-in"></span>
+                                </a>
+                                <a href="<?php echo $global_config['youtube_url'];?>" target="_blank">
+                                    <span class="fab fa-youtube"></span>
+                                </a>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
 
-<!-- <body class="loading-overlay-showing" data-loading-overlay> -->
-<?php if ($global_config['preloader_backend'] == 1) { ?>
-<body class="loading-overlay-showing" data-loading-overlay>
-	<!-- page preloader -->
-	<div class="loading-overlay dark">
-		<div class="ring-loader">
-			Loading <span></span>
-		</div>
-	</div>
-<?php } else { ?>
-<body>
-<?php } ?>
+                    <!-- Login -->
+                    <div class="col-lg-6 col-lg-offset-right-1 col-md-6 col-md-offset-right-1 col-sm-12 col-xs-12 no-padding">
+                        <div class="sign-area">
+                            <div class="sign-hader">
+                                <img src="<?=$this->application_model->getBranchImage($branch_id, 'logo')?>" height="54" alt="">
+                                <h2 style="font-weight: bold;">Parents Service Center</h2>
+                            </div>
+                            <?php echo form_open($this->uri->uri_string()); ?>
+                                <div class="form-group <?php if (form_error('email')) echo 'has-error'; ?>">
+                                    <div class="input-group input-group-icon">
+                                        <span class="input-group-addon">
+                                            <span class="icon">
+                                                <i class="fas fa-barcode"></i>
+                                            </span>
+                                        </span>
+                                        <input type="text" class="form-control" style="background:#fff;font-size:16px;color:#000;" name="student_code" placeholder="Student Code" />
+                                    </div>
+                                    <span class="error"><?php echo form_error('email'); ?></span>
+                                </div>
+                               
 
-
-<div class="container" style="margin-top: 100px;">
-    <section class="panel appear-animation fadeInUp appear-animation-visible" data-appear-animation="fadeInUp" data-appear-animation-delay="100" style="animation-delay: 100ms;">
-        <header class="panel-heading">
-            <h4 class="panel-title"><i class="fas fa-user-graduate"></i> Exam Marks</h4>
-        </header>
-        <div class="panel-body mb-md">
-            <table class="table table-bordered table-condensed table-hover table-export">
-                <thead>
-                    <tr>
-                        <th>Student ID</th>
-                        <th>Student Name</th>
-                        <th>Exam Name</th>
-                        <th>Date</th>
-                        <th>Exam Type</th>
-                        <th>Marks</th>                                                            
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach($marks as $row): ?>
-                    <tr>                       
-                        <td><?php echo $row['register_no']; ?></td>                                                                
-                        <td><?php echo $row['first_name']; ?></td>                                                                
-                        <td><?php echo $row['exam_name']; ?></td>                                                                
-                        <td><?php echo $row['exam_date']; ?></td>                                                                
-                        <td><?php echo $row['exam_period']; ?></td>                                                                
-                        <td>                            
-                        <?php $distributions = json_decode($row['mark'], true);
-                            if(!$distributions){
-                                echo '<span class="text-warning">Absent</span>';
-                            } else {                                
-                                foreach ($distributions as $i => $value) { 
-                                    $distributions_masterData = get_distributions_masterData($row['exam_id']);  
-                                    $distributions_masterData = ($distributions_masterData[0]['mark_distribution']); 
-                                    $distributions_masterData = json_decode($distributions_masterData,true);
-                                    $full_mark = $distributions_masterData[$i]['full_mark'];
-                                    $pass_mark = $distributions_masterData[$i]['pass_mark'];                                
+                                <button type="submit" id="btn_submit" class="btn btn-block btn-round" style="color:#fff !important;">
+                                    <i class="fas fa-search"></i> <?php echo translate('search');?>
+                                </button>
+                                <div class="forgot-text">
+                                    <div class="">
+                                        <a href="<?php echo base_url('authentication/forgot') . $this->authentication_model->getSegment(3);?>"><?php echo translate('lose_your_password');?></a>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" id="btn_submit" class="btn btn-block btn-round">
+                                        <i class="fas fa-sign-in-alt"></i> <?php echo translate('login');?>
+                                    </button>
+                                </div>
                                 
-                                    echo get_type_name_by_id('exam_mark_distribution', $i) . " (" . $value . '/' . $full_mark . ")";
-                                    if($value >= $pass_mark){
-                                        echo '<span class="text-success" style="margin-left:5px;">Succeeded</span>';
-                                    } else {
-                                        echo '<span class="text-danger" style="margin-left:5px;">Failed</span>';
-                                    }                                   
-                                    echo '<br>';
-                                }                                 
-                            }
-                        ?>
-
-                        </td>                                                                
-                    </tr>
-                    <?php endforeach;?>
-                </tbody>
-            </table>
+                            <?php echo form_close();?>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </section>
-</div>
- 
-<?php $this->load->view('layout/script.php');?>
-       
-</body>
+        
+		<script src="<?php echo base_url('assets/vendor/bootstrap/js/bootstrap.js');?>"></script>
+		<script src="<?php echo base_url('assets/vendor/jquery-placeholder/jquery-placeholder.js');?>"></script>
+		<!-- backstretch js -->
+		<script src="<?php echo base_url('assets/login_page/js/jquery.backstretch.min.js');?>"></script>
+		<script src="<?php echo base_url('assets/login_page/js/custom.js');?>"></script>
+
+		<?php
+		$alertclass = "";
+		if($this->session->flashdata('alert-message-success')){
+			$alertclass = "success";
+		} else if ($this->session->flashdata('alert-message-error')){
+			$alertclass = "error";
+		} else if ($this->session->flashdata('alert-message-info')){
+			$alertclass = "info";
+		}
+		if($alertclass != ''):
+			$alert_message = $this->session->flashdata('alert-message-'. $alertclass);
+		?>
+			<script type="text/javascript">
+				swal({
+					toast: true,
+					position: 'top-end',
+					type: '<?php echo $alertclass;?>',
+					title: '<?php echo $alert_message;?>',
+					confirmButtonClass: 'btn btn-default',
+					buttonsStyling: false,
+					timer: 8000
+				})
+			</script>
+		<?php endif; ?>
+	</body>
 </html>
