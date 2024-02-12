@@ -17,7 +17,7 @@ class Parentreview extends MY_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('qrcode_attendance_model');
+        // $this->load->model('qrcode_attendance_model');
     }
 
     public function index($studentID = '')
@@ -27,16 +27,16 @@ class Parentreview extends MY_Controller
     }
 
     public function get_student_marks($studentID){
-        $student_id = $this->qrcode_attendance_model->getStudentIDByBarcode($studentID);   
-        $this->db->select('mark.*, student.first_name, student.last_name, student.register_no, timetable_exam.exam_date as exam_date, exam.id as exam_id, exam_period, exam.name as exam_name');
-        $this->db->from('mark');
-        $this->db->where('student_id', $student_id);
-        $this->db->join('student', 'student.id = mark.student_id', 'left');
-        $this->db->join('exam', 'exam.id = mark.exam_id', 'left');
-        $this->db->join('timetable_exam', 'timetable_exam.exam_id = exam.id', 'left'); // Corrected join condition
+        // $student_id = $this->qrcode_attendance_model->getStudentIDByBarcode($studentID);   
+        // $this->db->select('mark.*, student.first_name, student.last_name, student.register_no, timetable_exam.exam_date as exam_date, exam.id as exam_id, exam_period, exam.name as exam_name');
+        // $this->db->from('mark');
+        // $this->db->where('student_id', $student_id);
+        // $this->db->join('student', 'student.id = mark.student_id', 'left');
+        // $this->db->join('exam', 'exam.id = mark.exam_id', 'left');
+        // $this->db->join('timetable_exam', 'timetable_exam.exam_id = exam.id', 'left'); // Corrected join condition
 
-        $this->db->order_by('mark.id', 'ASC');
-        $result = $this->db->get()->result_array();
-        return $result;
+        // $this->db->order_by('mark.id', 'ASC');
+        // $result = $this->db->get()->result_array();
+        // return $result;
     }
 }
