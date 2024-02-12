@@ -75,7 +75,7 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost',
+	'hostname' => 'https://auth-db1349.hstgr.io/',
 	'username' => 'root',
 	'password' => '@@@Hany###200',
 	'database' => 'u817501697_system',
