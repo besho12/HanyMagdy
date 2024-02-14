@@ -28,7 +28,7 @@
 
 
 
-	    <div class="col-md-8 col-sm-12  mt-md">
+	    <div class="col-md-12 col-sm-12  mt-md">
 			<table class="table table-bordered table-hover table-condensed table-question nowrap"  cellpadding="0" cellspacing="0" width="100%" >
 				<thead>
 					<tr>
@@ -37,6 +37,7 @@
 						<th><?=translate('class')?></th>
 						<th>Student ID</th>
 						<th><?=translate('date')?></th>
+						<th><?=translate('quiz')?></th>
 					</tr>
 				</thead>
 			</table>
@@ -104,11 +105,50 @@
 			</div>
 		</footer>
 	</section>
+
 </div>
 
-<audio id="successAudio">
-  <source src="<?php echo base_url('assets/vendor/qrcode/success.mp3') ?>" type="audio/ogg">
-</audio>
+<div class="modal fade" tabindex="-1" role="dialog" id="quiz_remark_modal">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content modal-dialog-centered">
+			<div class="modal-header">
+				<h5 class="modal-title"><?=translate('exam_remarks')?></h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-md-12 form-group">
+						<label><?=translate('available_exams')?></label>
+						<?php
+							$arrayBranch = $this->app_lib->getSelectList('branch');
+							echo form_dropdown("branch_id", $arrayBranch, $branch_id, "class='form-control' id='branch_id'
+							id='branch_id' data-plugin-selectTwo data-width='100%' data-minimum-results-for-search='Infinity'");
+						?>
+					</div>
+					<div class="col-md-12 form-group">
+						<label>Quiz Degree</label>
+						<input type="number" class="form-control" name="quiz_degree" id="quiz_degree_input" style="margin-bottom: 10px;">
+						<button class="btn btn-sm btn-primary quiz_marks" data-id="20" style="margin-right: 10px;">20</button><button class="btn btn-sm btn-primary quiz_marks" data-id="40" style="margin-right: 10px;">40</button>
+						<button class="btn btn-sm btn-primary quiz_marks" data-id="50" style="margin-right: 10px;">50</button><button class="btn btn-sm btn-primary quiz_others">Others</button>
+					</div>
+					<input type="hidden" id="quiz_student_id" name="quiz_student_id">
+					<input type="hidden" id="quiz_class_id" name="quiz_class_id">
+					<input type="hidden" id="quiz_section_id" name="quiz_section_id">
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary save_quiz_result">Save</button>
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- <audio id="successAudio">
+  <source src="<?php //echo base_url('assets/vendor/qrcode/success.mp3') ?>" type="audio/ogg">
+</audio> -->
 
 <script type="text/javascript">
 	var statusMatched = "<?php echo translate('matched')?>";
@@ -310,4 +350,11 @@
 	$('.modal-dismiss').on('click', function() {
 		end_loader()
 	});
+</script>
+
+
+<script>
+	$(document).on('click','.quiz_remark',function(){
+		$('#quiz_remark_modal').modal("show");
+	})
 </script>

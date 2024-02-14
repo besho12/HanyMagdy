@@ -842,6 +842,7 @@
                                     <i class="fas fa-flask"></i> <span><?=translate('exam')?></span>
                                 </a>
                                 <ul class="nav nav-children">
+                                    <?php if(1==2): ?>
                                     <?php if (get_permission('exam_term', 'is_view')) {  ?>
                                     <li class="<?php if ($sub_page == 'exam/term') echo 'nav-active';?>">
                                         <a href="<?=base_url('exam/term')?>">
@@ -860,7 +861,9 @@
                                             <span><?=translate('distribution')?></span>
                                         </a>
                                     </li>
-                                    <?php } if (get_permission('exam', 'is_view')) { ?>
+                                    <?php } ?>
+                                    <?php endif; ?>
+                                    <?php if (get_permission('exam', 'is_view')) { ?>
                                     <li class="<?php if ($sub_page == 'exam/index') echo 'nav-active';?>">
                                         <a href="<?=base_url('exam')?>">
                                             <span><?=translate('exam_setup')?></span>

@@ -22,18 +22,19 @@
 								<span class="error"></span>
 							</div>
 						</div>
+
 						<div class="form-group">
-							<label class="col-md-3 control-label"><?=translate('term')?></label>
+							<label class="col-md-3 control-label"><?=translate('exam_date')?> <span class="required">*</span></label>
 							<div class="col-md-6">
-								<?php
-									$array = $this->app_lib->getSelectByBranch('exam_term', $exam['branch_id']);
-									echo form_dropdown("term_id", $array, $exam['term_id'], "class='form-control' id='term_id'
-									data-plugin-selectTwo data-width='100%' data-minimum-results-for-search='Infinity' ");
-								?>
+								<div class="input-group">
+									<input type="text" class="form-control" name="date" id="attDate" value="<?=$exam['exam_date']?>" autocomplete="off">
+									<span class="input-group-addon"><i class="icon-event icons"></i></span>
+								</div>
 								<span class="error"></span>
 							</div>
 						</div>
-						<div class="form-group">
+
+						<div class="form-group" style="display: none;">
 							<label class="col-md-3 control-label"><?=translate('exam_type')?></label>
 							<div class="col-md-6">
 								<?php
@@ -43,28 +44,41 @@
 										'2' => translate('grade'), 
 										'3' => translate('marks_and_grade'), 
 									);
-									echo form_dropdown("type_id", $arrayType, $exam['type_id'], "class='form-control' id='type_id'
+									echo form_dropdown("type_id", $arrayType, '1', "class='form-control' id='type_id'
 									data-plugin-selectTwo data-width='100%' data-minimum-results-for-search='Infinity' ");
 								?>
 								<span class="error"></span>
 							</div>
 						</div>
-						<div class="form-group">
-							<label class="col-md-3 control-label"><?=translate('mark_distribution')?></label>
-							<div class="col-md-6">
-								<?php
-									$sel = json_decode($exam['mark_distribution'], true);
-									$arraySection = array();
-									$result = $this->db->where('branch_id', $exam['branch_id'])->get('exam_mark_distribution')->result();
-									foreach ($result as $row) {
-										$arraySection[$row->id] = $row->name;
-									}
-									echo form_dropdown("mark_distribution[]", $arraySection, $sel, "class='form-control' multiple id='mark_distribution'
-									data-plugin-selectTwo data-width='100%'");
-								?>
-								<span class="error"></span>
+						<?php if(1==2): ?>
+							<div class="form-group">
+								<label class="col-md-3 control-label"><?=translate('term')?></label>
+								<div class="col-md-6">
+									<?php
+										$array = $this->app_lib->getSelectByBranch('exam_term', $exam['branch_id']);
+										echo form_dropdown("term_id", $array, $exam['term_id'], "class='form-control' id='term_id'
+										data-plugin-selectTwo data-width='100%' data-minimum-results-for-search='Infinity' ");
+									?>
+									<span class="error"></span>
+								</div>
 							</div>
-						</div>
+							<div class="form-group">
+								<label class="col-md-3 control-label"><?=translate('mark_distribution')?></label>
+								<div class="col-md-6">
+									<?php
+										$sel = json_decode($exam['mark_distribution'], true);
+										$arraySection = array();
+										$result = $this->db->where('branch_id', $exam['branch_id'])->get('exam_mark_distribution')->result();
+										foreach ($result as $row) {
+											$arraySection[$row->id] = $row->name;
+										}
+										echo form_dropdown("mark_distribution[]", $arraySection, $sel, "class='form-control' multiple id='mark_distribution'
+										data-plugin-selectTwo data-width='100%'");
+									?>
+									<span class="error"></span>
+								</div>
+							</div>
+						<?php endif; ?>
 						<div class="form-group">
 							<label class="col-md-3 control-label">Exam Period</label>							
 							<div class="col-md-6">
@@ -100,3 +114,42 @@
 		</div>
 	</div>
 </section>
+
+<script type="text/javascript">
+	$(document).ready(function () {
+		$(document).on('change', '#branch_id', function() {
+			var branchID = $(this).val();
+			$.ajax({
+				url: "<?=base_url('ajax/getDataByBranch')?>",
+				type: 'POST',
+				data: {
+					branch_id: branchID,
+					table: 'exam_term'
+				},
+				success: function (data) {
+					$('#term_id').html(data);
+				}
+			});
+
+			$.ajax({
+				url: "<?=base_url('exam/getDistributionByBranch')?>",
+				type: 'POST',
+				data: {
+					branch_id: branchID,
+				},
+				success: function (data) {
+					$('#mark_distribution').html(data);
+				}
+			});
+		});
+
+		setTimeout(function(){
+			var datePicker = $("#attDate").datepicker({
+				orientation: 'bottom',
+				todayHighlight: true,
+				autoclose: true,
+				format: 'yyyy-mm-dd',
+			});  
+		})
+	});
+</script>

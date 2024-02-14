@@ -20,10 +20,11 @@
 							<th><?=translate('branch')?></th>
 						<?php endif; ?>
 							<th><?=translate('exam_name')?></th>
-							<th><?=translate('exam_type')?></th>
-							<th><?=translate('term')?></th>
-							<th><?=translate('mark_distribution')?></th>
-							<th>Exam Period</th>
+							<!-- <th><? //=translate('exam_type')?></th> -->
+							<!-- <th><? //=translate('term')?></th> -->
+							<!-- <th><? //=translate('mark_distribution')?></th> -->
+							<th><?=translate('exam_date')?></th>
+							<th><?=translate('exam_period')?></th>
 							<th><?=translate('remarks')?></th>
 							<th><?=translate('action')?></th>
 						</tr>
@@ -36,24 +37,29 @@
 							<td><?php echo $row['branch_name']; ?></td>
 						<?php endif; ?>
 							<td><?php echo $row['name']; ?></td>
-							<td><?php 
-							if ($row['type_id'] == 1) {
-								echo translate('marks');
-							} elseif ($row['type_id'] == 2) {
-								echo translate('grade');
-							} elseif ($row['type_id'] == 3) {
-								echo translate('marks_and_grade');
-							}
-							 ?></td>
-							<td><?php echo (empty($row['term_id']) ? 'N/A' : get_type_name_by_id('exam_term', $row['term_id'])); ?></td>
-							<td><?php
-								$distribution = json_decode($row['mark_distribution'], true);
-								if (!empty($distribution)) {
-									foreach ($distribution as $id) {
-										echo '- ' . get_type_name_by_id('exam_mark_distribution', $id) . '<br>';
-									}
-								}
-							 ?></td>
+							<!-- <td> -->
+								<?php 
+									// if ($row['type_id'] == 1) {
+									// 	echo translate('marks');
+									// } elseif ($row['type_id'] == 2) {
+									// 	echo translate('grade');
+									// } elseif ($row['type_id'] == 3) {
+									// 	echo translate('marks_and_grade');
+									// }
+							 	?>
+							<!-- </td> -->
+							<!-- <td><?php //echo (empty($row['term_id']) ? 'N/A' : get_type_name_by_id('exam_term', $row['term_id'])); ?></td> -->
+							<!-- <td> -->
+								<?php
+									// $distribution = json_decode($row['mark_distribution'], true);
+									// if (!empty($distribution)) {
+									// 	foreach ($distribution as $id) {
+									// 		echo '- ' . get_type_name_by_id('exam_mark_distribution', $id) . '<br>';
+									// 	}
+									// }
+							 	?>
+							 <!-- </td> -->
+							<td><?php echo $row['exam_date']; ?></td>
 							<td><?php echo $row['exam_period']; ?></td>
 							<td><?php echo $row['remark']; ?></td>
 							<td class="min-w-xs">
@@ -96,18 +102,19 @@
 								<span class="error"></span>
 							</div>
 						</div>
+						
 						<div class="form-group">
-							<label class="col-md-3 control-label"><?=translate('term')?></label>
+							<label class="col-md-3 control-label"><?=translate('exam_date')?> <span class="required">*</span></label>
 							<div class="col-md-6">
-								<?php
-									$array = $this->app_lib->getSelectByBranch('exam_term', $branch_id);
-									echo form_dropdown("term_id", $array, set_value('term_id'), "class='form-control' id='term_id'
-									data-plugin-selectTwo data-width='100%' data-minimum-results-for-search='Infinity' ");
-								?>
+								<div class="input-group">
+									<input type="text" class="form-control" name="exam_date" id="attDate" autocomplete="off">
+									<span class="input-group-addon"><i class="icon-event icons"></i></span>
+								</div>
 								<span class="error"></span>
 							</div>
 						</div>
-						<div class="form-group">
+
+						<div class="form-group" style="display: none;">
 							<label class="col-md-3 control-label"><?=translate('exam_type')?></label>
 							<div class="col-md-6">
 								<?php
@@ -117,29 +124,44 @@
 										'2' => translate('grade'), 
 										'3' => translate('marks_and_grade'), 
 									);
-									echo form_dropdown("type_id", $arrayType, set_value('type_id'), "class='form-control' id='type_id'
+									echo form_dropdown("type_id", $arrayType, '1', "class='form-control' id='type_id'
 									data-plugin-selectTwo data-width='100%' data-minimum-results-for-search='Infinity' ");
 								?>
 								<span class="error"></span>
 							</div>
 						</div>
-						<div class="form-group">
-							<label class="col-md-3 control-label"><?=translate('mark_distribution')?></label>
-							<div class="col-md-6">
-								<?php
-									$arraySection = array();
-									if (!is_superadmin_loggedin()){
-										$result = $this->db->where('branch_id',get_loggedin_branch_id())->get('exam_mark_distribution')->result();
-										foreach ($result as $row) {
-											$arraySection[$row->id] = $row->name;
+
+						<?php if(1==2): ?>
+							<div class="form-group">
+								<label class="col-md-3 control-label"><?=translate('term')?></label>
+								<div class="col-md-6">
+									<?php
+										$array = $this->app_lib->getSelectByBranch('exam_term', $branch_id);
+										echo form_dropdown("term_id", $array, set_value('term_id'), "class='form-control' id='term_id'
+										data-plugin-selectTwo data-width='100%' data-minimum-results-for-search='Infinity' ");
+									?>
+									<span class="error"></span>
+								</div>
+							</div>	
+								
+							<div class="form-group" >
+								<label class="col-md-3 control-label"><?=translate('mark_distribution')?></label>
+								<div class="col-md-6">
+									<?php
+										$arraySection = array();
+										if (!is_superadmin_loggedin()){
+											$result = $this->db->where('branch_id',get_loggedin_branch_id())->get('exam_mark_distribution')->result();
+											foreach ($result as $row) {
+												$arraySection[$row->id] = $row->name;
+											}
 										}
-									}
-									echo form_dropdown("mark_distribution[]", $arraySection, set_value('mark_distribution[]'), "class='form-control' multiple id='mark_distribution'
-									data-plugin-selectTwo data-width='100%'");
-								?>
-								<span class="error"></span>
+										echo form_dropdown("mark_distribution[]", $arraySection, set_value('mark_distribution[]'), "class='form-control' multiple id='mark_distribution'
+										data-plugin-selectTwo data-width='100%'");
+									?>
+									<span class="error"></span>
+								</div>
 							</div>
-						</div>
+						<?php endif; ?>
 						<div class="form-group">
 							<label class="col-md-3 control-label">Exam Period</label>
 							
@@ -209,5 +231,12 @@
 				}
 			});
 		});
+
+		var datePicker = $("#attDate").datepicker({
+		    orientation: 'bottom',
+		    todayHighlight: true,
+		    autoclose: true,
+		    format: 'yyyy-mm-dd',
+		});  
 	});
 </script>
