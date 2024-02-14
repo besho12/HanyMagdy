@@ -27,7 +27,7 @@
 							<label class="col-md-3 control-label"><?=translate('exam_date')?> <span class="required">*</span></label>
 							<div class="col-md-6">
 								<div class="input-group">
-									<input type="text" class="form-control" name="date" id="attDate" value="<?=$exam['exam_date']?>" autocomplete="off">
+									<input type="text" class="form-control" name="exam_date" id="attDate" value="<?=$exam['exam_date']?>" autocomplete="off">
 									<span class="input-group-addon"><i class="icon-event icons"></i></span>
 								</div>
 								<span class="error"></span>
