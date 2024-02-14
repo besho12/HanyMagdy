@@ -22,6 +22,14 @@
 								<span class="error"></span>
 							</div>
 						</div>
+						
+						<div class="form-group">
+							<label class="col-md-3 control-label"><?=translate('total_mark')?> <span class="required">*</span></label>
+							<div class="col-md-6">
+								<input type="number" class="form-control" name="total_mark" value="<?=$exam['total_mark']?>" />
+								<span class="error"></span>
+							</div>
+						</div>
 
 						<div class="form-group">
 							<label class="col-md-3 control-label"><?=translate('exam_date')?> <span class="required">*</span></label>

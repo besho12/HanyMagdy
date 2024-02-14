@@ -29,6 +29,8 @@ class Exam extends Admin_Controller
             $this->form_validation->set_rules('branch_id', translate('branch'), 'required');
         }
         $this->form_validation->set_rules('name', translate('name'), 'trim|required');
+        $this->form_validation->set_rules('exam_date', translate('exam_date'), 'trim|required');
+        $this->form_validation->set_rules('total_mark', translate('total_mark'), 'trim|required');
         // $this->form_validation->set_rules('type_id', translate('exam_type'), 'trim|required');
         // $this->form_validation->set_rules('mark_distribution[]', translate('mark_distribution'), 'trim|required');
     }

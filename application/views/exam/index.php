@@ -23,6 +23,7 @@
 							<!-- <th><? //=translate('exam_type')?></th> -->
 							<!-- <th><? //=translate('term')?></th> -->
 							<!-- <th><? //=translate('mark_distribution')?></th> -->
+							<th><?=translate('total_mark')?></th>
 							<th><?=translate('exam_date')?></th>
 							<th><?=translate('exam_period')?></th>
 							<th><?=translate('remarks')?></th>
@@ -59,6 +60,7 @@
 									// }
 							 	?>
 							 <!-- </td> -->
+							<td><?php echo $row['total_mark']; ?></td>
 							<td><?php echo $row['exam_date']; ?></td>
 							<td><?php echo $row['exam_period']; ?></td>
 							<td><?php echo $row['remark']; ?></td>
@@ -99,6 +101,14 @@
 							<label class="col-md-3 control-label"><?=translate('name')?> <span class="required">*</span></label>
 							<div class="col-md-6">
 								<input type="text" class="form-control" name="name" />
+								<span class="error"></span>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-md-3 control-label"><?=translate('total_mark')?> <span class="required">*</span></label>
+							<div class="col-md-6">
+								<input type="number" class="form-control" name="total_mark" />
 								<span class="error"></span>
 							</div>
 						</div>

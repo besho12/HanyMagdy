@@ -37,7 +37,7 @@
 						<th><?=translate('class')?></th>
 						<th>Student ID</th>
 						<th><?=translate('date')?></th>
-						<th><?=translate('quiz')?></th>
+						<th><?=translate('exam')?></th>
 					</tr>
 				</thead>
 			</table>
@@ -122,13 +122,13 @@
 					<div class="col-md-12 form-group">
 						<label><?=translate('available_exams')?></label>
 						<?php
-							$arrayBranch = $this->app_lib->getSelectList('branch');
-							echo form_dropdown("branch_id", $arrayBranch, $branch_id, "class='form-control' id='branch_id'
+							$arrayBranch = $this->app_lib->getSelectList('exam');							
+							echo form_dropdown("exam_id", $exams_dropdown, $branch_id, "class='form-control' id='branch_id'
 							id='branch_id' data-plugin-selectTwo data-width='100%' data-minimum-results-for-search='Infinity'");
 						?>
 					</div>
 					<div class="col-md-12 form-group">
-						<label>Quiz Degree</label>
+						<label><?=translate('exam_degree')?></label>
 						<input type="number" class="form-control" name="quiz_degree" id="quiz_degree_input" style="margin-bottom: 10px;">
 						<button class="btn btn-sm btn-primary quiz_marks" data-id="20" style="margin-right: 10px;">20</button><button class="btn btn-sm btn-primary quiz_marks" data-id="40" style="margin-right: 10px;">40</button>
 						<button class="btn btn-sm btn-primary quiz_marks" data-id="50" style="margin-right: 10px;">50</button><button class="btn btn-sm btn-primary quiz_others">Others</button>

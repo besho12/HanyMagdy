@@ -33,6 +33,7 @@ class Exam_model extends CI_Model
             'type_id' => $data['type_id'],
             'mark_distribution' => json_encode(['1']),
             'remark' => $data['remark'],
+            'total_mark' => $data['total_mark'],
             'exam_date' => $data['exam_date'],
             'exam_period' => $data['exam_period'],
             'session_id' => get_session_id(),

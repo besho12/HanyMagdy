@@ -53,7 +53,32 @@ class Qrcode_attendance extends Admin_Controller
         $this->data['title'] = translate('student_attendance');
         $this->data['sub_page'] = 'qrcode_attendance/student_entries';
         $this->data['main_menu'] = 'qr_attendance';
+        $this->data['exams'] = $this->get_available_exams();
+        $this->data['exams_dropdown'] = $this->prepare_exams_dropdown($this->data['exams']);
         $this->load->view('layout/index', $this->data);
+    }
+
+    public function prepare_exams_dropdown($exams){
+        // $arrayData = array("" => translate('select'));
+        // foreach ($exams as $row) {
+        //     $arrayData[$row->id] = $row->name . ' (' . $row->exam_date . ')' ;
+        // }
+        // return $arrayData;
+        // $arrayData = array("" => translate('select'));
+        if($exams){
+            $arrayData[$exams->id] = $exams->name . ' ( Total Mark = ' . $exams->total_mark . ') / ' . $exams->exam_date;
+        } else {
+            $arrayData = array("" => translate('select'));
+        }
+        return $arrayData;
+    }
+
+    public function get_available_exams(){
+        // $exams = $this->db->where('exam_date >=', date('Y-m-d'))->order_by('exam_date','asc')
+        // ->get('exam')->result();
+        $exams = $this->db->where('exam_date =', date('Y-m-d'))->order_by('exam_date','asc')
+        ->get('exam')->row();
+        return $exams;        
     }
 
     public function getStudentByQrcode()
