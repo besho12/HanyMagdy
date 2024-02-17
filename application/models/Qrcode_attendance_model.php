@@ -58,6 +58,9 @@ class Qrcode_attendance_model extends MY_Model
 
         // read value
         $draw = $postData['draw'];
+        $branch_id = $postData['branch_id'];
+        $class_id = $postData['class_id'];
+        $section_id = $postData['section_id'];
         $start = $postData['start'];
         $rowperpage = $postData['length']; // Rows display per page
         $searchValue = $postData['search']['value']; // Search value
@@ -91,9 +94,10 @@ class Qrcode_attendance_model extends MY_Model
         $today = $this->db->escape(date('Y-m-d'));
         $sessionID = $this->db->escape(get_session_id());
         // Total number of records without filtering
-        $branchID = $this->db->escape(get_loggedin_branch_id());
+        // $branchID = $this->db->escape(get_loggedin_branch_id());
+        $branchID = '';
         $sql = "SELECT `st`.`id` FROM `student_attendance` as `st` INNER JOIN `enroll` as `e` ON `e`.`id` = `st`.`enroll_id` WHERE DATE(`st`.`date`) = $today AND `st`.`qr_code` = '1' AND `e`.`session_id` = $sessionID" . (!empty($branchID) ? " AND `st`.`branch_id` = $branchID" : '');
-
+        
         $records = $this->db->query($sql)->result();
         $totalRecords = count($records);
 
@@ -102,15 +106,16 @@ class Qrcode_attendance_model extends MY_Model
         if (!empty($searchQuery)) {
             $sql .= " AND " . $searchQuery;
         }
+
         $records = $this->db->query($sql)->result();
         $totalRecordwithFilter = count($records);
 
         // Fetch records
-        $sql = "SELECT `e`.`id` as `enroll_id`, `e`.`roll`, `s`.`register_no`, CONCAT_WS(' ', `s`.`first_name`, `s`.`last_name`) as `fullname`, `class`.`name` as `class_name`, `section`.`name` as `section_name`, `s`.`register_no`, `st`.`created_at` FROM `student_attendance` as `st` INNER JOIN `enroll` as `e` ON `e`.`id` = `st`.`enroll_id` INNER JOIN `student` as `s` ON `s`.`id` = `e`.`student_id` LEFT JOIN `class` ON `class`.`id` = `e`.`class_id` LEFT JOIN `section` ON `section`.`id` = `e`.`section_id` WHERE `e`.`session_id` = $sessionID AND `st`.`qr_code` = '1' AND date(st.date) = $today";
+        $sql = "SELECT `e`.`id` as `enroll_id`, `e`.`roll`, `s`.`register_no`, CONCAT_WS(' ', `s`.`first_name`, `s`.`last_name`) as `fullname`, `class`.`name` as `class_name`, `section`.`name` as `section_name`, `s`.`register_no`, `s`.`id` as `studentid` , `st`.`created_at` , `st`.`id` as `recordid`, `st`.`mark` as `studentmark` FROM `student_attendance` as `st` INNER JOIN `enroll` as `e` ON `e`.`id` = `st`.`enroll_id` INNER JOIN `student` as `s` ON `s`.`id` = `e`.`student_id` LEFT JOIN `class` ON `class`.`id` = `e`.`class_id` LEFT JOIN `section` ON `section`.`id` = `e`.`section_id` WHERE `e`.`session_id` = $sessionID AND `st`.`qr_code` = '1' AND `st`.`branch_id` = $branch_id AND `st`.`class_id` = $class_id AND `st`.`section_id` = $section_id AND date(st.date) = $today";
         if (!empty($searchQuery)) {
             $sql .= " AND " . $searchQuery;
         }
-        $sql .= " ORDER BY " . $column_order[$columnIndex] . " $columnSortOrder LIMIT $start, $rowperpage";
+        $sql .= " ORDER BY " . $column_order[$columnIndex] . " $columnSortOrder LIMIT $start, $rowperpage";        
         $records = $this->db->query($sql)->result();
 
         $data = array();
@@ -123,7 +128,7 @@ class Qrcode_attendance_model extends MY_Model
             $row[] = $record->register_no;
             // $row[] = empty($record->roll) ? '-' : $record->roll;
             $row[] = _d($record->created_at) . " " . date('h:i A', strtotime($record->created_at));
-            $row[] = '<button class="btn btn-success quiz_remark" data-student-resiterno="'.$record->register_no.'" >'.translate('exam').'</button>';
+            $row[] = '<button class="btn btn-success quiz_remark" data-recordid="'.$record->recordid.'" data-studentid="'.$record->studentid.'" >'.translate('exam').'</button>' . (!empty($record->studentmark) ? "<span>  /  $record->studentmark</span>" : '');;
             $data[] = $row;
         }
 

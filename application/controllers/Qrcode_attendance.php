@@ -50,6 +50,8 @@ class Qrcode_attendance extends Admin_Controller
             ),
         );
         $this->data['branch_id'] = $branchID;
+        $this->data['class_id'] = $this->input->post('class_id');
+        $this->data['section_id'] = $this->input->post('section_id');
         $this->data['title'] = translate('student_attendance');
         $this->data['sub_page'] = 'qrcode_attendance/student_entries';
         $this->data['main_menu'] = 'qr_attendance';
@@ -226,12 +228,14 @@ class Qrcode_attendance extends Admin_Controller
             }
 
             $barcode = $this->input->post('data');
+            $branch_id = $this->input->post('branch_id');
+            $class_id = $this->input->post('class_id');
+            $section_id = $this->input->post('section_id');
             $enrollID = $this->qrcode_attendance_model->getStudentIDByBarcode($barcode);   
-
             $data = [];
            
             $attendanceRemark = $this->input->post('attendanceRemark');
-            $stuDetail = $this->qrcode_attendance_model->getStudentDetailsByEid($enrollID);
+            // $stuDetail = $this->qrcode_attendance_model->getStudentDetailsByEid($enrollID);
             $attendance = $this->db->where(array('enroll_id' => $enrollID, 'date' => date('Y-m-d')))->get('student_attendance')->row();
             if (empty($attendance)) {
                 $data['status'] = 1;
@@ -242,13 +246,54 @@ class Qrcode_attendance extends Admin_Controller
                     'qr_code' => "1",
                     'remark' => $attendanceRemark,
                     'date' => date('Y-m-d'),
-                    'branch_id' => $stuDetail->branch_id,
+                    // 'branch_id' => $stuDetail->branch_id,
+                    'branch_id' => $branch_id,
+                    'class_id' => $class_id,
+                    'section_id' => $section_id,
                 );
                 $this->db->insert('student_attendance', $arrayAttendance);
             } else {
                 $data['status'] = 0;
             }
             echo json_encode($data);
+        }
+    }
+
+    public function setStuExamMark()
+    {
+        if ($_POST) {
+            if (!get_permission('qr_code_student_attendance', 'is_add')) {
+                ajax_access_denied();
+            }
+
+            $recordid = $this->input->post('recordid');
+            $update['exam_id'] = $this->input->post('exam_id');
+            $update['mark'] = $this->input->post('mark');
+            
+            $this->db->where('id', $recordid)
+            ->update('student_attendance', $update);
+           
+            echo json_encode('1');
+        }
+    }
+
+    public function getStuExamMark()
+    {
+        if ($_POST) {
+
+            ob_start();
+            error_reporting(0);
+            error_reporting(E_ALL);
+            ini_set('display_errors',1);
+
+            if (!get_permission('qr_code_student_attendance', 'is_add')) {
+                ajax_access_denied();
+            }
+            $recordid = $this->input->post('recordid');
+            $record = $this->db->where('id', $recordid)
+            ->get('student_attendance')->row();
+           
+            echo json_encode($record);
         }
     }
 

@@ -1,3 +1,60 @@
+<?php $widget = (is_superadmin_loggedin() ? 3 : 4); ?>
+<section class="panel">
+	<header class="panel-heading">
+		<h4 class="panel-title"><?=translate('select_ground')?></h4>
+	</header>
+	<?php echo form_open($this->uri->uri_string());?>
+	<div class="panel-body">
+		<div class="row mb-sm">
+		<?php if (is_superadmin_loggedin() ): ?>
+			<div class="col-md-3 mb-sm">
+				<div class="form-group">
+					<label class="control-label"><?=translate('branch')?> <span class="required">*</span></label>
+					<?php
+						$arrayBranch = $this->app_lib->getSelectList('branch');
+						echo form_dropdown("branch_id", $arrayBranch, set_value('branch_id'), "class='form-control' onchange='getClassByBranch(this.value)' id='branchID'
+						data-plugin-selectTwo data-width='100%' data-minimum-results-for-search='Infinity'");
+					?>
+				</div>
+				<span class="error"><?=form_error('branch_id')?></span>
+			</div>
+		<?php endif; ?>
+			<div class="col-md-<?php echo $widget; ?> mb-sm">
+				<div class="form-group">
+					<label class="control-label"><?=translate('class')?> <span class="required">*</span></label>
+					<?php
+						$arrayClass = $this->app_lib->getClass($branch_id);
+						echo form_dropdown("class_id", $arrayClass, set_value('class_id'), "class='form-control' id='class_id' onchange='getSectionByClass(this.value,0)'
+					 	data-plugin-selectTwo data-width='100%' data-minimum-results-for-search='Infinity' ");
+					?>
+					<span class="error"><?=form_error('class_id')?></span>
+				</div>
+			</div>
+			<div class="col-md-<?php echo $widget; ?> mb-sm">
+				<div class="form-group">
+					<label class="control-label"><?=translate('section')?> <span class="required">*</span></label>
+					<?php
+						$arraySection = $this->app_lib->getSections(set_value('class_id'), false);
+						echo form_dropdown("section_id", $arraySection, set_value('section_id'), "class='form-control' id='section_id'
+						data-plugin-selectTwo data-width='100%' data-minimum-results-for-search='Infinity' ");
+					?>
+					<span class="error"><?=form_error('section_id')?></span>
+				</div>
+			</div>			
+		</div>
+	</div>
+	<footer class="panel-footer">
+		<div class="row">
+			<div class="col-md-offset-10 col-md-2">
+				<button type="submit" name="search" value="1" class="btn btn btn-default btn-block"> <i class="fas fa-filter"></i> <?=translate('filter')?></button>
+			</div>
+		</div>
+	</footer>
+	<?php echo form_close();?>
+</section>
+
+
+<?php if (isset($branch_id)): ?>
 <section class="panel">
 	<header class="panel-heading">
 		<h4 class="panel-title"><i class="fas fa-qrcode"></i> <?=translate('qr_code') . " " . translate('attendance')?></h4>
@@ -35,7 +92,7 @@
 						<th>#</th>
 						<th><?=translate('name')?></th>
 						<th><?=translate('class')?></th>
-						<th>Student ID</th>
+						<th><?=translate('student_id')?></th>
 						<th><?=translate('date')?></th>
 						<th><?=translate('exam')?></th>
 					</tr>
@@ -123,15 +180,13 @@
 						<label><?=translate('available_exams')?></label>
 						<?php
 							$arrayBranch = $this->app_lib->getSelectList('exam');							
-							echo form_dropdown("exam_id", $exams_dropdown, $branch_id, "class='form-control' id='branch_id'
-							id='branch_id' data-plugin-selectTwo data-width='100%' data-minimum-results-for-search='Infinity'");
+							echo form_dropdown("exam_id", $exams_dropdown, '', "class='form-control exam_option'
+							data-plugin-selectTwo data-width='100%' data-minimum-results-for-search='Infinity'");
 						?>
 					</div>
 					<div class="col-md-12 form-group">
-						<label><?=translate('exam_degree')?></label>
-						<input type="number" class="form-control" name="quiz_degree" id="quiz_degree_input" style="margin-bottom: 10px;">
-						<button class="btn btn-sm btn-primary quiz_marks" data-id="20" style="margin-right: 10px;">20</button><button class="btn btn-sm btn-primary quiz_marks" data-id="40" style="margin-right: 10px;">40</button>
-						<button class="btn btn-sm btn-primary quiz_marks" data-id="50" style="margin-right: 10px;">50</button><button class="btn btn-sm btn-primary quiz_others">Others</button>
+						<label><?=translate('student_degree')?></label>
+						<input type="number" class="form-control quiz_degree_input" name="quiz_degree" style="margin-bottom: 10px;">
 					</div>
 					<input type="hidden" id="quiz_student_id" name="quiz_student_id">
 					<input type="hidden" id="quiz_class_id" name="quiz_class_id">
@@ -150,12 +205,18 @@
   <source src="<?php //echo base_url('assets/vendor/qrcode/success.mp3') ?>" type="audio/ogg">
 </audio> -->
 
+<?php endif; ?>
+
 <script type="text/javascript">
 	var statusMatched = "<?php echo translate('matched')?>";
 	var statusScanning = "<?php echo translate('scanning')?>";
 	
 	$(document).ready(function() {
-		initDatatable('.table-question', 'qrcode_attendance/getStuListDT');
+		initDatatable('.table-question', 'qrcode_attendance/getStuListDT',{
+			'branch_id': '<?php echo $branch_id; ?>',
+			'class_id': '<?php echo $class_id; ?>',
+			'section_id': '<?php echo $section_id; ?>',
+		});
 	});
 
 	var x = document.getElementById("successAudio");
@@ -321,7 +382,10 @@
 	        data: {
 	        	'data': $('.student_code').val(),
 	        	'late': chkAttendance,
-	        	'attendanceRemark' : attendanceRemark
+	        	'attendanceRemark' : attendanceRemark,
+				'branch_id': '<?php echo $branch_id; ?>',
+				'class_id': '<?php echo $class_id; ?>',
+				'section_id': '<?php echo $section_id; ?>',
 	        },
 	        dataType: 'json',
 	        beforeSend: function () {
@@ -354,7 +418,44 @@
 
 
 <script>
-	$(document).on('click','.quiz_remark',function(){
-		$('#quiz_remark_modal').modal("show");
+	$(document).ready(function(){
+		window.recordid = '';
+		$(document).on('click','.quiz_remark',function(){
+			window.recordid = $(this).data('recordid');
+			$.ajax({
+				url: base_url + 'qrcode_attendance/getStuExamMark',
+				type: 'POST',
+				data: {
+					'recordid': window.recordid,
+				},
+				dataType: 'json',
+				success: function (res) {
+					$('#quiz_remark_modal').modal("show");
+					$('.quiz_degree_input').val(res['mark']);
+					$('.exam_option').val(res['exam_id']);
+				},
+			});						
+		})
+		$(document).on('click','.save_quiz_result',function(){
+			var recordid = $(this).closest('.modal-dialog').find('.recordid').val();
+			var exam_id = $(this).closest('.modal-dialog').find('.exam_option').val();
+			var mark = $(this).closest('.modal-dialog').find('.quiz_degree_input').val();
+			$.ajax({
+				url: base_url + 'qrcode_attendance/setStuExamMark',
+				type: 'POST',
+				data: {
+					'recordid': window.recordid,
+					'exam_id' : exam_id,
+					'mark': mark,
+				},
+				dataType: 'json',
+				success: function (res) {
+					$('.table-question').DataTable().ajax.reload();									
+					$(".modal").modal("hide");
+                    $(".modal-backdrop").remove(); 
+				},
+			});
+		});
 	})
+
 </script>
