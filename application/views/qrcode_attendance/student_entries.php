@@ -461,7 +461,7 @@
 			});						
 		})
 		$(document).on('click','.save_quiz_result',function(){
-			var recordid = $(this).closest('.modal-dialog').find('.recordid').val();
+			var parent = this;			
 			var exam_id = $(this).closest('.modal-dialog').find('.exam_option').val();
 			var mark = $(this).closest('.modal-dialog').find('.quiz_degree_input').val();
 			$.ajax({
@@ -473,8 +473,9 @@
 					'mark': mark,
 				},
 				dataType: 'json',
-				success: function (res) {
-					$('.table-question').DataTable().ajax.reload();									
+				success: function (res) {					
+					// $('.table-question').DataTable().ajax.reload();
+					$('.quiz_remark[data-recordid='+window.recordid+']').closest('td').find('.exam_result').html(' / ' + mark);
 					$(".modal").modal("hide");
                     $(".modal-backdrop").remove(); 
 				},

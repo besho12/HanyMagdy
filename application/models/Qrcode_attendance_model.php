@@ -135,7 +135,7 @@ class Qrcode_attendance_model extends MY_Model
             $row[] = $record->register_no;
             // $row[] = empty($record->roll) ? '-' : $record->roll;
             $row[] = _d($record->created_at) . " " . date('h:i A', strtotime($record->created_at));
-            $row[] = '<button class="btn btn-success quiz_remark" data-recordid="'.$record->recordid.'" data-studentid="'.$record->studentid.'" >'.translate('exam').'</button>' . (!empty($record->studentmark) ? "<span>  /  $record->studentmark</span>" : '');;
+            $row[] = '<button class="btn btn-success quiz_remark" data-recordid="'.$record->recordid.'" data-studentid="'.$record->studentid.'" >'.translate('exam').'</button>' . (!empty($record->studentmark) ? "<span class='exam_result'>  /  $record->studentmark</span>" : '<span class="exam_result"></span>');
             $data[] = $row;
         }
 
