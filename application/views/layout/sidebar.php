@@ -344,9 +344,10 @@
                     </li>
                     <?php } ?>
                     <?php
-                    if (get_permission('parent', 'is_view') ||
-                    get_permission('parent', 'is_add') ||
-                    get_permission('parent_disable_authentication', 'is_view')) {
+                    if(1==2){
+                    // if (get_permission('parent', 'is_view') ||
+                    // get_permission('parent', 'is_add') ||
+                    // get_permission('parent_disable_authentication', 'is_view')) {
                     ?>
                     <!-- parents -->
                     <li class="nav-parent <?php if ($main_menu == 'parents') echo 'nav-expanded nav-active';?>">
@@ -377,12 +378,13 @@
                     </li>
                     <?php } ?>
                     <?php
-                    if(get_permission('employee', 'is_view') ||
-                    get_permission('employee', 'is_add') ||
-                    get_permission('designation', 'is_view') ||
-                    get_permission('designation', 'is_add') ||
-                    get_permission('department', 'is_view') ||
-                    get_permission('employee_disable_authentication', 'is_view')) {
+                    if(1==2){
+                    // if(get_permission('employee', 'is_view') ||
+                    // get_permission('employee', 'is_add') ||
+                    // get_permission('designation', 'is_view') ||
+                    // get_permission('designation', 'is_add') ||
+                    // get_permission('department', 'is_view') ||
+                    // get_permission('employee_disable_authentication', 'is_view')) {
                     ?>
                     <!-- Employees -->
                     <li class="nav-parent <?php if ($main_menu == 'employee') echo 'nav-expanded nav-active'; ?>">
@@ -424,7 +426,7 @@
                     <?php } ?>
 
                     <?php
-                    if (moduleIsEnabled('card_management')) {
+                    if (moduleIsEnabled('card_management') && 1==2) {
                         if(get_permission('id_card_templete', 'is_view') ||
                         get_permission('generate_student_idcard', 'is_view') ||
                         get_permission('admit_card_templete', 'is_view') ||
@@ -874,7 +876,8 @@
                             </li>
                             <?php } ?>
                             <?php
-                            if(get_permission('exam_timetable', 'is_view')) {
+                            if(1==2){
+                            // if(get_permission('exam_timetable', 'is_view')) {
                             ?>
                             <!-- exam schedule -->
                             <li class="nav-parent <?php if ($main_menu == 'exam_timetable') echo 'nav-expanded nav-active';?>">
@@ -899,8 +902,9 @@
                             </li>
                             <?php } ?>
                             <?php
-                            if(get_permission('exam_mark', 'is_view') ||
-                            get_permission('exam_grade', 'is_view')) {
+                            if(1==2){
+                            // if(get_permission('exam_mark', 'is_view') ||
+                            // get_permission('exam_grade', 'is_view')) {
                             ?>
                             <!-- marks -->
                             <li class="nav-parent <?php if ($main_menu == 'mark') echo 'nav-expanded nav-active';?>">
@@ -1086,7 +1090,7 @@
                     </li>
                     <?php }} ?>
                     <?php
-                    if (moduleIsEnabled('attendance')) {
+                    if (moduleIsEnabled('attendance') && 1==2) {
                         if(get_permission('student_attendance', 'is_add') ||
                         get_permission('employee_attendance', 'is_add') ||
                         get_permission('exam_attendance', 'is_add')) {
