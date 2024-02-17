@@ -56,11 +56,17 @@ class Qrcode_attendance_model extends MY_Model
     {
         $response = array();
 
+        // ob_start();
+        // error_reporting(0);
+        // error_reporting(E_ALL);
+        // ini_set('display_errors',1);
+
         // read value
         $draw = $postData['draw'];
         $branch_id = $postData['branch_id'];
         $class_id = $postData['class_id'];
         $section_id = $postData['section_id'];
+        $date = date('Y-m-d', strtotime($postData['date']));
         $start = $postData['start'];
         $rowperpage = $postData['length']; // Rows display per page
         $searchValue = $postData['search']['value']; // Search value
@@ -91,7 +97,8 @@ class Qrcode_attendance_model extends MY_Model
             $searchQuery = implode("AND", $search_arr);
         }
 
-        $today = $this->db->escape(date('Y-m-d'));
+        // $today = $this->db->escape(date('Y-m-d'));
+        $today = $this->db->escape($date);
         $sessionID = $this->db->escape(get_session_id());
         // Total number of records without filtering
         // $branchID = $this->db->escape(get_loggedin_branch_id());
@@ -111,7 +118,7 @@ class Qrcode_attendance_model extends MY_Model
         $totalRecordwithFilter = count($records);
 
         // Fetch records
-        $sql = "SELECT `e`.`id` as `enroll_id`, `e`.`roll`, `s`.`register_no`, CONCAT_WS(' ', `s`.`first_name`, `s`.`last_name`) as `fullname`, `class`.`name` as `class_name`, `section`.`name` as `section_name`, `s`.`register_no`, `s`.`id` as `studentid` , `st`.`created_at` , `st`.`id` as `recordid`, `st`.`mark` as `studentmark` FROM `student_attendance` as `st` INNER JOIN `enroll` as `e` ON `e`.`id` = `st`.`enroll_id` INNER JOIN `student` as `s` ON `s`.`id` = `e`.`student_id` LEFT JOIN `class` ON `class`.`id` = `e`.`class_id` LEFT JOIN `section` ON `section`.`id` = `e`.`section_id` WHERE `e`.`session_id` = $sessionID AND `st`.`qr_code` = '1' AND `st`.`branch_id` = $branch_id AND `st`.`class_id` = $class_id AND `st`.`section_id` = $section_id AND date(st.date) = $today";
+        $sql = "SELECT `e`.`id` as `enroll_id`, `e`.`roll`, `s`.`register_no`, CONCAT_WS(' ', `s`.`first_name`, `s`.`last_name`) as `fullname`, `class`.`name` as `class_name`, `section`.`name` as `section_name`, `s`.`register_no`, `s`.`id` as `studentid` , `st`.`created_at` , `st`.`id` as `recordid`, `st`.`mark` as `studentmark` FROM `student_attendance` as `st` INNER JOIN `enroll` as `e` ON `e`.`id` = `st`.`enroll_id` INNER JOIN `student` as `s` ON `s`.`id` = `e`.`student_id` LEFT JOIN `class` ON `class`.`id` = `e`.`class_id` LEFT JOIN `section` ON `section`.`id` = `e`.`section_id` WHERE `e`.`session_id` = $sessionID AND `st`.`qr_code` = '1' AND `st`.`date` = '$date' AND `st`.`branch_id` = $branch_id AND `st`.`class_id` = $class_id AND `st`.`section_id` = $section_id AND date(st.date) = $today";
         if (!empty($searchQuery)) {
             $sql .= " AND " . $searchQuery;
         }

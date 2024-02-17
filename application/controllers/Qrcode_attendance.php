@@ -40,6 +40,18 @@ class Qrcode_attendance extends Admin_Controller
         }
 
         $branchID = $this->application_model->get_branch_id();
+        if (isset($_POST['search'])) {
+            if (is_superadmin_loggedin()) {
+                $this->form_validation->set_rules('branch_id', translate('branch'), 'required');
+            }
+            $this->form_validation->set_rules('class_id', translate('class'), 'required');
+            $this->form_validation->set_rules('section_id', translate('section'), 'required');
+            $this->form_validation->set_rules('date', translate('date'), 'trim|required|callback_check_weekendday|callback_check_holiday|callback_get_valid_date');
+            if ($this->form_validation->run() == true) {
+                $this->data['validation'] = true;
+            }
+        }
+
         $this->data['headerelements'] = array(
             'css' => array(
                 'css/qr-code.css',
@@ -52,6 +64,7 @@ class Qrcode_attendance extends Admin_Controller
         $this->data['branch_id'] = $branchID;
         $this->data['class_id'] = $this->input->post('class_id');
         $this->data['section_id'] = $this->input->post('section_id');
+        $this->data['date'] = $this->input->post('date');
         $this->data['title'] = translate('student_attendance');
         $this->data['sub_page'] = 'qrcode_attendance/student_entries';
         $this->data['main_menu'] = 'qr_attendance';
@@ -142,10 +155,12 @@ class Qrcode_attendance extends Admin_Controller
             }
 
             $barcode = $this->input->post('data');
+            $date = $this->input->post('date');
             $enrollID = $this->qrcode_attendance_model->getStudentIDByBarcode($barcode);   
                                     
             $data = [];
-            $attendance = $this->db->where(array('enroll_id' => $enrollID, 'date' => date('Y-m-d')))->get('student_attendance')->row();
+            $attendance = $this->db->where(array('enroll_id' => $enrollID, 'date' => date('Y-m-d')))
+            ->where('date',$date)->get('student_attendance')->row();
             if (!empty($attendance)) {
                 $data['status'] = 'failed';
                 if ($attendance->qr_code == 1) {
@@ -231,6 +246,7 @@ class Qrcode_attendance extends Admin_Controller
             $branch_id = $this->input->post('branch_id');
             $class_id = $this->input->post('class_id');
             $section_id = $this->input->post('section_id');
+            $date = $this->input->post('date');
             $enrollID = $this->qrcode_attendance_model->getStudentIDByBarcode($barcode);   
             $data = [];
            
@@ -245,7 +261,7 @@ class Qrcode_attendance extends Admin_Controller
                     'status' => $attendance,
                     'qr_code' => "1",
                     'remark' => $attendanceRemark,
-                    'date' => date('Y-m-d'),
+                    'date' => $date,
                     // 'branch_id' => $stuDetail->branch_id,
                     'branch_id' => $branch_id,
                     'class_id' => $class_id,

@@ -41,6 +41,16 @@
 					<span class="error"><?=form_error('section_id')?></span>
 				</div>
 			</div>			
+			<div class="col-md-<?php echo $widget; ?> mb-sm">
+				<div class="form-group <?php if (form_error('date')) echo 'has-error'; ?>">
+					<label class="control-label"><?=translate('date')?> <span class="required">*</span></label>
+					<div class="input-group">
+						<input type="text" class="form-control" name="date" id="attDate" value="<?=set_value('date', date("Y-m-d"))?>" autocomplete="off"/>
+						<span class="input-group-addon"><i class="icon-event icons"></i></span>
+					</div>
+					<span class="error"><?=form_error('date')?></span>
+				</div>
+			</div>
 		</div>
 	</div>
 	<footer class="panel-footer">
@@ -54,7 +64,7 @@
 </section>
 
 
-<?php if (isset($branch_id)): ?>
+<?php if ($validation == true): ?>
 <section class="panel">
 	<header class="panel-heading">
 		<h4 class="panel-title"><i class="fas fa-qrcode"></i> <?=translate('qr_code') . " " . translate('attendance')?></h4>
@@ -216,6 +226,7 @@
 			'branch_id': '<?php echo $branch_id; ?>',
 			'class_id': '<?php echo $class_id; ?>',
 			'section_id': '<?php echo $section_id; ?>',
+			'date': '<?php echo $date; ?>',
 		});
 	});
 
@@ -367,7 +378,7 @@
 			modalOpen = 1;
 			$('#attendanceRemark').val('');
 			$('#chkAttendance').prop('checked', false);
-			studentQuickViewBarcode($('.student_code').val());
+			studentQuickViewBarcode($('.student_code').val(),'<?php echo $date; ?>');
 		}
 	})
 
@@ -386,6 +397,7 @@
 				'branch_id': '<?php echo $branch_id; ?>',
 				'class_id': '<?php echo $class_id; ?>',
 				'section_id': '<?php echo $section_id; ?>',
+				'date': '<?php echo $date; ?>',
 	        },
 	        dataType: 'json',
 	        beforeSend: function () {
@@ -414,6 +426,18 @@
 	$('.modal-dismiss').on('click', function() {
 		end_loader()
 	});
+
+	var dayOfWeekDisabled = "<?php echo $getWeekends ?>";
+	$(document).ready(function () {
+		var datePicker = $("#attDate").datepicker({
+		    orientation: 'bottom',
+		    todayHighlight: true,
+		    autoclose: true,
+		    format: 'yyyy-mm-dd',
+		    daysOfWeekDisabled: dayOfWeekDisabled,
+		    datesDisabled: ["<?php echo $getHolidays ?>"],
+		});   
+    });
 </script>
 
 

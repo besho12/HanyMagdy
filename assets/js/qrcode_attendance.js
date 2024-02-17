@@ -36,11 +36,14 @@ function studentQuickView(id) {
     });
 }
 
-function studentQuickViewBarcode(id) {
+function studentQuickViewBarcode(id,date) {
     $.ajax({
         url: base_url + 'qrcode_attendance/getStudentBarcode',
         type: 'POST',
-        data: {data: id},
+        data: {
+			data: id,
+			date: date
+		},
         dataType: 'json',
         success: function (res) {
         	if (res.status == 'successful') {
