@@ -297,10 +297,10 @@ class Qrcode_attendance extends Admin_Controller
     {
         if ($_POST) {
 
-            ob_start();
-            error_reporting(0);
-            error_reporting(E_ALL);
-            ini_set('display_errors',1);
+            // ob_start();
+            // error_reporting(0);
+            // error_reporting(E_ALL);
+            // ini_set('display_errors',1);
 
             if (!get_permission('qr_code_student_attendance', 'is_add')) {
                 ajax_access_denied();
