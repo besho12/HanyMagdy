@@ -17,16 +17,18 @@
 		</li>
 		<?php }  ?>
 
+		<?php if(1==2): ?>
 		<li class="nav-parent <?php if ($main_menu == 'qr_attendance_report') echo 'nav-expanded nav-active'; ?>">
 			<a><i class="fas fa-print"></i><span><?php echo translate('reports'); ?></span></a>
 			<ul class="nav nav-children">
 				<li class="<?php if ($sub_page == 'qrcode_attendance/studentbydate') echo 'nav-active';?>">
 					<a href="<?=base_url('qrcode_attendance/studentbydate')?>">Student Reports By Date</a>
 				</li>
-				<!-- <li class="<?php //if ($sub_page == 'qrcode_attendance/staffbydate') echo 'nav-active';?>">
-					<a href="<?// =base_url('qrcode_attendance/staffbydate')?>">Employee Reports By Date</a>
-				</li> -->
+				<li class="<?php if ($sub_page == 'qrcode_attendance/staffbydate') echo 'nav-active';?>">
+					<a href="<?=base_url('qrcode_attendance/staffbydate')?>">Employee Reports By Date</a>
+				</li>
 			</ul>
 		</li>
+		<?php endif; ?>
 	</ul>
 </li>
