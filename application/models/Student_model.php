@@ -57,6 +57,8 @@ class Student_model extends MY_Model
             'photo' => $this->uploadImage('student'),
             'school' => $this->input->post('school'),
             'center' => $this->input->post('center'),
+            'class_id' => $this->input->post('class_id'),
+            'section_id' => $this->input->post('section_id'),
         );
 
         // moderator guardian all information

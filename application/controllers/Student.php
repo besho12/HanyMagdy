@@ -778,7 +778,7 @@ class Student extends Admin_Controller
             }
         }
         if ($registerno !== '') {
-            $this->db->where('register_no', $registerno);
+            $this->db->where('register_no', $registerno)->where('section_id',$section_id);
             $query = $this->db->get_where('student');
             if ($query->num_rows() > 0) {
                 $array['status'] = false;
@@ -860,11 +860,14 @@ class Student extends Admin_Controller
     /* unique valid register ID verification is done here */
     public function unique_registerid($register)
     {
+        $section_id = $_POST['section_id'];
+        $class_id = $_POST['class_id'];
         $branchID = $this->application_model->get_branch_id();
         if ($this->uri->segment(3)) {
             $this->db->where_not_in('id', $this->uri->segment(3));
         }
-        $this->db->where('register_no', $register);
+
+        $this->db->where('register_no', $register)->where('class_id',$class_id)->where('section_id',$section_id);
         $query = $this->db->get('student')->num_rows();
         if ($query == 0) {
             return true;

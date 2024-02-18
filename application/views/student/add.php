@@ -123,7 +123,7 @@ endif;
 							<label class="control-label"><?=translate('class')?> <span class="required">*</span></label>
 							<?php
 								$arrayClass = $this->app_lib->getClass($branch_id);
-								echo form_dropdown("class_id", $arrayClass, set_value('class_id'), "class='form-control' id='class_id' onchange='getSectionByClass(this.value,0)'
+								echo form_dropdown("class_id", $arrayClass, set_value('class_id'), "class='form-control' name='class_id' id='class_id' onchange='getSectionByClass(this.value,0)'
 								data-plugin-selectTwo data-width='100%' data-minimum-results-for-search='Infinity' ");
 							?>
 							<span class="error"></span>
@@ -133,8 +133,8 @@ endif;
 						<div class="form-group">
 							<label class="control-label"><?=translate('section')?> <span class="required">*</span></label>
 							<?php
-								$arraySection = $this->app_lib->getSections(set_value('class_id'), false);
-								echo form_dropdown("section_id", $arraySection, set_value('section_id'), "class='form-control' id='section_id' 
+								$arraySection = $this->app_lib->getSections(set_value('section_id'), false);
+								echo form_dropdown("section_id", $arraySection, set_value('section_id'), "class='form-control' name'section_id' id='section_id' 
 								data-plugin-selectTwo data-width='100%' data-minimum-results-for-search='Infinity' ");
 							?>
 							<span class="error"></span>
