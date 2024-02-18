@@ -118,12 +118,12 @@ endif;
 					<?php if (is_superadmin_loggedin()): ?>
 						<input type="hidden" name="branch_id" value="<?php echo $branch_id ?>">
 					<?php endif; ?>
-					<div class="col-md-<?php echo $div; ?> mb-sm">
+					<div class="col-md-<?php echo $div; ?> mb-sm" style="display:none;">
 						<div class="form-group">
 							<label class="control-label"><?=translate('class')?> <span class="required">*</span></label>
 							<?php
 								$arrayClass = $this->app_lib->getClass($branch_id);
-								echo form_dropdown("class_id", $arrayClass, set_value('class_id'), "class='form-control' name='class_id' id='class_id' onchange='getSectionByClass(this.value,0)'
+								echo form_dropdown("class_id", $arrayClass, '1', "class='form-control' name='class_id' id='class_id' onchange='getSectionByClass(this.value,0)'
 								data-plugin-selectTwo data-width='100%' data-minimum-results-for-search='Infinity' ");
 							?>
 							<span class="error"></span>
@@ -168,7 +168,7 @@ endif;
 				<div class="row">
 					<div class="col-md-<?php echo $div ?> mb-sm">
 						<div class="form-group">
-							<label class="control-label"> <?=translate('first_name')?> <span class="required">*</span></label>
+							<label class="control-label"> <?=translate('name')?> <span class="required">*</span></label>
 							<div class="input-group">
 								<span class="input-group-addon"><i class="fas fa-user-graduate"></i></span>
 								<input type="text" class="form-control" name="first_name" value="<?=set_value('first_name')?>"/>
@@ -176,7 +176,7 @@ endif;
 							<span class="error"></span>
 						</div>
 					</div>
-					<?php if ($last_name['status']) { ?>
+					<?php if ($last_name['status'] && 1==2) { ?>
 					<div class="col-md-<?php echo $div ?> mb-sm">
 						<div class="form-group">
 							<label class="control-label"> <?=translate('last_name')?><?php echo $last_name['required'] == 1 ? ' <span class="required">*</span>' : ''; ?></label>
@@ -803,4 +803,10 @@ endif;
 			event.preventDefault();					
 		}
 	});
+
+	$(document).ready(function(){
+		setTimeout(function(){
+			getSectionByClass('1',0)
+		},300)
+	})
 </script>

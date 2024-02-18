@@ -40,7 +40,7 @@ class Student extends Admin_Controller
         }
         $this->form_validation->set_rules('year_id', translate('academic_year'), 'trim|required');
         $this->form_validation->set_rules('first_name', translate('first_name'), 'trim|required');
-        $this->form_validation->set_rules('class_id', translate('class'), 'trim|required');
+        // $this->form_validation->set_rules('class_id', translate('class'), 'trim|required');
         $this->form_validation->set_rules('section_id', translate('section'), 'trim|required');
         $this->form_validation->set_rules('register_no', translate('register_no'), 'trim|required|callback_unique_registerid');
         // checking profile photo format
@@ -68,7 +68,7 @@ class Student extends Admin_Controller
             $this->form_validation->set_rules('roll', translate('roll'), 'trim|numeric|callback_unique_roll');
         }
         if (isset($validArr['last_name'])) {
-            $this->form_validation->set_rules('last_name', translate('last_name'), 'trim|required');
+            // $this->form_validation->set_rules('last_name', translate('last_name'), 'trim|required');
         }
         if (isset($validArr['gender'])) {
             $this->form_validation->set_rules('gender', translate('gender'), 'trim|required');
@@ -257,7 +257,7 @@ class Student extends Admin_Controller
                 //save student enroll information in the database file
                 $arrayEnroll = array(
                     'student_id' => $studentID,
-                    'class_id' => $post['class_id'],
+                    'class_id' => '1',
                     'section_id' => $post['section_id'],
                     'roll' => (isset($post['roll']) ? $post['roll'] : 0),
                     'session_id' => $post['year_id'],
@@ -551,7 +551,7 @@ class Student extends Admin_Controller
                 $studentID = $this->student_model->save($post);
                 //save student enroll information in the database file
                 $arrayEnroll = array(
-                    'class_id' => $this->input->post('class_id'),
+                    'class_id' => '1',
                     'section_id' => $this->input->post('section_id'),
                     'roll' => $this->input->post('roll'),
                     'session_id' => $this->input->post('year_id'),
