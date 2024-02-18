@@ -267,11 +267,10 @@
 	  alert('Back camera not found.');
 	 	console.log(err);
 	});
-
-	// attendance stored in the database
+	
 	$('.btn-confirm').on('click', function() {
-			var chkAttendance = $("#chkAttendance:checked").val();
-			var attendanceRemark = $("#attendanceRemark").val();
+		var chkAttendance = $("#chkAttendance:checked").val();
+		var attendanceRemark = $("#attendanceRemark").val();
 	    var btn = $(this);
 	    $.ajax({
 	        url: base_url + 'qrcode_attendance/setStuAttendanceByQrcode',
@@ -305,6 +304,17 @@
 	$('.modal-dismiss').on('click', function() {
 		end_loader()
 	});
+
+
+	// attendance stored in the database
+	// $(document).on('keydown', function(event) {
+	// 	alert('hi');
+	// 	if (event.keyCode === 13) { // Check if the Enter key is pressed
+	// 		event.preventDefault(); // Prevent the default form submission
+	// 		// Trigger the click event on the confirm button
+	// 		alert('hi');
+	// 	}
+	// });
 </script>
 
 
