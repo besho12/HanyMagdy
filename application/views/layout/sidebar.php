@@ -288,19 +288,19 @@
                                     <span><i class="fas fa-caret-right" aria-hidden="true"></i><?=translate('create_admission')?></span>
                                 </a>
                             </li>
-                        <?php } if(get_permission('online_admission', 'is_view')){ ?>
+                        <?php } if(get_permission('online_admission', 'is_view') && 1==2){ ?>
                             <li class="<?php if ($sub_page == 'online_admission/index' || $sub_page =='online_admission/approved') echo 'nav-active';?>">
                                 <a href="<?=base_url('online_admission/index')?>">
                                     <span><i class="fas fa-caret-right" aria-hidden="true"></i><?=translate('online_admission')?></span>
                                 </a>
                             </li>
-                        <?php } if(get_permission('multiple_import', 'is_add')){ ?>
+                        <?php } if(get_permission('multiple_import', 'is_add') && 1==2){ ?>
                             <li class="<?php if ($sub_page == 'student/multi_add') echo 'nav-active';?>">
                                 <a href="<?=base_url('student/csv_import')?>">
                                     <span><i class="fas fa-caret-right" aria-hidden="true"></i><?=translate('multiple_import')?></span>
                                 </a>
                             </li>
-                        <?php } if(get_permission('student_category', 'is_view')){ ?>
+                        <?php } if(get_permission('student_category', 'is_view') && 1==2){ ?>
                             <li class="<?php if ($sub_page == 'student/category') echo 'nav-active';?>">
                                 <a href="<?=base_url('student/category')?>">
                                     <span><i class="fas fa-caret-right" aria-hidden="true"></i><?=translate('category')?></span>
@@ -474,7 +474,7 @@
                     <?php }} ?>
                     
                     <?php
-                    if (moduleIsEnabled('certificate')) {
+                    if (moduleIsEnabled('certificate') && 1==2) {
                         if(get_permission('certificate_templete', 'is_view') ||
                         get_permission('generate_student_certificate', 'is_view') ||
                         get_permission('generate_employee_certificate', 'is_view')) {
@@ -634,7 +634,7 @@
                     </li>
                     <?php }} ?>
                     <?php
-                    if (1==1) {
+                    if (1==2) {
                     if(get_permission('classes', 'is_view') ||
                     get_permission('section', 'is_view') ||
                     get_permission('assign_class_teacher', 'is_view') ||
