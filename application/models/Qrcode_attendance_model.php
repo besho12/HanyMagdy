@@ -11,26 +11,35 @@ class Qrcode_attendance_model extends MY_Model
         parent::__construct();
     }
 
-    public function getStudentIDByBarcode($barcode = '')
+    public function getStudentIDByBarcode($barcode = '', $section_id = null)
     {
         $this->db->select('id');
         $this->db->from('student');
         $this->db->where('register_no', $barcode);
+        if($section_id)
+            $this->db->where('section_id', $section_id);
         if (!is_superadmin_loggedin())
             $this->db->where('enroll.branch_id', get_loggedin_branch_id());
         $row = $this->db->get()->row();
         return $row->id;
     }
 
-    public function getStudentDetailsByEid($enrollID = '')
+    public function getStudentDetailsByEid($enrollID = '', $section_id = null)
     {
-        $this->db->select('s.first_name,s.last_name,s.register_no,s.email,s.photo,admission_date,birthday,enroll.student_id,enroll.branch_id,enroll.roll,class.name as class_name,section.name as section_name,student_category.name as cname');
+        // ob_start();
+        // error_reporting(0);
+        // error_reporting(E_ALL);
+        ini_set('display_errors',1);
+        $this->db->select('enroll.section_id,s.section_id,s.first_name,s.last_name,s.register_no,s.email,s.photo,admission_date,birthday,enroll.student_id,enroll.branch_id,enroll.roll,class.name as class_name,section.name as section_name,student_category.name as cname');
         $this->db->from('enroll');
         $this->db->join('student as s', 's.id = enroll.student_id', 'inner');
         $this->db->join('class', 'class.id = enroll.class_id', 'left');
         $this->db->join('section', 'section.id = enroll.section_id', 'left');
         $this->db->join('student_category', 'student_category.id = s.category_id', 'left');
         $this->db->where('enroll.id', $enrollID);
+        if($section_id)
+            $this->db->where('enroll.section_id', intval($section_id));
+        
         if (!is_superadmin_loggedin())
             $this->db->where('enroll.branch_id', get_loggedin_branch_id());
         $row = $this->db->get()->row();

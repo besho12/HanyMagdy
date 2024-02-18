@@ -156,10 +156,11 @@ class Qrcode_attendance extends Admin_Controller
 
             $barcode = $this->input->post('data');
             $date = $this->input->post('date');
-            $enrollID = $this->qrcode_attendance_model->getStudentIDByBarcode($barcode);   
+            $section_id = $this->input->post('section_id');
+            $enrollID = $this->qrcode_attendance_model->getStudentIDByBarcode($barcode,$section_id);   
                                     
             $data = [];
-            $attendance = $this->db->where(array('enroll_id' => $enrollID, 'date' => date('Y-m-d')))
+            $attendance = $this->db->where(array('enroll_id' => $enrollID, 'section_id' => $section_id, 'date' => date('Y-m-d')))
             ->where('date',$date)->get('student_attendance')->row();
             if (!empty($attendance)) {
                 $data['status'] = 'failed';
@@ -172,7 +173,7 @@ class Qrcode_attendance extends Admin_Controller
                 exit();
             }
 
-            $row = $this->qrcode_attendance_model->getStudentDetailsByEid($enrollID);
+            $row = $this->qrcode_attendance_model->getStudentDetailsByEid($enrollID,$section_id);
             if (empty($row)) {
                 $data['status'] = 'failed';
                 $data['message'] = "<i class='fas fa-exclamation-triangle'></i> Barcode is invalid / student not found.";
@@ -247,12 +248,12 @@ class Qrcode_attendance extends Admin_Controller
             $class_id = $this->input->post('class_id');
             $section_id = $this->input->post('section_id');
             $date = $this->input->post('date');
-            $enrollID = $this->qrcode_attendance_model->getStudentIDByBarcode($barcode);   
+            $enrollID = $this->qrcode_attendance_model->getStudentIDByBarcode($barcode,$section_id);   
             $data = [];
            
             $attendanceRemark = $this->input->post('attendanceRemark');
             // $stuDetail = $this->qrcode_attendance_model->getStudentDetailsByEid($enrollID);
-            $attendance = $this->db->where(array('enroll_id' => $enrollID, 'date' => date('Y-m-d')))->get('student_attendance')->row();
+            $attendance = $this->db->where(array('enroll_id' => $enrollID, 'section_id' => $section_id, 'date' => date('Y-m-d')))->get('student_attendance')->row();
             if (empty($attendance)) {
                 $data['status'] = 1;
                 $attendance = (isset($_POST['late']) ? 'L' : 'P');

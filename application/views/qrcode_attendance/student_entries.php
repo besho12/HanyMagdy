@@ -86,7 +86,7 @@
 				<label class="control-label">Student ID</label>
 				<input type="text" class="form-control student_code" />
 				<button style="margin-top:5px;" type="button" class="add_barcode_manually btn btn btn-default">
-					<i class="fas fa-plus-circle"></i> Add Manually							
+					<i class="fas fa-plus-circle"></i> <?=translate('add_manually') ?>							
 				</button>
 				
 				<span class="error"></span>
@@ -378,7 +378,7 @@
 			modalOpen = 1;
 			$('#attendanceRemark').val('');
 			$('#chkAttendance').prop('checked', false);
-			studentQuickViewBarcode($('.student_code').val(),'<?php echo $date; ?>');
+			studentQuickViewBarcode($('.student_code').val(),'<?php echo $date; ?>', '<?php echo $section_id; ?>');
 		}
 	})
 
