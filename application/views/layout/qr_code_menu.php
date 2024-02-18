@@ -9,7 +9,7 @@
 				<span><i class="fas fa-caret-right"></i><?=translate('student')?></span>
 			</a>
 		</li>
-		<?php } if(get_permission('qr_code_employee_attendance', 'is_add')) { ?>
+		<?php } if(get_permission('qr_code_employee_attendance', 'is_add') && 1==2) { ?>
 		<li class="<?php if ($sub_page == 'qrcode_attendance/staff_entries') echo 'nav-active';?>">
 			<a href="<?=base_url('qrcode_attendance/staff_entry')?>">
 				<span><i class="fas fa-caret-right"></i><?=translate('employee')?></span>
@@ -23,9 +23,9 @@
 				<li class="<?php if ($sub_page == 'qrcode_attendance/studentbydate') echo 'nav-active';?>">
 					<a href="<?=base_url('qrcode_attendance/studentbydate')?>">Student Reports By Date</a>
 				</li>
-				<li class="<?php if ($sub_page == 'qrcode_attendance/staffbydate') echo 'nav-active';?>">
-					<a href="<?=base_url('qrcode_attendance/staffbydate')?>">Employee Reports By Date</a>
-				</li>
+				<!-- <li class="<?php //if ($sub_page == 'qrcode_attendance/staffbydate') echo 'nav-active';?>">
+					<a href="<?// =base_url('qrcode_attendance/staffbydate')?>">Employee Reports By Date</a>
+				</li> -->
 			</ul>
 		</li>
 	</ul>
