@@ -634,7 +634,7 @@
                     </li>
                     <?php }} ?>
                     <?php
-                    if (1==2) {
+                    // if (1==2) {
                     if(get_permission('classes', 'is_view') ||
                     get_permission('section', 'is_view') ||
                     get_permission('assign_class_teacher', 'is_view') ||
@@ -740,7 +740,7 @@
                             <?php } ?>
                         </ul>
                     </li>
-                    <?php }} ?>
+                    <?php } /*}*/ ?>
                     <?php 
                     if (moduleIsEnabled('live_class')) {
                         if(get_permission('live_class', 'is_view')) { ?>
