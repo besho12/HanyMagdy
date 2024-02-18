@@ -378,13 +378,13 @@
                     </li>
                     <?php } ?>
                     <?php
-                    if(1==2){
-                    // if(get_permission('employee', 'is_view') ||
-                    // get_permission('employee', 'is_add') ||
-                    // get_permission('designation', 'is_view') ||
-                    // get_permission('designation', 'is_add') ||
-                    // get_permission('department', 'is_view') ||
-                    // get_permission('employee_disable_authentication', 'is_view')) {
+                    // if(1==2){
+                    if(get_permission('employee', 'is_view') ||
+                    get_permission('employee', 'is_add') ||
+                    get_permission('designation', 'is_view') ||
+                    get_permission('designation', 'is_add') ||
+                    get_permission('department', 'is_view') ||
+                    get_permission('employee_disable_authentication', 'is_view')) {
                     ?>
                     <!-- Employees -->
                     <li class="nav-parent <?php if ($main_menu == 'employee') echo 'nav-expanded nav-active'; ?>">
