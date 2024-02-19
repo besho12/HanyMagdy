@@ -76,6 +76,7 @@
 					</div>
 				</div>
 			</div>
+
 			<div class="col-sm-12 col-md-5 col-lg-5 col-xl-5">
 				<h5><?php echo $student->first_name . ' ' .$student->last_name; ?></h5>
 				<p>Student / </p>
@@ -87,8 +88,35 @@
 					<li><div class="icon-holder" data-toggle="tooltip" data-original-title="Center"><i class="fa-solid fa-building-flag"></i></div> سنتر (<?php echo $student->center; ?>)</li>
 				</ul>
 			</div>
-            <div class="col-sm-12 col-md-5 col-lg-5 col-xl-5">
+
+			<div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
+				<ul style="float: right;">
+					<li><div class="icon-holder"><i class="fa-brands fa-whatsapp"></i></div><a target="_blank" href="https://chat.whatsapp.com/E1ZKVQQZuvwKl0f2aBp47r">Thursday 2sec El-Khalifa 24</a></li>
+					<li><div class="icon-holder"><i class="fa-brands fa-whatsapp"></i></div><a target="_blank" href="https://chat.whatsapp.com/GENkRUdXfOWIJaq9Pf9CAC">Wednesday 2sec San Joseph 24</a></li>
+					<li><div class="icon-holder"><i class="fa-brands fa-whatsapp"></i></div><a target="_blank" href="https://chat.whatsapp.com/GT5Z6THbvG0H1Cv17s6zdq">Tuesday 1sec K 24</a></li>
+					<li><div class="icon-holder"><i class="fa-brands fa-whatsapp"></i></div><a target="_blank" href="https://chat.whatsapp.com/KHga75ihtc2BC2SZhm3bxW">Monday 1sec Dar El_saada 24</a></li>
+					<li><div class="icon-holder"><i class="fa-brands fa-whatsapp"></i></div><a target="_blank" href="https://chat.whatsapp.com/CxV0KEJBVFk2xzx5SyzecF">Monday 2sec Dar Elsada 24</a></li>
+					<li><div class="icon-holder"><i class="fa-brands fa-whatsapp"></i></div><a target="_blank" href="https://chat.whatsapp.com/HCvRXseN5qsAupDtIAZGBI">Monday 2sec K 24</a></li>
+					<li><div class="icon-holder"><i class="fa-brands fa-whatsapp"></i></div><a target="_blank" href="https://chat.whatsapp.com/KvlV6QnxlhZ5Ta673q4jJP">Sunday 2sec Elmasa 24</a></li>
+					<li><div class="icon-holder"><i class="fa-brands fa-whatsapp"></i></div><a target="_blank" href="https://chat.whatsapp.com/DPoKMoItVMbFVBinul7MuM">Sunday El khalifa 1sec 24</a></li>
+				</ul>
 			</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 		</div>
 	</div>
 
