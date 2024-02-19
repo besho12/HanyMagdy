@@ -746,7 +746,7 @@ endif;
 				<!-- previous school details -->
 				<?php
 				$previous_school_details = $this->student_fields_model->getStatus('previous_school_details', $branch_id);
-				if ($previous_school_details['status']) {
+				if ($previous_school_details['status'] && 1==2) {
 					?>
 				<!-- previous school details -->
 				<div class="headers-line">
