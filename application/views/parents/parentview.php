@@ -30,16 +30,17 @@
             color: #000;
         }
         .profile-head::before {
-            width: 75% !important;
+            width: 80% !important;
         }
         .image-content-center.user-pro {
-            background: unset;
+            /* background: unset;
             background-color: unset !important;
             box-shadow: unset;
-            border: unset;
+            border: unset; */
+            height: 217px;
         }
         .image-content-center .preview img {
-            top: 25%;
+            /* top: 25%; */
         }
     </style>
 </header>
@@ -62,14 +63,14 @@
 
     <div class="col-md-12 mb-lg">
 		<div class="profile-head">
-			<div class="col-md-2 col-lg-2 col-xl-2">
+			<div class="col-sm-12 col-md-3 col-lg-3 col-xl-3">
 				<div class="image-content-center user-pro">
 					<div class="preview">
 						<img src="http://localhost/HanyMagdy/uploads/app_image/defualt.png">
 					</div>
 				</div>
 			</div>
-			<div class="col-md-12 col-lg-5 col-xl-5">
+			<div class="col-sm-12 col-md-5 col-lg-5 col-xl-5">
 				<h5><?php echo $student->first_name . ' ' .$student->last_name; ?></h5>
 				<p>Student / </p>
 				<ul>
@@ -80,7 +81,7 @@
 					<li><div class="icon-holder" data-toggle="tooltip" data-original-title="Center"><i class="fa-solid fa-building-flag"></i></div> سنتر (<?php echo $student->center; ?>)</li>
 				</ul>
 			</div>
-            <div class="col-md-12 col-lg-5 col-xl-5">
+            <div class="col-sm-12 col-md-5 col-lg-5 col-xl-5">
 			</div>
 		</div>
 	</div>
