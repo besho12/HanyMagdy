@@ -24,9 +24,22 @@
         }
         .profile-head {
             background-image: unset;
+            background: #fff;
         }
         .profile-head h5 , .profile-head p , .profile-head ul li{
             color: #000;
+        }
+        .profile-head::before {
+            width: 75% !important;
+        }
+        .image-content-center.user-pro {
+            background: unset;
+            background-color: unset !important;
+            box-shadow: unset;
+            border: unset;
+        }
+        .image-content-center .preview img {
+            top: 25%;
         }
     </style>
 </header>
@@ -49,7 +62,7 @@
 
     <div class="col-md-12 mb-lg">
 		<div class="profile-head">
-			<div class="col-md-12 col-lg-4 col-xl-3">
+			<div class="col-md-2 col-lg-2 col-xl-2">
 				<div class="image-content-center user-pro">
 					<div class="preview">
 						<img src="http://localhost/HanyMagdy/uploads/app_image/defualt.png">
@@ -67,29 +80,12 @@
 					<li><div class="icon-holder" data-toggle="tooltip" data-original-title="Center"><i class="fa-solid fa-building-flag"></i></div> سنتر (<?php echo $student->center; ?>)</li>
 				</ul>
 			</div>
+            <div class="col-md-12 col-lg-5 col-xl-5">
+			</div>
 		</div>
 	</div>
 
-    <div class="col-md-12 col-lg-4 col-xl-3">
-        <section class="panel pg-fw">
-            <div class="panel-body">
-                <h4 class="chart-title mb-xs">Income Vs Expense Of February</h4>
-                <div id="cash_book_transaction" _echarts_instance_="ec_1707934173157" style="-webkit-tap-highlight-color: transparent; user-select: none; position: relative;"><div style="position: relative; overflow: hidden; width: 372px; height: 293px; padding: 0px; margin: 0px; border-width: 0px; cursor: default;"><canvas data-zr-dom-id="zr_0" width="372" height="293" style="position: absolute; left: 0px; top: 0px; width: 372px; height: 293px; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); padding: 0px; margin: 0px; border-width: 0px;"></canvas></div><div style="position: absolute; display: none; border-style: solid; white-space: nowrap; z-index: 9999999; transition: left 0.4s cubic-bezier(0.23, 1, 0.32, 1) 0s, top 0.4s cubic-bezier(0.23, 1, 0.32, 1) 0s; background-color: rgba(50, 50, 50, 0.7); border-width: 0px; border-color: rgb(51, 51, 51); border-radius: 4px; color: rgb(255, 255, 255); font: 14px / 21px &quot;Microsoft YaHei&quot;; padding: 5px; left: 70px; top: 79px;">Transaction <br>Expense : $ 0.00 (0%)</div></div>
-                <div class="round-overlap"><i class="fab fa-sellcast"></i></div>
-                <div class="text-center">
-                    <ul class="list-inline">
-                        <li>
-                            <h6 class="text-muted"><i class="fa fa-circle text-blue"></i> Income</h6>
-                        </li>
-                        <li>
-                            <h6 class="text-muted"><i class="fa fa-circle text-danger"></i> Expense</h6>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-    </div>
-
+    
     <div class="col-md-12 col-lg-8 col-xl-9">
         <section class="panel pg-fw">
             <div class="panel-body">
@@ -147,7 +143,25 @@
         </section>
     </div>
 
-
+    <div class="col-md-12 col-lg-4 col-xl-3">
+        <section class="panel pg-fw">
+            <div class="panel-body">
+                <h4 class="chart-title mb-xs">Income Vs Expense Of February</h4>
+                <div id="cash_book_transaction" _echarts_instance_="ec_1707934173157" style="-webkit-tap-highlight-color: transparent; user-select: none; position: relative;"><div style="position: relative; overflow: hidden; width: 372px; height: 293px; padding: 0px; margin: 0px; border-width: 0px; cursor: default;"><canvas data-zr-dom-id="zr_0" width="372" height="293" style="position: absolute; left: 0px; top: 0px; width: 372px; height: 293px; user-select: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); padding: 0px; margin: 0px; border-width: 0px;"></canvas></div><div style="position: absolute; display: none; border-style: solid; white-space: nowrap; z-index: 9999999; transition: left 0.4s cubic-bezier(0.23, 1, 0.32, 1) 0s, top 0.4s cubic-bezier(0.23, 1, 0.32, 1) 0s; background-color: rgba(50, 50, 50, 0.7); border-width: 0px; border-color: rgb(51, 51, 51); border-radius: 4px; color: rgb(255, 255, 255); font: 14px / 21px &quot;Microsoft YaHei&quot;; padding: 5px; left: 70px; top: 79px;">Transaction <br>Expense : $ 0.00 (0%)</div></div>
+                <div class="round-overlap"><i class="fab fa-sellcast"></i></div>
+                <div class="text-center">
+                    <ul class="list-inline">
+                        <li>
+                            <h6 class="text-muted"><i class="fa fa-circle text-blue"></i> Income</h6>
+                        </li>
+                        <li>
+                            <h6 class="text-muted"><i class="fa fa-circle text-danger"></i> Expense</h6>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </div>
 
 </div>
  
