@@ -87,7 +87,7 @@ endif;
 					</div>
 
 
-					<?php if ($roll['status']) { ?>
+					<?php if ($roll['status'] && 1==2) { ?>
 					<div class="col-md-<?php echo $div ?> mb-sm">
 						<div class="form-group">
 							<label class="control-label"><?=translate('roll')?><?php echo $roll['required'] == 1 ? ' <span class="required">*</span>' : ''; ?></label>

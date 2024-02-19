@@ -63,9 +63,9 @@ class Student extends Admin_Controller
             }
         }
         if (isset($validArr['roll'])) {
-            $this->form_validation->set_rules('roll', translate('roll'), 'trim|numeric|required|callback_unique_roll');
+            // $this->form_validation->set_rules('roll', translate('roll'), 'trim|numeric|required|callback_unique_roll');
         } else {
-            $this->form_validation->set_rules('roll', translate('roll'), 'trim|numeric|callback_unique_roll');
+            // $this->form_validation->set_rules('roll', translate('roll'), 'trim|numeric|callback_unique_roll');
         }
         if (isset($validArr['last_name'])) {
             // $this->form_validation->set_rules('last_name', translate('last_name'), 'trim|required');
