@@ -118,19 +118,40 @@ class Application_model extends CI_Model
 
     public function getStudentListByClassSection($classID = '', $sectionID = '', $branchID = '', $deactivate = false, $rollOrder = false)
     {
-        $sql = "SELECT `e`.*, `s`.`photo`, CONCAT_WS(' ',`s`.`first_name`, `s`.`last_name`) as `fullname`, `s`.`register_no`, `s`.`parent_id`, `s`.`email`, `s`.`mobileno`, `s`.`blood_group`, `s`.`birthday`, `s`.`admission_date`, `l`.`active`, `l`.`username` as `stu_username`, `c`.`name` as `class_name`, `se`.`name` as `section_name`, `sc`.`name` as `category` FROM `enroll` as `e` INNER JOIN `student` as `s` ON `e`.`student_id` = `s`.`id` INNER JOIN `login_credential` as `l` ON `l`.`user_id` = `s`.`id` and `l`.`role` = 7 LEFT JOIN `class` as `c` ON `e`.`class_id` = `c`.`id` LEFT JOIN `section` as `se` ON `e`.`section_id`=`se`.`id` LEFT JOIN `student_category` as `sc` ON `sc`.`id` = `s`.`category_id` WHERE `e`.`class_id` = " . $this->db->escape($classID) . " AND `e`.`branch_id` = " . $this->db->escape($branchID) . " AND `e`.`session_id` = " . $this->db->escape(get_session_id());
-        if ($sectionID != 'all') {
-            $sql .= " AND `e`.`section_id` = " . $this->db->escape($sectionID);
-        }
-        if ($deactivate == true) {
-            $sql .= " AND `l`.`active` = 0";
-        }
-        if ($rollOrder == true) {
-            $sql .= " ORDER BY `s`.`register_no` ASC";
-        } else {
-            $sql .= " ORDER BY `s`.`id` ASC";
-        }
-        return $this->db->query($sql)->result_array();
+        // $this->db->select('s.*,e.class_id,e.section_id,e.id as enrollid,e.roll,e.branch_id,e.session_id,c.name as class_name,se.name as section_name,sc.name as category_name');
+        // $this->db->from('enroll as e');
+        // $this->db->join('student as s', 'e.student_id = s.id', 'inner');
+        // $this->db->join('class as c', 'e.class_id = c.id', 'left');
+        // $this->db->join('section as se', 'e.section_id = se.id', 'left');
+        // $this->db->join('student_category as sc', 's.category_id=sc.id', 'left');
+        // $this->db->where('e.session_id', get_session_id());
+        // $query = $this->db->get();
+        // return $query->result_array();
+
+        $this->db->select('s.*,s.id as student_id,s.class_id,s.section_id,c.name as class_name,se.name as section_name');
+        $this->db->from('student as s');
+        $this->db->join('enroll as e', 's.id = e.student_id', 'left');
+        $this->db->join('class as c', 's.class_id = c.id', 'left');
+        $this->db->join('section as se', 's.section_id = se.id', 'left');
+        $this->db->where('e.branch_id', $branchID);
+        $this->db->where('e.class_id', $classID);
+        $this->db->where('e.section_id', $sectionID);
+        $query = $this->db->get();
+        return $query->result_array();
+
+        // $sql = "SELECT `e`.*, `s`.`photo`, CONCAT_WS(' ',`s`.`first_name`, `s`.`last_name`) as `fullname`, `s`.`register_no`, `s`.`parent_id`, `s`.`email`, `s`.`mobileno`, `s`.`blood_group`, `s`.`birthday`, `s`.`admission_date`, `l`.`active`, `l`.`username` as `stu_username`, `c`.`name` as `class_name`, `se`.`name` as `section_name`, `sc`.`name` as `category` FROM `enroll` as `e` INNER JOIN `student` as `s` ON `e`.`student_id` = `s`.`id` INNER JOIN `login_credential` as `l` ON `l`.`user_id` = `s`.`id` and `l`.`role` = 7 LEFT JOIN `class` as `c` ON `e`.`class_id` = `c`.`id` LEFT JOIN `section` as `se` ON `e`.`section_id`=`se`.`id` LEFT JOIN `student_category` as `sc` ON `sc`.`id` = `s`.`category_id` WHERE `e`.`class_id` = " . $this->db->escape($classID) . " AND `e`.`branch_id` = " . $this->db->escape($branchID) . " AND `e`.`session_id` = " . $this->db->escape(get_session_id());
+        // if ($sectionID != 'all') {
+        //     $sql .= " AND `e`.`section_id` = " . $this->db->escape($sectionID);
+        // }
+        // if ($deactivate == true) {
+        //     $sql .= " AND `l`.`active` = 0";
+        // }
+        // if ($rollOrder == true) {
+        //     $sql .= " ORDER BY `s`.`register_no` ASC";
+        // } else {
+        //     $sql .= " ORDER BY `s`.`id` ASC";
+        // }
+        // return $this->db->query($sql)->result_array();
     }
 
     public function getStudentDetails($id)

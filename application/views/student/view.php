@@ -73,22 +73,11 @@
 									<label class="i-checks"><input type="checkbox" id="selectAllchkbox"><i></i></label>
 								</div>
 							</th>
-							<th class="no-sort"><?=translate('photo')?></th>
+							<th><?=translate('#')?></th>
 							<th><?=translate('name')?></th>
 							<th><?=translate('class')?></th>
 							<th><?=translate('section')?></th>
 							<th><?=translate('register_no')?></th>
-							<th width="80"><?=translate('roll')?></th>
-							<th><?=translate('age')?></th>
-							<th><?=translate('guardian_name')?></th>
-						<?php
-						$show_custom_fields = custom_form_table('student', $branch_id);
-						if (count($show_custom_fields)) {
-							foreach ($show_custom_fields as $fields) {
-						?>
-							<th><?=$fields['field_label']?></th>
-						<?php } } ?>
-							<th class="no-sort"><?=translate('fees_progress')?></th>
 							<th><?=translate('action')?></th>
 						</tr>
 					</thead>
@@ -105,36 +94,11 @@
 									</label>
 								</div>
 							</td>
-							<td class="center"><img src="<?php echo get_image_url('student', $row['photo']); ?>" height="50"></td>
-							<td class="<?=($row['active'] == 0 ? 'text-danger' : '')?>"><?php echo $row['fullname'];?></td>
+							<td><?php echo $row['student_id']; ?></td>
+							<td><?php echo $row['first_name'] . ' ' . $row['last_name'];?></td>
 							<td><?php echo $row['class_name'];?></td>
 							<td><?php echo $row['section_name'];?></td>
 							<td><?php echo $row['register_no'];?></td>
-							<td><?php echo $row['roll'];?></td>
-							<td>
-							<?php
-								if(!empty($row['birthday'])){
-									$birthday = new DateTime($row['birthday']);
-									$today = new DateTime('today');
-									$age = $birthday->diff($today)->y;
-									echo html_escape($age);
-								}else{
-									echo "N/A";
-								}
-							?>
-							</td>
-							<td><?php echo (!empty($row['parent_id']) ? get_type_name_by_id('parent', $row['parent_id']) : 'N/A');?></td>
-						<?php
-						if (count($show_custom_fields)) {
-							foreach ($show_custom_fields as $fields) {
-						?>
-							<td><?php echo get_table_custom_field_value($fields['id'], $row['id']);?></td>
-						<?php } } ?>
-							<td>
-								<div class="progress progress-xl m-none prb-mw">
-									<div class="progress-bar text-dark" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: <?=$fee_progress?>%;"><?=$fee_progress?>%</div>
-								</div>
-							</td>
 							<td class="action">
 								<!-- quick view -->
 								<a href="javascript:void(0);" onclick="studentQuickView('<?=$row['id']?>');" class="btn btn-default btn-circle icon" data-toggle="tooltip"
