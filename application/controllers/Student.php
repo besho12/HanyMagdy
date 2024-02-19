@@ -257,7 +257,7 @@ class Student extends Admin_Controller
                 //save student enroll information in the database file
                 $arrayEnroll = array(
                     'student_id' => $studentID,
-                    'class_id' => '1',
+                    'class_id' => $post['class_id'],
                     'section_id' => $post['section_id'],
                     'roll' => (isset($post['roll']) ? $post['roll'] : 0),
                     'session_id' => $post['year_id'],
