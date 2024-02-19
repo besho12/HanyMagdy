@@ -25,6 +25,7 @@
         .profile-head {
             background-image: unset;
             background: #fff;
+            box-shadow: 3px 5px 10px rgb(0 0 0 / 28%) !important;
         }
         .profile-head h5 , .profile-head p , .profile-head ul li{
             color: #000;
