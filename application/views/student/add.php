@@ -140,7 +140,7 @@ endif;
 							<span class="error"></span>
 						</div>
 					</div>
-					<?php if ($category['status'] && 1==2) { ?>
+					<?php if ($category['status']) { ?>
 					<div class="col-md-<?php echo $div; ?> mb-sm">
 						<div class="form-group">
 							<label class="control-label"><?=translate('category')?><?php echo $category['required'] == 1 ? ' <span class="required">*</span>' : ''; ?></label>

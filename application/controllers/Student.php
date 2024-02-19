@@ -77,7 +77,7 @@ class Student extends Admin_Controller
             $this->form_validation->set_rules('birthday', translate('birthday'), 'trim|required');
         }
         if (isset($validArr['category'])) {
-            // $this->form_validation->set_rules('category_id', translate('category'), 'trim|required');
+            $this->form_validation->set_rules('category_id', translate('category'), 'trim|required');
         }
         if (isset($validArr['religion'])) {
             $this->form_validation->set_rules('religion', translate('religion'), 'trim|required');
