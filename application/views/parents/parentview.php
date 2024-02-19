@@ -22,6 +22,12 @@
         .panel-body {
             box-shadow: 3px 5px 10px rgb(0 0 0 / 28%) !important
         }
+        .profile-head {
+            background-image: unset;
+        }
+        .profile-head h5 , .profile-head p , .profile-head ul li{
+            color: #000;
+        }
     </style>
 </header>
 
@@ -40,6 +46,30 @@
 
 
 <div class="container2" style="margin-top: 100px;">
+
+    <div class="col-md-12 mb-lg">
+		<div class="profile-head">
+			<div class="col-md-12 col-lg-4 col-xl-3">
+				<div class="image-content-center user-pro">
+					<div class="preview">
+						<img src="http://localhost/HanyMagdy/uploads/app_image/defualt.png">
+					</div>
+				</div>
+			</div>
+			<div class="col-md-12 col-lg-5 col-xl-5">
+				<h5><?php echo $student->first_name . ' ' .$student->last_name; ?></h5>
+				<p>Student / </p>
+				<ul>
+					<li><div class="icon-holder" data-toggle="tooltip" data-original-title="Class"><i class="fas fa-school"></i></div>  <?php echo $student->class_name; ?> ( <?php echo $student->section_name; ?> )</li>
+					<li><div class="icon-holder" data-toggle="tooltip" data-original-title="Mobile No"><i class="fas fa-phone-volume"></i></div> <?php echo $student->mobileno; ?> - رقم الطالب</li>
+					<li><div class="icon-holder" data-toggle="tooltip" data-original-title="Parent Mobile No"><i class="fas fa-phone-volume"></i></div> <?php echo $student->parent_mobileno; ?> - رقم ولي الأمر</li>
+					<li><div class="icon-holder" data-toggle="tooltip" data-original-title="School"><i class="fa-solid fa-school-flag"></i></div> مدرسة (<?php echo $student->school; ?>)</li>
+					<li><div class="icon-holder" data-toggle="tooltip" data-original-title="Center"><i class="fa-solid fa-building-flag"></i></div> سنتر (<?php echo $student->center; ?>)</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
     <div class="col-md-12 col-lg-4 col-xl-3">
         <section class="panel pg-fw">
             <div class="panel-body">
@@ -59,14 +89,8 @@
             </div>
         </section>
     </div>
+
     <div class="col-md-12 col-lg-8 col-xl-9">
-
-
-
-
-
-
-
         <section class="panel pg-fw">
             <div class="panel-body">
                 <h4 class="panel-title chart-title mb-xs"><i class="fas fa-user-graduate"></i> Exam Marks</h4>
@@ -121,9 +145,10 @@
                 </div>
             </div>
         </section>
-
-
     </div>
+
+
+
 </div>
  
 <?php $this->load->view('layout/script.php');?>
