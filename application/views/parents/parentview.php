@@ -43,6 +43,11 @@
         .image-content-center .preview img {
             /* top: 25%; */
         }
+        @media (max-width: 991px){
+            .image_container {
+                display: none;     
+            }
+        }
     </style>
 </header>
 
@@ -64,7 +69,7 @@
 
     <div class="col-md-12 mb-lg">
 		<div class="profile-head">
-			<div class="col-sm-12 col-md-3 col-lg-3 col-xl-3">
+			<div class="col-sm-12 col-md-3 col-lg-3 col-xl-3 image_container">
 				<div class="image-content-center user-pro">
 					<div class="preview">
 						<img src="http://localhost/HanyMagdy/uploads/app_image/defualt.png">
