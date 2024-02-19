@@ -118,12 +118,12 @@ endif;
 					<?php if (is_superadmin_loggedin()): ?>
 						<input type="hidden" name="branch_id" value="<?php echo $branch_id ?>">
 					<?php endif; ?>
-					<div class="col-md-<?php echo $div; ?> mb-sm" style="display:none;">
+					<div class="col-md-<?php echo $div; ?> mb-sm">
 						<div class="form-group">
 							<label class="control-label"><?=translate('class')?> <span class="required">*</span></label>
 							<?php
 								$arrayClass = $this->app_lib->getClass($branch_id);
-								echo form_dropdown("class_id", $arrayClass, '1', "class='form-control' name='class_id' id='class_id' onchange='getSectionByClass(this.value,0)'
+								echo form_dropdown("class_id", $arrayClass, '', "class='form-control' name='class_id' id='class_id' onchange='getSectionByClass(this.value,0)'
 								data-plugin-selectTwo data-width='100%' data-minimum-results-for-search='Infinity' ");
 							?>
 							<span class="error"></span>
