@@ -16,6 +16,9 @@
 	</div>
 
     <style>
+        .profile-head a {
+            color: #000 !important;
+        }
         .container2 {
             padding: 0px 60px;
         }
