@@ -108,7 +108,7 @@
     <div class="col-md-6 mb-lg">
         <div class="panel-body">
             <div class="panel-heading">
-                <h4 class=" mb-xs"><i class="fas fa-user-graduate"></i> WhatsApp Groups</h4>
+                <h4 class=" mb-xs"><i class="fa-brands fa-whatsapp"></i> WhatsApp Groups</h4>
             </div>
             <div class="profile-head">
                 <ul>
