@@ -20,28 +20,45 @@ class parentreview extends MY_Controller
         $this->load->model('qrcode_attendance_model');
     }
 
-    public function index($studentID = '')
+    public function index($studentID = '', $branch_id = '', $section_id = '')
     {                
         // ob_start();
         // error_reporting(0);
         // error_reporting(E_ALL);
         // ini_set('display_errors',1);
-        if(isset($_POST['student_code'])){
-            redirect(base_url('parentreview/index/' . $_POST['student_code']));
-        }        
-        if($studentID){
-            $student = $this->getStudentByBarcode2($studentID); 
+
+        if(isset($_POST['branch_id']) && isset($_POST['section_id']) && isset($_POST['student_code'])){
+            $student = $this->getStudentByBarcode2($_POST['student_code'],$_POST['branch_id'],$_POST['section_id']); 
             if($student){
                 $this->data['marks'] = $this->get_student_marks($student->id);
                 $this->data['student'] = $student;
 
                 $this->load->view('parents/parentview', $this->data);    
             } else {
-                $this->load->view('parents/parentviewsearch');
+                $this->data['not_found'] = '1';
+                $this->load->view('parents/parentviewsearch', $this->data);
             }
         } else {
-            $this->load->view('parents/parentviewsearch');
+            $this->data['fill_data'] = '1';
+            $this->load->view('parents/parentviewsearch', $this->data);
         }
+
+        // if(isset($_POST['student_code'])){
+        //     redirect(base_url('parentreview/index/' . $_POST['student_code']));
+        // }        
+        // if($studentID){
+        //     $student = $this->getStudentByBarcode2($studentID); 
+        //     if($student){
+        //         $this->data['marks'] = $this->get_student_marks($student->id);
+        //         $this->data['student'] = $student;
+
+        //         $this->load->view('parents/parentview', $this->data);    
+        //     } else {
+        //         $this->load->view('parents/parentviewsearch');
+        //     }
+        // } else {
+        //     $this->load->view('parents/parentviewsearch');
+        // }
     }
 
     public function get_student_marks($studentID){
@@ -58,13 +75,17 @@ class parentreview extends MY_Controller
     }
 
 
-    public function getStudentByBarcode2($barcode = '')
+    public function getStudentByBarcode2($barcode = '', $branch_id = '', $section_id = '')
     {
         $this->db->select('s.*,c.name as class_name,se.name as section_name');
         $this->db->from('student as s');
+        $this->db->join('enroll as e', 's.id = e.student_id', 'left');
         $this->db->join('class as c', 's.class_id = c.id', 'left');
         $this->db->join('section as se', 's.section_id = se.id', 'left');
         $this->db->where('register_no', $barcode);
+        $this->db->where('e.branch_id', $branch_id);
+        $this->db->where('e.section_id', $section_id);
+
         return $this->db->get()->row();
         
     }
@@ -79,7 +100,7 @@ class parentreview extends MY_Controller
             ->where('branch_id',$branch_id)
             ->get()->result_array();
             if (is_array($result) && count($result)) {
-                $html .= '<option value="">' . translate('select') . '</option>';
+                $html .= '<option value="">' . translate('select_year') . '</option>';
                 foreach ($result as $row) {
                     $html .= '<option value="' . $row['id'] . '">' . $row['name'] . '</option>';
                 }
@@ -99,7 +120,7 @@ class parentreview extends MY_Controller
         ->from('branch')
         ->get()->result_array();
         if (is_array($result) && count($result)) {
-            $html .= '<option value="">' . translate('select') . '</option>';
+            $html .= '<option value="">' . translate('select_center') . '</option>';
             foreach ($result as $row) {
                 $html .= '<option value="' . $row['id'] . '">' . $row['name'] . '</option>';
             }

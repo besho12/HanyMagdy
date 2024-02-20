@@ -87,7 +87,7 @@
                                         </span>
                                         
                                         
-                                        <select class="form-control" id="branch_id">
+                                        <select class="form-control" id="branch_id" name="branch_id">
                                             <option value="">Select Center</option>
                                         </select>
 
@@ -104,7 +104,7 @@
                                         </span>
                                         
                                         
-                                        <select class="form-control" id="section_id">
+                                        <select class="form-control" id="section_id" name="section_id">
                                             <option value="">Select Year</option>
                                         </select>
 
@@ -128,6 +128,18 @@
                                 <button type="submit" id="btn_submit" class="btn btn-block btn-round" style="color:#fff !important;">
                                     <i class="fas fa-search"></i> <?php echo translate('search');?>
                                 </button>
+
+                                <?php if(isset($not_found)): ?>
+                                    <div class="text-danger" style="padding-top:10px;">
+                                        This Student Doesn't Exist
+                                    </div>
+                                <?php endif ?>
+
+                                <?php if(isset($fill_data)): ?>
+                                    <div class="text-danger" style="padding-top:10px;">
+                                        Please Fill Student Data First
+                                    </div>
+                                <?php endif ?>
                            
                                 
                             <?php echo form_close();?>
