@@ -78,7 +78,7 @@
 <div class="container2" style="margin-top: 100px;">
 
     <div class="col-md-6 mb-lg">
-        <div class="panel-body">
+        <div class="panel-body" style="min-height: 475px;">
             <div class="panel-heading">
                 <h4 class=" mb-xs"><i class="fas fa-user-graduate"></i> Student Details</h4>
             </div>
