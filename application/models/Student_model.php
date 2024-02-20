@@ -344,6 +344,7 @@ class Student_model extends MY_Model
 
         //save student enroll information in the database file
         $arrayEnroll = array(
+            'id' => $studentID,
             'student_id' => $studentID,
             'class_id' => $classID,
             'section_id' => $sectionID,

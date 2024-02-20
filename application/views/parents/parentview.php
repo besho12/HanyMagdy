@@ -93,7 +93,7 @@
 			</div>
 
 			<div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
-				<ul style="float: right;">
+				<ul>
 					<li><div class="icon-holder"><i class="fa-brands fa-whatsapp"></i></div><a target="_blank" href="https://chat.whatsapp.com/E1ZKVQQZuvwKl0f2aBp47r">Thursday 2sec El-Khalifa 24</a></li>
 					<li><div class="icon-holder"><i class="fa-brands fa-whatsapp"></i></div><a target="_blank" href="https://chat.whatsapp.com/GENkRUdXfOWIJaq9Pf9CAC">Wednesday 2sec San Joseph 24</a></li>
 					<li><div class="icon-holder"><i class="fa-brands fa-whatsapp"></i></div><a target="_blank" href="https://chat.whatsapp.com/GT5Z6THbvG0H1Cv17s6zdq">Tuesday 1sec K 24</a></li>
