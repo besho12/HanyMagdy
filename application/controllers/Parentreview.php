@@ -38,8 +38,7 @@ class parentreview extends MY_Controller
                 $this->data['not_found'] = '1';
                 $this->load->view('parents/parentviewsearch', $this->data);
             }
-        } else {
-            $this->data['fill_data'] = '1';
+        } else {            
             $this->load->view('parents/parentviewsearch', $this->data);
         }
 

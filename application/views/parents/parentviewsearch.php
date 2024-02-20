@@ -87,7 +87,7 @@
                                         </span>
                                         
                                         
-                                        <select class="form-control" id="branch_id" name="branch_id">
+                                        <select class="form-control" id="branch_id" name="branch_id" required>
                                             <option value="">Select Center</option>
                                         </select>
 
@@ -104,7 +104,7 @@
                                         </span>
                                         
                                         
-                                        <select class="form-control" id="section_id" name="section_id">
+                                        <select class="form-control" id="section_id" name="section_id" required>
                                             <option value="">Select Year</option>
                                         </select>
 
@@ -119,7 +119,7 @@
                                                 <i class="fas fa-barcode"></i>
                                             </span>
                                         </span>
-                                        <input type="text" class="form-control" style="background:#fff;font-size:16px;color:#000;" name="student_code" placeholder="Student Code" />
+                                        <input type="text" class="form-control" style="background:#fff;font-size:16px;color:#000;" name="student_code" placeholder="Student Code" required/>
                                     </div>
                                     <span class="error"><?php echo form_error('email'); ?></span>
                                 </div>

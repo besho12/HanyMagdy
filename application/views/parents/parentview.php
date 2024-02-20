@@ -95,8 +95,8 @@
                     <p>Student / </p>
                     <ul>
                         <li><div class="icon-holder" data-toggle="tooltip" data-original-title="Class"><i class="fas fa-school"></i></div>  <?php echo $student->class_name; ?> ( <?php echo $student->section_name; ?> )</li>
-                        <li><div class="icon-holder" data-toggle="tooltip" data-original-title="Mobile No"><i class="fas fa-phone-volume"></i></div> <?php echo $student->mobileno; ?> - رقم الطالب</li>
-                        <li><div class="icon-holder" data-toggle="tooltip" data-original-title="Parent Mobile No"><i class="fas fa-phone-volume"></i></div> <?php echo $student->parent_mobileno; ?> - رقم ولي الأمر</li>
+                        <!-- <li><div class="icon-holder" data-toggle="tooltip" data-original-title="Mobile No"><i class="fas fa-phone-volume"></i></div> <?php //echo $student->mobileno; ?> - رقم الطالب</li> -->
+                        <!-- <li><div class="icon-holder" data-toggle="tooltip" data-original-title="Parent Mobile No"><i class="fas fa-phone-volume"></i></div> <?php //echo $student->parent_mobileno; ?> - رقم ولي الأمر</li> -->
                         <li><div class="icon-holder" data-toggle="tooltip" data-original-title="School"><i class="fa-solid fa-school-flag"></i></div> مدرسة (<?php echo $student->school; ?>)</li>
                         <li><div class="icon-holder" data-toggle="tooltip" data-original-title="Center"><i class="fa-solid fa-building-flag"></i></div> سنتر (<?php echo $student->center; ?>)</li>
                         <li><div class="icon-holder" data-toggle="tooltip" data-original-title="Center"><i class="fas fa-barcode"></i></div> Student Code: (<?php echo $student->register_no; ?>)</li>
