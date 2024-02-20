@@ -10,8 +10,6 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta content="width=device-width,initial-scale=1" name="viewport">
 	<meta name="keywords" content="">
-	<meta name="description" content="<?php echo $global_config['institute_name'] ?>">
-	<meta name="author" content="<?php echo $global_config['institute_name'] ?>">
 	<title><?php echo translate('login');?></title>
 	<link rel="shortcut icon" href="<?php echo base_url('assets/images/favicon.png');?>">
     
@@ -39,6 +37,16 @@
         .sign-area::before {
             border-right: 60px solid #fff;
         }
+        select {
+            height: 40px !important;
+            background: #fff !important;
+            color: #000 !important;
+            border-radius: 30px !important;
+            padding-left: 35px !important;
+        }
+        select option {
+            width: 80%; /* Apply the same border radius to the options */
+        }
     </style>
 </head>
 	<body style="background-color: #ddd;">
@@ -53,24 +61,7 @@
                                 <h2><?php echo translate('welcome_to');?></h2>
                             </div>
                             <div class="center img-hol-p">
-                                <img src="<?=$this->application_model->getBranchImage($branch_id, 'logo')?>" height="60" alt="School">
-                            </div>
-                            <div class="address">
-                                <p><?php echo $global_config['address'];?></p>
-                            </div>			
-                            <div class="f-social-links center">
-                                <a href="<?php echo $global_config['facebook_url'];?>" target="_blank">
-                                    <span class="fab fa-facebook-f"></span>
-                                </a>
-                                <a href="<?php echo $global_config['twitter_url'];?>" target="_blank">
-                                    <span class="fab fa-twitter"></span>
-                                </a>
-                                <a href="<?php echo $global_config['linkedin_url'];?>" target="_blank">
-                                    <span class="fab fa-linkedin-in"></span>
-                                </a>
-                                <a href="<?php echo $global_config['youtube_url'];?>" target="_blank">
-                                    <span class="fab fa-youtube"></span>
-                                </a>
+                                <img src="https://hanymagdy-thelegend.com/uploads/app_image/logo.png" height="60" alt="School">
                             </div>
                         </div>
                         </div>
@@ -80,10 +71,47 @@
                     <div class="col-lg-6 col-lg-offset-right-1 col-md-6 col-md-offset-right-1 col-sm-12 col-xs-12 no-padding">
                         <div class="sign-area">
                             <div class="sign-hader">
-                                <img src="<?=$this->application_model->getBranchImage($branch_id, 'logo')?>" height="54" alt="">
+                                <img src="https://hanymagdy-thelegend.com/uploads/app_image/logo.png" height="54" alt="">
                                 <h3 style="font-weight: bold; text-decoration:underline;">PARENTS SERVICE CENTER</h3>
                             </div>
                             <?php echo form_open($this->uri->uri_string()); ?>
+
+                                
+
+                                <div class="form-group <?php if (form_error('email')) echo 'has-error'; ?>">
+                                    <div class="input-group input-group-icon">
+                                        <span class="input-group-addon">
+                                            <span class="icon">
+                                                <i class="fas fa-school-flag"></i>
+                                            </span>
+                                        </span>
+                                        
+                                        
+                                        <select class="form-control" id="branch_id">
+                                            <option value="">Select Center</option>
+                                        </select>
+
+                                    </div>
+                                    <span class="error"><?php echo form_error('email'); ?></span>
+                                </div>
+                               
+                                <div class="form-group <?php if (form_error('email')) echo 'has-error'; ?>">
+                                    <div class="input-group input-group-icon">
+                                        <span class="input-group-addon">
+                                            <span class="icon">
+                                                <i class="fas fa-school-flag"></i>
+                                            </span>
+                                        </span>
+                                        
+                                        
+                                        <select class="form-control" id="section_id">
+                                            <option value="">Select Year</option>
+                                        </select>
+
+                                    </div>
+                                    <span class="error"><?php echo form_error('email'); ?></span>
+                                </div>
+
                                 <div class="form-group <?php if (form_error('email')) echo 'has-error'; ?>">
                                     <div class="input-group input-group-icon">
                                         <span class="input-group-addon">
@@ -100,16 +128,7 @@
                                 <button type="submit" id="btn_submit" class="btn btn-block btn-round" style="color:#fff !important;">
                                     <i class="fas fa-search"></i> <?php echo translate('search');?>
                                 </button>
-                                <div class="forgot-text">
-                                    <div class="">
-                                        <a href="<?php echo base_url('authentication/forgot') . $this->authentication_model->getSegment(3);?>"><?php echo translate('lose_your_password');?></a>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <button type="submit" id="btn_submit" class="btn btn-block btn-round">
-                                        <i class="fas fa-sign-in-alt"></i> <?php echo translate('login');?>
-                                    </button>
-                                </div>
+                           
                                 
                             <?php echo form_close();?>
                         </div>
@@ -118,6 +137,35 @@
             </div>
         </div>
         
+        <script>
+            $(document).ready(function(){
+                $.ajax({
+                    url: '<?=base_url('parentreview/getBranches')?>',
+                    type: 'POST',
+                    data:{
+                        parent_view_screen: 'parent_view_screen'
+                    },
+                    success: function (data){
+                        $('#branch_id').html(data);
+                    }
+                });
+
+                $(document).on('change','#branch_id',function(){
+                    alert('hi');
+                    $.ajax({
+                        url: '<?=base_url('parentreview/getSectionByBranch')?>',
+                        type: 'POST',
+                        data:{
+                            branch_id: $('#branch_id').val(),
+                            parent_view_screen: 'parent_view_screen'
+                        },
+                        success: function (data){
+                            $('#section_id').html(data);
+                        }
+                    });
+                });
+            })
+        </script>
 		<script src="<?php echo base_url('assets/vendor/bootstrap/js/bootstrap.js');?>"></script>
 		<script src="<?php echo base_url('assets/vendor/jquery-placeholder/jquery-placeholder.js');?>"></script>
 		<!-- backstretch js -->

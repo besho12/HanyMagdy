@@ -11,18 +11,25 @@ defined('BASEPATH') or exit('No direct script access allowed');
  * @copyright : Reserved RamomCoder Team
  */
 
-class Parentreview extends MY_Controller 
+class parentreview extends MY_Controller 
 {
 
     public function __construct()
     {
         parent::__construct();
         $this->load->model('qrcode_attendance_model');
+        if (!get_permission('disable_reason', 'is_edit')) {
+            ajax_access_denied();
+        }
     }
 
     public function index($studentID = '')
     {                
-        if($_POST['student_code']){
+        // ob_start();
+        // error_reporting(0);
+        // error_reporting(E_ALL);
+        // ini_set('display_errors',1);
+        if(isset($_POST['student_code'])){
             redirect(base_url('parentreview/index/' . $_POST['student_code']));
         }        
         if($studentID){
@@ -63,5 +70,46 @@ class Parentreview extends MY_Controller
         $this->db->where('register_no', $barcode);
         return $this->db->get()->row();
         
+    }
+
+    public function getSectionByBranch()
+    {
+        $html = "";
+        $branch_id = $this->input->post("branch_id");
+        if (!empty($branch_id)) {
+            $result = $this->db->select('section.*')
+            ->from('section')
+            ->where('branch_id',$branch_id)
+            ->get()->result_array();
+            if (is_array($result) && count($result)) {
+                $html .= '<option value="">' . translate('select') . '</option>';
+                foreach ($result as $row) {
+                    $html .= '<option value="' . $row['id'] . '">' . $row['name'] . '</option>';
+                }
+            } else {
+                $html .= '<option value="">' . translate('no_selection_available') . '</option>';
+            }
+        } else {
+            $html .= '<option value="">' . translate('select_branch_first') . '</option>';
+        }
+        echo $html;
+    }
+
+    public function getBranches()
+    {
+        $html = "";
+        $result = $this->db->select('branch.*')
+        ->from('branch')
+        ->get()->result_array();
+        if (is_array($result) && count($result)) {
+            $html .= '<option value="">' . translate('select') . '</option>';
+            foreach ($result as $row) {
+                $html .= '<option value="' . $row['id'] . '">' . $row['name'] . '</option>';
+            }
+        } else {
+            $html .= '<option value="">' . translate('no_selection_available') . '</option>';
+        }
+        
+        echo $html;
     }
 }
