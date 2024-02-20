@@ -47,6 +47,9 @@
         select option {
             width: 80%; /* Apply the same border radius to the options */
         }
+        .auth-main {
+            background: #ddd !important;
+        }
     </style>
 </head>
 	<body style="background-color: #ddd;">
