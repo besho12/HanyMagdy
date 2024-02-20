@@ -78,7 +78,7 @@
 <div class="container2" style="margin-top: 100px;">
 
     <div class="col-md-6 mb-lg">
-        <div class="panel-body" style="min-height: 475px;">
+        <div class="panel-body">
             <div class="panel-heading">
                 <h4 class=" mb-xs"><i class="fas fa-user-graduate"></i> Student Details</h4>
             </div>
@@ -112,14 +112,9 @@
             </div>
             <div class="profile-head">
                 <ul>
-                    <li><div class="icon-holder"><i class="fa-brands fa-whatsapp"></i></div><a target="_blank" href="https://chat.whatsapp.com/E1ZKVQQZuvwKl0f2aBp47r">Thursday 2sec El-Khalifa 24</a></li>
-                    <li><div class="icon-holder"><i class="fa-brands fa-whatsapp"></i></div><a target="_blank" href="https://chat.whatsapp.com/GENkRUdXfOWIJaq9Pf9CAC">Wednesday 2sec San Joseph 24</a></li>
-                    <li><div class="icon-holder"><i class="fa-brands fa-whatsapp"></i></div><a target="_blank" href="https://chat.whatsapp.com/GT5Z6THbvG0H1Cv17s6zdq">Tuesday 1sec K 24</a></li>
-                    <li><div class="icon-holder"><i class="fa-brands fa-whatsapp"></i></div><a target="_blank" href="https://chat.whatsapp.com/KHga75ihtc2BC2SZhm3bxW">Monday 1sec Dar El_saada 24</a></li>
-                    <li><div class="icon-holder"><i class="fa-brands fa-whatsapp"></i></div><a target="_blank" href="https://chat.whatsapp.com/CxV0KEJBVFk2xzx5SyzecF">Monday 2sec Dar Elsada 24</a></li>
-                    <li><div class="icon-holder"><i class="fa-brands fa-whatsapp"></i></div><a target="_blank" href="https://chat.whatsapp.com/HCvRXseN5qsAupDtIAZGBI">Monday 2sec K 24</a></li>
-                    <li><div class="icon-holder"><i class="fa-brands fa-whatsapp"></i></div><a target="_blank" href="https://chat.whatsapp.com/KvlV6QnxlhZ5Ta673q4jJP">Sunday 2sec Elmasa 24</a></li>
-                    <li><div class="icon-holder"><i class="fa-brands fa-whatsapp"></i></div><a target="_blank" href="https://chat.whatsapp.com/DPoKMoItVMbFVBinul7MuM">Sunday El khalifa 1sec 24</a></li>
+                    <?php foreach($whatsapp as $single): ?>
+                        <li><div class="icon-holder"><i class="fa-brands fa-whatsapp" style="font-weight: bold;"></i></div><a target="_blank" href="<?php echo $single['link']; ?>"><?php echo $single['name']; ?></a></li>                    
+                    <?php endforeach; ?>
                 </ul>
             </div>
         </div>

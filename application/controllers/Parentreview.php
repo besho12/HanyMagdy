@@ -20,6 +20,27 @@ class parentreview extends MY_Controller
         $this->load->model('qrcode_attendance_model');
     }
 
+    public function prepareWhatsappData($branch_id,$section_id){
+        $this->db->select('section.*');
+        $this->db->from('section');
+        $this->db->where('id', $section_id);
+        $result = $this->db->get()->row();
+
+        $data = []; $i = 0;
+        if($result->name == 'الصف الاول') {
+            $data[] = ['name'=>'سنتر K الصف الاول الثانوي','link'=>'https://chat.whatsapp.com/GT5Z6THbvG0H1Cv17s6zdq'];
+            $data[] = ['name'=>'سنتر دار السعاده الصف الاول الثانوي','https://chat.whatsapp.com/KHga75ihtc2BC2SZhm3bxW'];
+            $data[] = ['name'=>'سنتر الخليفه الصف الاول الثانوي','link'=>'https://chat.whatsapp.com/DPoKMoItVMbFVBinul7MuM'];
+        } else {
+            $data[] = ['name'=>'سنتر الخليفه الصف الثاني الثانوي','link'=>'https://chat.whatsapp.com/E1ZKVQQZuvwKl0f2aBp47r'];
+            $data[] = ['name'=>'سنتر سان جوزيف الصف الثاني الثانوي','link'=>'https://chat.whatsapp.com/GENkRUdXfOWIJaq9Pf9CAC'];
+            $data[] = ['name'=>'سنتر دار السعاده الصف الثاني الثانوي','link'=>'https://chat.whatsapp.com/CxV0KEJBVFk2xzx5SyzecF'];
+            $data[] = ['name'=>'سنتر K الصف الثاني الثانوي','link'=>'https://chat.whatsapp.com/HCvRXseN5qsAupDtIAZGBI'];
+            $data[] = ['name'=>'سنتر الماسه الصف الثاني الثانوي','link'=>'https://chat.whatsapp.com/KvlV6QnxlhZ5Ta673q4jJP'];
+        }
+        return $data;
+    }
+
     public function index($studentID = '', $branch_id = '', $section_id = '')
     {                
         // ob_start();
@@ -32,6 +53,7 @@ class parentreview extends MY_Controller
             if($student){
                 $this->data['marks'] = $this->get_student_marks($student->id);
                 $this->data['student'] = $student;
+                $this->data['whatsapp'] = $this->prepareWhatsappData($_POST['branch_id'],$_POST['section_id']);
 
                 $this->load->view('parents/parentview', $this->data);    
             } else {
@@ -44,19 +66,6 @@ class parentreview extends MY_Controller
 
         // if(isset($_POST['student_code'])){
         //     redirect(base_url('parentreview/index/' . $_POST['student_code']));
-        // }        
-        // if($studentID){
-        //     $student = $this->getStudentByBarcode2($studentID); 
-        //     if($student){
-        //         $this->data['marks'] = $this->get_student_marks($student->id);
-        //         $this->data['student'] = $student;
-
-        //         $this->load->view('parents/parentview', $this->data);    
-        //     } else {
-        //         $this->load->view('parents/parentviewsearch');
-        //     }
-        // } else {
-        //     $this->load->view('parents/parentviewsearch');
         // }
     }
 
