@@ -143,31 +143,16 @@
                                 <td><?php echo $row['first_name']; ?></td>                                                                
                                 <td><?php echo $row['exam_name']; ?></td>                                                                
                                 <td><?php echo $row['exam_date']; ?></td>                                                                
-                                <td><?php echo $row['exam_period']; ?></td>                                                                
-                                <td>                            
-                                <?php $distributions = json_decode($row['mark'], true);
-                                    if(!$distributions){
-                                        echo '<span class="text-warning">Absent</span>';
-                                    } else {                                
-                                        foreach ($distributions as $i => $value) { 
-                                            $distributions_masterData = get_distributions_masterData($row['exam_id']);  
-                                            $distributions_masterData = ($distributions_masterData[0]['mark_distribution']); 
-                                            $distributions_masterData = json_decode($distributions_masterData,true);
-                                            $full_mark = $distributions_masterData[$i]['full_mark'];
-                                            $pass_mark = $distributions_masterData[$i]['pass_mark'];                                
-                                        
-                                            echo get_type_name_by_id('exam_mark_distribution', $i) . " (" . $value . '/' . $full_mark . ")";
-                                            if($value >= $pass_mark){
-                                                echo '<span class="text-success" style="margin-left:5px;">Succeeded</span>';
-                                            } else {
-                                                echo '<span class="text-danger" style="margin-left:5px;">Failed</span>';
-                                            }                                   
-                                            echo '<br>';
-                                        }                                 
+                                <td><?php echo $row['exam_period']; ?></td>   
+                                
+                                <?php
+                                    if($row['mark'] > ($row['total_mark'] / 2)) {
+                                        $mark_status = '<span class="text-success">Succeeded</span>';
+                                    } else {
+                                        $mark_status = '<span class="text-danger">Failed</span>';
                                     }
                                 ?>
-        
-                                </td>                                                                
+                                <td><?php echo $row['mark'] . '/' . $row['total_mark'] . ' - ' . $mark_status; ?></td>                                                                
                             </tr>
                             <?php endforeach;?>
                         </tbody>

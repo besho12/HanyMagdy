@@ -154,11 +154,15 @@ class Qrcode_attendance extends Admin_Controller
                 ajax_access_denied();
             }
 
+            // ob_start();
+            // error_reporting(0);
+            // error_reporting(E_ALL);
+            // ini_set('display_errors',1);
             $barcode = $this->input->post('data');
             $date = $this->input->post('date');
             $section_id = $this->input->post('section_id');
-            $enrollID = $this->qrcode_attendance_model->getStudentIDByBarcode($barcode,$section_id);   
-                                    
+            $enrollID = $this->qrcode_attendance_model->getStudentIDByBarcode($barcode,$section_id); 
+
             $data = [];
             $attendance = $this->db->where(array('enroll_id' => $enrollID, 'date' => date('Y-m-d')))
             ->where('date',$date)->get('student_attendance')->row();

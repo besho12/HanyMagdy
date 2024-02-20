@@ -51,7 +51,7 @@ class parentreview extends MY_Controller
         if(isset($_POST['branch_id']) && isset($_POST['section_id']) && isset($_POST['student_code'])){
             $student = $this->getStudentByBarcode2($_POST['student_code'],$_POST['branch_id'],$_POST['section_id']); 
             if($student){
-                $this->data['marks'] = $this->get_student_marks($student->id);
+                $this->data['marks'] = $this->get_student_marks($student->id,$_POST['section_id']);
                 $this->data['student'] = $student;
                 $this->data['whatsapp'] = $this->prepareWhatsappData($_POST['branch_id'],$_POST['section_id']);
 
@@ -69,15 +69,24 @@ class parentreview extends MY_Controller
         // }
     }
 
-    public function get_student_marks($studentID){
-        $this->db->select('mark.*, student.first_name, student.last_name, student.register_no, timetable_exam.exam_date as exam_date, exam.id as exam_id, exam_period, exam.name as exam_name');
-        $this->db->from('mark');
-        $this->db->where('student_id', $studentID);
-        $this->db->join('student', 'student.id = mark.student_id', 'left');
-        $this->db->join('exam', 'exam.id = mark.exam_id', 'left');
-        $this->db->join('timetable_exam', 'timetable_exam.exam_id = exam.id', 'left'); // Corrected join condition
+    public function get_student_marks($studentID,$sectionID){
+        // $this->db->select('mark.*, student.first_name, student.last_name, student.register_no, timetable_exam.exam_date as exam_date, exam.id as exam_id, exam_period, exam.name as exam_name');
+        // $this->db->from('mark');
+        // $this->db->where('student_id', $studentID);
+        // $this->db->join('student', 'student.id = mark.student_id', 'left');
+        // $this->db->join('exam', 'exam.id = mark.exam_id', 'left');
+        // $this->db->join('timetable_exam', 'timetable_exam.exam_id = exam.id', 'left'); // Corrected join condition
 
-        $this->db->order_by('mark.id', 'ASC');
+        // $this->db->order_by('mark.id', 'ASC');
+        // $result = $this->db->get()->result_array();
+        // return $result;
+        $this->db->select('saa.*,student.first_name, student.last_name, student.register_no, exam.id as exam_id, exam.total_mark, exam_period, exam.name as exam_name, exam_date, enroll.section_id , enroll.student_id');
+        $this->db->from('student_attendance as saa');
+        $this->db->where('enroll.student_id', $studentID);
+        $this->db->where('enroll.section_id', $sectionID);
+        $this->db->join('student', 'student.id = saa.enroll_id', 'left');
+        $this->db->join('enroll', 'enroll.student_id = saa.enroll_id', 'left');
+        $this->db->join('exam', 'exam.id = saa.exam_id', 'left');
         $result = $this->db->get()->result_array();
         return $result;
     }

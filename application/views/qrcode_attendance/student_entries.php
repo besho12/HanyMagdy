@@ -189,8 +189,8 @@
 					<div class="col-md-12 form-group">
 						<label><?=translate('available_exams')?></label>
 						<?php
-							$arrayBranch = $this->app_lib->getSelectList('exam');							
-							echo form_dropdown("exam_id", $exams_dropdown, '', "class='form-control exam_option'
+							$keys = array_keys($exams_dropdown);
+							echo form_dropdown("exam_id", $exams_dropdown, $keys[0], "class='form-control exam_option'
 							data-plugin-selectTwo data-width='100%' data-minimum-results-for-search='Infinity'");
 						?>
 					</div>
@@ -472,7 +472,8 @@
 		})
 		$(document).on('click','.save_quiz_result',function(){
 			var parent = this;			
-			var exam_id = $(this).closest('.modal-dialog').find('.exam_option').val();
+			// var exam_id = $(this).closest('.modal-dialog').find('select.exam_option').val();
+			var exam_id = '<?php echo $keys[0]; ?>';
 			var mark = $(this).closest('.modal-dialog').find('.quiz_degree_input').val();
 			$.ajax({
 				url: base_url + 'qrcode_attendance/setStuExamMark',
