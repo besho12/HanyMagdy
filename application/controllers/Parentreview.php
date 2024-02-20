@@ -18,9 +18,6 @@ class parentreview extends MY_Controller
     {
         parent::__construct();
         $this->load->model('qrcode_attendance_model');
-        if (!get_permission('disable_reason', 'is_edit')) {
-            ajax_access_denied();
-        }
     }
 
     public function index($studentID = '')
