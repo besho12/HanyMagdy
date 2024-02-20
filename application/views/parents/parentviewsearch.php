@@ -151,7 +151,6 @@
                 });
 
                 $(document).on('change','#branch_id',function(){
-                    alert('hi');
                     $.ajax({
                         url: '<?=base_url('parentreview/getSectionByBranch')?>',
                         type: 'POST',
