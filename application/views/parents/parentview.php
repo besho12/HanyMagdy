@@ -27,8 +27,8 @@
         }
         .profile-head {
             background-image: unset;
-            background: #fff;
-            box-shadow: 3px 5px 10px rgb(0 0 0 / 28%) !important;
+            /* background: #fff; */
+            /* box-shadow: 3px 5px 10px rgb(0 0 0 / 28%) !important; */
         }
         .profile-head h5 , .profile-head p , .profile-head ul li{
             color: #000;
@@ -54,6 +54,10 @@
                 width: 100% !important;
             }
         }
+        .profile-head::before {
+            background: none;
+            display: none;
+        }
     </style>
 </header>
 
@@ -73,60 +77,54 @@
 
 <div class="container2" style="margin-top: 100px;">
 
-    <div class="col-md-12 mb-lg">
-		<div class="profile-head">
-			<div class="col-sm-12 col-md-3 col-lg-3 col-xl-3 image_container">
-				<div class="image-content-center user-pro">
-					<div class="preview">
-						<img src="http://localhost/HanyMagdy/uploads/app_image/defualt.png">
-					</div>
-				</div>
-			</div>
+    <div class="col-md-6 mb-lg">
+        <div class="panel-body">
+            <div class="panel-heading">
+                <h4 class=" mb-xs"><i class="fas fa-user-graduate"></i> Student Details</h4>
+            </div>
+            <div class="profile-head">
+                <!-- <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3 image_container">
+                    <div class="image-content-center user-pro">
+                        <div class="preview">
+                            <img src="http://localhost/HanyMagdy/uploads/app_image/defualt.png">
+                        </div>
+                    </div>
+                </div> -->
 
-			<div class="col-sm-12 col-md-5 col-lg-5 col-xl-5">
-				<h5><?php echo $student->first_name . ' ' .$student->last_name; ?></h5>
-				<p>Student / </p>
-				<ul>
-					<li><div class="icon-holder" data-toggle="tooltip" data-original-title="Class"><i class="fas fa-school"></i></div>  <?php echo $student->class_name; ?> ( <?php echo $student->section_name; ?> )</li>
-					<li><div class="icon-holder" data-toggle="tooltip" data-original-title="Mobile No"><i class="fas fa-phone-volume"></i></div> <?php echo $student->mobileno; ?> - رقم الطالب</li>
-					<li><div class="icon-holder" data-toggle="tooltip" data-original-title="Parent Mobile No"><i class="fas fa-phone-volume"></i></div> <?php echo $student->parent_mobileno; ?> - رقم ولي الأمر</li>
-					<li><div class="icon-holder" data-toggle="tooltip" data-original-title="School"><i class="fa-solid fa-school-flag"></i></div> مدرسة (<?php echo $student->school; ?>)</li>
-					<li><div class="icon-holder" data-toggle="tooltip" data-original-title="Center"><i class="fa-solid fa-building-flag"></i></div> سنتر (<?php echo $student->center; ?>)</li>
-				</ul>
-			</div>
+                    <h5><?php echo $student->first_name . ' ' .$student->last_name; ?></h5>
+                    <p>Student / </p>
+                    <ul>
+                        <li><div class="icon-holder" data-toggle="tooltip" data-original-title="Class"><i class="fas fa-school"></i></div>  <?php echo $student->class_name; ?> ( <?php echo $student->section_name; ?> )</li>
+                        <li><div class="icon-holder" data-toggle="tooltip" data-original-title="Mobile No"><i class="fas fa-phone-volume"></i></div> <?php echo $student->mobileno; ?> - رقم الطالب</li>
+                        <li><div class="icon-holder" data-toggle="tooltip" data-original-title="Parent Mobile No"><i class="fas fa-phone-volume"></i></div> <?php echo $student->parent_mobileno; ?> - رقم ولي الأمر</li>
+                        <li><div class="icon-holder" data-toggle="tooltip" data-original-title="School"><i class="fa-solid fa-school-flag"></i></div> مدرسة (<?php echo $student->school; ?>)</li>
+                        <li><div class="icon-holder" data-toggle="tooltip" data-original-title="Center"><i class="fa-solid fa-building-flag"></i></div> سنتر (<?php echo $student->center; ?>)</li>
+                        <li><div class="icon-holder" data-toggle="tooltip" data-original-title="Center"><i class="fas fa-barcode"></i></div> Student Code: (<?php echo $student->register_no; ?>)</li>
+                    </ul>
+            </div>
+        </div>
+    </div>
 
-			<div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
-				<ul>
-					<li><div class="icon-holder"><i class="fa-brands fa-whatsapp"></i></div><a target="_blank" href="https://chat.whatsapp.com/E1ZKVQQZuvwKl0f2aBp47r">Thursday 2sec El-Khalifa 24</a></li>
-					<li><div class="icon-holder"><i class="fa-brands fa-whatsapp"></i></div><a target="_blank" href="https://chat.whatsapp.com/GENkRUdXfOWIJaq9Pf9CAC">Wednesday 2sec San Joseph 24</a></li>
-					<li><div class="icon-holder"><i class="fa-brands fa-whatsapp"></i></div><a target="_blank" href="https://chat.whatsapp.com/GT5Z6THbvG0H1Cv17s6zdq">Tuesday 1sec K 24</a></li>
-					<li><div class="icon-holder"><i class="fa-brands fa-whatsapp"></i></div><a target="_blank" href="https://chat.whatsapp.com/KHga75ihtc2BC2SZhm3bxW">Monday 1sec Dar El_saada 24</a></li>
-					<li><div class="icon-holder"><i class="fa-brands fa-whatsapp"></i></div><a target="_blank" href="https://chat.whatsapp.com/CxV0KEJBVFk2xzx5SyzecF">Monday 2sec Dar Elsada 24</a></li>
-					<li><div class="icon-holder"><i class="fa-brands fa-whatsapp"></i></div><a target="_blank" href="https://chat.whatsapp.com/HCvRXseN5qsAupDtIAZGBI">Monday 2sec K 24</a></li>
-					<li><div class="icon-holder"><i class="fa-brands fa-whatsapp"></i></div><a target="_blank" href="https://chat.whatsapp.com/KvlV6QnxlhZ5Ta673q4jJP">Sunday 2sec Elmasa 24</a></li>
-					<li><div class="icon-holder"><i class="fa-brands fa-whatsapp"></i></div><a target="_blank" href="https://chat.whatsapp.com/DPoKMoItVMbFVBinul7MuM">Sunday El khalifa 1sec 24</a></li>
-				</ul>
-			</div>
+    <div class="col-md-6 mb-lg">
+        <div class="panel-body">
+            <div class="panel-heading">
+                <h4 class=" mb-xs"><i class="fas fa-user-graduate"></i> Whatsapp Groups</h4>
+            </div>
+            <div class="profile-head">
+                <ul>
+                    <li><div class="icon-holder"><i class="fa-brands fa-whatsapp"></i></div><a target="_blank" href="https://chat.whatsapp.com/E1ZKVQQZuvwKl0f2aBp47r">Thursday 2sec El-Khalifa 24</a></li>
+                    <li><div class="icon-holder"><i class="fa-brands fa-whatsapp"></i></div><a target="_blank" href="https://chat.whatsapp.com/GENkRUdXfOWIJaq9Pf9CAC">Wednesday 2sec San Joseph 24</a></li>
+                    <li><div class="icon-holder"><i class="fa-brands fa-whatsapp"></i></div><a target="_blank" href="https://chat.whatsapp.com/GT5Z6THbvG0H1Cv17s6zdq">Tuesday 1sec K 24</a></li>
+                    <li><div class="icon-holder"><i class="fa-brands fa-whatsapp"></i></div><a target="_blank" href="https://chat.whatsapp.com/KHga75ihtc2BC2SZhm3bxW">Monday 1sec Dar El_saada 24</a></li>
+                    <li><div class="icon-holder"><i class="fa-brands fa-whatsapp"></i></div><a target="_blank" href="https://chat.whatsapp.com/CxV0KEJBVFk2xzx5SyzecF">Monday 2sec Dar Elsada 24</a></li>
+                    <li><div class="icon-holder"><i class="fa-brands fa-whatsapp"></i></div><a target="_blank" href="https://chat.whatsapp.com/HCvRXseN5qsAupDtIAZGBI">Monday 2sec K 24</a></li>
+                    <li><div class="icon-holder"><i class="fa-brands fa-whatsapp"></i></div><a target="_blank" href="https://chat.whatsapp.com/KvlV6QnxlhZ5Ta673q4jJP">Sunday 2sec Elmasa 24</a></li>
+                    <li><div class="icon-holder"><i class="fa-brands fa-whatsapp"></i></div><a target="_blank" href="https://chat.whatsapp.com/DPoKMoItVMbFVBinul7MuM">Sunday El khalifa 1sec 24</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-		</div>
-	</div>
-
-    
     <div class="col-md-12 col-lg-12 col-xl-12">
         <section class="panel pg-fw">
             <div class="panel-body">
@@ -183,6 +181,7 @@
             </div>
         </section>
     </div>
+    
 
 
 
