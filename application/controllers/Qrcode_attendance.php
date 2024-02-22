@@ -293,9 +293,28 @@ class Qrcode_attendance extends Admin_Controller
             
             $this->db->where('id', $recordid)
             ->update('student_attendance', $update);
+
+            $student = $this->get_student_data($recordid);
            
-            echo json_encode('1');
+            echo json_encode($student);
         }
+    }
+
+    public function get_student_data($recordid)
+    {
+        $this->db->select('student.first_name,student.last_name,student.parent_mobileno,exam.total_mark');
+        $this->db->from('student_attendance');
+        $this->db->where('student_attendance.id',$recordid);
+        $this->db->join('student', 'student.id = student_attendance.enroll_id', 'left');
+        $this->db->join('exam', 'exam.id = student_attendance.exam_id', 'left');
+        $row = $this->db->get()->row();        
+
+        $data['student_name'] = $row->first_name . " " . $row->last_name;
+        $data['parent_mobileno'] = $row->parent_mobileno;
+        $data['student_mark'] = $row->mark;
+        $data['exam_mark'] = $row->total_mark;
+        $data['exam_date'] = $row->date;        
+        return $data;
     }
 
     public function getStuExamMark()

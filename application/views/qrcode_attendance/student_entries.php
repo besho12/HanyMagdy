@@ -489,8 +489,36 @@
 					$('.quiz_remark[data-recordid='+window.recordid+']').closest('td').find('.exam_result').html(' / ' + mark);
 					$(".modal").modal("hide");
                     $(".modal-backdrop").remove(); 
+					send_whatsapp_message(res);
 				},
 			});
+
+			function send_whatsapp_message(res){
+				
+				var message = "السلام عليكم - تم حضور الامتحان اليوم بتاريخ "+res['exam_date']+" - وحصل الطالب/الطالبة "+res['student_name']+" على درجة "+res['student_mark']+" من "+res['exam_mark']+" - استاذ هاني مجدي";
+				var url = "https://wa.me/2"+res['parent_mobileno']+"?text="+message+"";
+				window.open(url, '_blank');
+
+
+				// $.ajax({
+				// 	url: 'http://127.0.0.1:5000/send_whatsapp',
+				// 	type: 'POST',
+				// 	contentType: 'application/json',
+				// 	data: JSON.stringify({
+				// 		'student_name': res['student_name'],
+				// 		'parent_mobileno': res['parent_mobileno'],
+				// 		'student_mark': res['student_mark'],
+				// 		'exam_mark': res['exam_mark'],
+				// 		'exam_date': res['exam_date'],
+				// 	}),
+				// 	success: function (res) {
+				// 		// Handle the success response
+				// 	},
+				// 	error: function (xhr, status, error) {
+				// 		// Handle the error response
+				// 	}
+				// });
+			}
 		});
 	})
 
