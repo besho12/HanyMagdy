@@ -52,7 +52,7 @@ class School_settings extends Admin_Controller
                 $this->form_validation->set_rules('institution_code', translate('institution_code'), 'trim|required');
                 $this->form_validation->set_rules('reg_prefix_digit', translate('register_no') . " " . translate('digit'), 'trim|required');
             }
-            $this->form_validation->set_rules('weekends[]', translate('weekends'), 'trim|required');
+            // $this->form_validation->set_rules('weekends[]', translate('weekends'), 'trim|required');
 
             if ($this->form_validation->run() == true) {
 

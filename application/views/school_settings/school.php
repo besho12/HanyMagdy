@@ -145,6 +145,8 @@
                                         ?>
                                     </div>
                                 </div>
+
+                                <?php if(1==1): ?>
                                 <div class="form-group">
                                     <label class="col-md-3 control-label"><?=translate('weekends');?> <span class="required">*</span></label>
                                     <div class="col-md-6">
@@ -169,6 +171,8 @@
                                         <span class="error"></span>
                                     </div>
                                 </div>
+                                <?php endif; ?>
+
                                 <div class="form-group">
                                     <label  class="col-md-3 control-label"><?php echo translate('unique_roll'); ?></label>
                                     <div class="col-md-6">
