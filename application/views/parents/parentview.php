@@ -71,6 +71,10 @@
             background: none;
             display: none;
         }
+        .new_chart {
+            max-height: 332px;
+            width: 100%;
+        }
     </style>
 </header>
 
@@ -90,7 +94,7 @@
 
 <div class="container2" style="margin-top: 90px;">
 
-    <div class="col-md-6 mb-lg">
+    <div class="col-md-6 col-sm-12 mb-lg">
         <div class="panel-body">
             <div class="panel-heading">
                 <h4 class=" mb-xs"><i class="fas fa-user-graduate"></i> Student Details</h4>
@@ -118,6 +122,98 @@
         </div>
     </div>
 
+    <div class="col-md-6 col-sm-12 mb-lg exam_marks_web">
+        <div class="panel-body">
+            <h4 class="panel-title chart-title mb-xs"><i class="fas fa-chart-line"></i> Student Performance</h4>
+            <div>
+                <canvas id="myChart1" class="new_chart"></canvas>
+            </div>
+
+            <script>
+                const ctx1 = document.getElementById('myChart1').getContext('2d');
+
+                const DATA_COUNT1 = 12;
+                const labels1 = [];
+                for (let i = 0; i < DATA_COUNT1; ++i) {
+                    labels1.push(i.toString());
+                }
+                const datapoints1 = [0, 20, 20, 60, 60, 120, 50, 26, 40, 60, 50, 120];
+                const data1 = {
+                    labels: labels1,
+                    datasets: [
+                        {
+                            data: datapoints,
+                            backgroundColor:'#ffbd2e45',
+                            borderColor: '#ffbd2e',
+                            fill: true,
+                            cubicInterpolationMode: 'monotone',
+                            tension: 0.4
+                        }
+                    ]
+                };
+
+                new Chart(ctx1, {
+                    type: 'line',
+                    data: data,
+                    options:
+                    {          
+                        maintainAspectRatio: true,
+                        responsive: true,
+                        animation: {
+                            duration: 2500
+                        },
+                        legend: {
+                            display: false
+                        },
+                        tooltips: { 
+                            mode: 'label', 
+                            label: 'mylabel', 
+                            callbacks: { 
+                                label: function(tooltipItem, data) { 
+                                    return tooltipItem.xLabel.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                                },
+                            }
+                        },                    
+                        responsive: true,
+                        plugins: {
+                            title: {
+                                display: false,
+                                text: ''
+                            },
+                            legend: {
+                                display: false
+                            },
+                        },
+                        interaction: {
+                            intersect: false
+                        },
+                        scales: {
+                            x: {
+                                display: false,
+                            },
+                            y: {
+                                display: false,
+                            }
+                        },
+                        elements: {
+                            line: {
+                                borderWidth: 2
+                            },
+                            point: {
+                                radius: 0
+                            }
+                        },
+                        layout: {
+                            padding: {
+                                top: 8
+                            }
+                        }
+                    }
+                });
+            </script>
+        </div>
+    </div>
+
     <div class="col-md-6 mb-lg exam_marks_web">
         <div class="panel-body">
             <div class="panel-heading">
@@ -133,8 +229,8 @@
         </div>
     </div>
 
-    <div class="col-md-12 col-lg-12 col-xl-12">
-        <section class="panel pg-fw exam_marks_web">
+    <div class="col-md-12 col-lg-12 col-xl-12 exam_marks_web">
+        <section class="panel pg-fw">
             <div class="panel-body">
                 <h4 class="panel-title chart-title mb-xs"><i class="fas fa-user-graduate"></i> Exam Marks</h4>
                 <div class="">
@@ -175,8 +271,8 @@
         </section>
     </div>
 
-    <div class="col-md-12 col-lg-12 col-xl-12">
-        <section class="panel pg-fw exam_marks_mob">
+    <div class="col-md-12 col-lg-12 col-xl-12 exam_marks_mob">
+        <section class="panel pg-fw">
             <div class="panel-body">
                 <h4 class="panel-title chart-title mb-xs"><i class="fas fa-chart-line"></i> Student Performance</h4>
                 <div>
