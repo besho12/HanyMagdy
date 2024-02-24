@@ -122,7 +122,7 @@
 <div class="col-md-6 col-sm-12" style="padding-right: 0;">
 	<section class="panel">
 		<header class="panel-heading">
-			<h4 class="panel-title"><i class="fas fa-qrcode"></i> <?=translate('student_absent')?></h4>
+			<h4 class="panel-title"><i class="fas fa-users"></i> <?=translate('student_absent')?></h4>
 		</header>
 		<div class="panel-body">
 		<div class="row qrcode-scan">
