@@ -179,7 +179,7 @@
             <div class="panel-body">
                 <h4 class="panel-title chart-title mb-xs" style="width: 100%;"><i class="fas fa-user-graduate"></i> 
                     Exam Marks
-                    <input type="text" class="form-control exam_date" style="width: 50%; float:right;" name="date" id="attDate" value="<?=set_value('date', date('F Y'))?>" autocomplete="off"/>
+                    <input type="text" class="form-control exam_date" style="width: 50%; float:right;background:#fff;" readonly name="date" id="attDate" value="<?=set_value('date', date('F Y'))?>" autocomplete="off"/>
                 </h4>
                 <div class="">
                     
