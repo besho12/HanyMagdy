@@ -146,7 +146,7 @@
                                     </div>
                                 </div>
 
-                                <?php if(1==1): ?>
+                                <?php if(1==2): ?>
                                 <div class="form-group">
                                     <label class="col-md-3 control-label"><?=translate('weekends');?> <span class="required">*</span></label>
                                     <div class="col-md-6">
