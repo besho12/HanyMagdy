@@ -9,10 +9,6 @@
         <a href="http://localhost/HanyMagdy/dashboard" class="logo">
             <img src="http://localhost/HanyMagdy/uploads/app_image/logo-small.png" height="40">
 		</a>
-        
-		<div class="visible-xs toggle-sidebar-left" data-toggle-class="sidebar-left-opened" data-target="html" data-fire-event="sidebar-left-opened">
-            <i class="fa fa-bars" aria-label="Toggle sidebar"></i>
-		</div>
 	</div>
 
     <style>
@@ -59,6 +55,9 @@
             .dataTables_wrapper .dt-buttons.btn-group {
                 justify-content: left;
                 margin-top: 20px;
+            }
+            .dataTables_wrapper .pagination {
+                float: left;
             }
         }
 
@@ -180,7 +179,7 @@
             <div class="panel-body">
                 <h4 class="panel-title chart-title mb-xs" style="width: 100%;"><i class="fas fa-user-graduate"></i> 
                     Exam Marks
-                    <input type="text" class="form-control" style="width: 50%; float:right;" name="date" id="attDate" value="<?=set_value('date', date('F Y'))?>" autocomplete="off"/>
+                    <input type="text" class="form-control exam_date" style="width: 50%; float:right;" name="date" id="attDate" value="<?=set_value('date', date('F Y'))?>" autocomplete="off"/>
                 </h4>
                 <div class="">
                     
@@ -188,8 +187,8 @@
                         <thead>
                             <tr>
                                 <th>Date</th>
-                                <th>Exam Type</th>
-                                <th>Marks</th>                                                            
+                                <th style="width: 70px;">Type</th>
+                                <th style="width: 70px;">Marks</th>                                                            
                             </tr>
                         </thead>
                         <tbody>
@@ -258,16 +257,11 @@
             $('.exam_marks_web').addClass('display_none');
             $('.exam_marks_mob').addClass('display_block');
         }
-        function get_mob_data(){
-
-        }
+        $(document).on('change','.exam_date',function(){
+            
+        })
         var datePicker = $("#attDate").datepicker({
-		    // orientation: 'bottom',
-		    // todayHighlight: true,
-		    // autoclose: true,
-		    // format: 'dd/mm/yyyy',
-
-
+            autoclose: true,
             changeMonth: true,
             changeYear: true,
             showButtonPanel: true,
