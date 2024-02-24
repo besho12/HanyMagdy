@@ -52,6 +52,7 @@ class parentreview extends MY_Controller
             $student = $this->getStudentByBarcode2($_POST['student_code'],$_POST['branch_id'],$_POST['section_id']); 
             if($student){
                 $this->data['marks'] = $this->get_student_marks($student->id,$_POST['section_id']);
+                $this->data['marks_chart'] = $this->get_student_marks_chart($student->id,$_POST['section_id']);
                 $this->data['student'] = $student;
                 $this->data['whatsapp'] = $this->prepareWhatsappData($_POST['branch_id'],$_POST['section_id']);
 
@@ -89,6 +90,25 @@ class parentreview extends MY_Controller
         $this->db->join('exam', 'exam.id = saa.exam_id', 'left');
         $result = $this->db->get()->result_array();
         return $result;
+    }
+
+    public function get_student_marks_chart($studentID,$sectionID){
+        $this->db->select('saa.*,student.first_name, student.last_name, student.register_no, exam.id as exam_id, exam.total_mark as totalmark, exam_period, exam.name as exam_name, exam_date, enroll.section_id , enroll.student_id');
+        $this->db->from('student_attendance as saa');
+        $this->db->where('enroll.student_id', $studentID);
+        $this->db->where('enroll.section_id', $sectionID);
+        $this->db->join('student', 'student.id = saa.enroll_id', 'left');
+        $this->db->join('enroll', 'enroll.student_id = saa.enroll_id', 'left');
+        $this->db->join('exam', 'exam.id = saa.exam_id', 'left');
+        $result = $this->db->get()->result_array();
+
+        $data = [];
+        foreach($result as $single){
+            if(is_numeric($single['mark']) && is_numeric($single['totalmark'])){
+                $data[] = ($single['mark'] * 100) / $single['totalmark'];
+            }
+        }
+        return $data;        
     }
 
 

@@ -76,6 +76,10 @@
             max-height: 100%;
             width: 100%;
         }
+        .new_chart canvas{
+            max-height: 100%;
+            width: 100%;
+        }
         .panel-body {
             border-radius: 25px;
             margin-bottom: 20px;
@@ -110,7 +114,6 @@
 
 
 <div class="container2" style="margin-top: 90px;">
-
     <div class="col-md-6 col-sm-12 mb-lg">
         <div class="panel-body">
             <h4 class="panel-title chart-title mb-xs float_r"> تفاصيل الطالب  <i class="fas fa-user-graduate"></i></h4>
@@ -143,9 +146,7 @@
     <div class="col-md-6 col-sm-12 mb-lg exam_marks_web">
         <div class="panel-body" style="height: 332px;">
             <h4 class="panel-title chart-title mb-xs float_r"> أداء الطالب <i class="fas fa-chart-line"></i></h4>
-            <div>
-                <canvas id="myChart1" class="new_chart"></canvas>
-            </div>
+            <canvas id="myChart1" class="new_chart"></canvas>
             <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
             <script>
                 const ctx1 = document.getElementById('myChart1').getContext('2d');
@@ -155,7 +156,7 @@
                 for (let i = 0; i < DATA_COUNT1; ++i) {
                     labels1.push(i.toString());
                 }
-                const datapoints1 = [0, 20, 20, 60, 60, 120, 50, 26, 40, 60, 50, 120];
+                const datapoints1 = <?php echo json_encode($marks_chart); ?>;
                 const data1 = {
                     labels: labels1,
                     datasets: [
@@ -175,8 +176,8 @@
                     data: data1,
                     options:
                     {          
-                        maintainAspectRatio: true,
-                        responsive: false,
+                        maintainAspectRatio: false,
+                        responsive: true,
                         animation: {
                             duration: 2500
                         },
@@ -224,13 +225,52 @@
                         layout: {
                             padding: {
                                 top: 10,
-                                bottom: 20
+                                bottom: 40
                             }
                         }
                     }
                 });
             </script>
         </div>
+    </div>
+
+
+    <div class="col-md-6 mb-lg exam_marks_web">
+        <section class="pg-fw" style="margin-bottom: 80px;">
+            <div class="panel-body">
+                <h4 class="panel-title chart-title mb-xs float_r"> درجات الطالب <i class="fas fa-clipboard-list"></i></h4>
+                <div class="">
+                    <table class="table table-bordered table-condensed table-hover table-export">
+                        <thead>
+                            <tr>
+                                <th>Exam Name</th>
+                                <th>Date</th>
+                                <th>Exam Type</th>
+                                <th>Marks</th>                                                            
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach($marks as $row): ?>
+                            <tr>                       
+                                <td><?php echo $row['exam_name']; ?></td>                                                                
+                                <td><?php echo date_format(date_create($row['exam_date']), 'd/m/Y') ?></td>                                                                
+                                <td><?php echo $row['exam_period']; ?></td>   
+                                
+                                <?php
+                                    // if($row['mark'] > ($row['total_mark'] / 2)) {
+                                    //     $mark_status = '<span class="text-success">Succeeded</span>';
+                                    // } else {
+                                    //     $mark_status = '<span class="text-danger">Failed</span>';
+                                    // }
+                                ?>
+                                <td><?php echo $row['mark'] . '/' . $row['total_mark'] /* . ' - ' . $mark_status;*/ ?></td>                                                                
+                            </tr>
+                            <?php endforeach;?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
     </div>
 
     <div class="col-md-6 mb-lg exam_marks_web">
@@ -249,47 +289,7 @@
         </div>
     </div>
 
-    <div class="col-md-12 col-lg-12 col-xl-12 exam_marks_web">
-        <section class="pg-fw">
-            <div class="panel-body">
-                <h4 class="panel-title chart-title mb-xs float_r"> درجات الطالب <i class="fas fa-clipboard-list"></i></h4>
-                <div class="">
-                    <table class="table table-bordered table-condensed table-hover table-export">
-                        <thead>
-                            <tr>
-                                <th>Student ID</th>
-                                <th>Student Name</th>
-                                <th>Exam Name</th>
-                                <th>Date</th>
-                                <th>Exam Type</th>
-                                <th>Marks</th>                                                            
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach($marks as $row): ?>
-                            <tr>                       
-                                <td><?php echo $row['register_no']; ?></td>                                                                
-                                <td><?php echo $row['first_name']; ?></td>                                                                
-                                <td><?php echo $row['exam_name']; ?></td>                                                                
-                                <td><?php echo $row['exam_date']; ?></td>                                                                
-                                <td><?php echo $row['exam_period']; ?></td>   
-                                
-                                <?php
-                                    if($row['mark'] > ($row['total_mark'] / 2)) {
-                                        $mark_status = '<span class="text-success">Succeeded</span>';
-                                    } else {
-                                        $mark_status = '<span class="text-danger">Failed</span>';
-                                    }
-                                ?>
-                                <td><?php echo $row['mark'] . '/' . $row['total_mark'] . ' - ' . $mark_status; ?></td>                                                                
-                            </tr>
-                            <?php endforeach;?>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </section>
-    </div>
+  
 
     <div class="col-md-12 col-lg-12 col-xl-12 exam_marks_mob">
         <section class="pg-fw">
@@ -308,7 +308,9 @@
                     for (let i = 0; i < DATA_COUNT; ++i) {
                         labels.push(i.toString());
                     }
-                    const datapoints = [0, 20, 20, 60, 60, 120, 50, 26, 40, 60, 50, 120];
+                   
+                    
+                    const datapoints = <?php echo json_encode($marks_chart); ?>;
                     const data = {
                         labels: labels,
                         datasets: [
@@ -409,7 +411,7 @@
                         <tbody>
                             <?php foreach($marks as $row): ?>
                             <tr>                       
-                                <td><?php echo $row['exam_date']; ?></td>                                                                
+                                <td><?php echo date_format(date_create($row['exam_date']), 'd/m/Y'); ?></td>                                                               
                                 <td><?php echo $row['exam_period']; ?></td>   
                                 <td><?php echo $row['mark'] . '/' . $row['total_mark']; ?></td>                                                                
                             </tr>
