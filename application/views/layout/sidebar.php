@@ -1417,9 +1417,13 @@
                             <li class="nav-parent <?php if ($main_menu == 'student_repots') echo 'nav-expanded nav-active'; ?>">
                                 <a><i class="fas fa-print"></i><span><?php echo translate('student') . " " . translate('reports'); ?></span></a>
                                 <ul class="nav nav-children">
+
+                                    <?php if(1==2): ?>
                                     <li class="<?php if ($sub_page == 'student/login_credential_reports') echo 'nav-active';?>">
                                         <a href="<?=base_url('student/login_credential_reports')?>"><?=translate('login_credential')?></a>
                                     </li>
+                                    <?php endif; ?>
+                                    
                                     <li class="<?php if ($sub_page == 'student/admission_reports') echo 'nav-active';?>">
                                         <a href="<?=base_url('student/admission_reports')?>"><?=translate('admission_report')?></a>
                                     </li>
