@@ -23,6 +23,7 @@
         }
         .profile-head {
             background-image: unset;
+            float: left;
             /* background: #fff; */
             /* box-shadow: 3px 5px 10px rgb(0 0 0 / 28%) !important; */
         }
@@ -72,7 +73,7 @@
             display: none;
         }
         .new_chart {
-            max-height: 332px;
+            max-height: 100%;
             width: 100%;
         }
         .panel-body {
@@ -81,6 +82,15 @@
         }
         .panel-heading {
             background: unset;
+        }
+        .panel-title {
+            font-size: 26px;
+            font-weight: bold;
+            /* float: right; */
+        }
+        .float_r {
+            float: right;
+            padding-bottom: 10px;
         }
     </style>
 </header>
@@ -103,11 +113,11 @@
 
     <div class="col-md-6 col-sm-12 mb-lg">
         <div class="panel-body">
-            <h4 class="panel-title chart-title mb-xs"><i class="fas fa-chart-line"></i> Student Details</h4>
+            <h4 class="panel-title chart-title mb-xs float_r"> تفاصيل الطالب  <i class="fas fa-user-graduate"></i></h4>
             <!-- <div class="panel-heading">
-                <h4 class=" mb-xs"><i class="fas fa-user-graduate"></i> Student Details</h4>
+                <h4 class=" mb-xs"><i class="fas fa-user-graduate"></i> تفاصيل الطالب</h4>
             </div> -->
-            <div class="profile-head">
+            <div class="profile-head" style="float:left;">
                 <!-- <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3 image_container">
                     <div class="image-content-center user-pro">
                         <div class="preview">
@@ -131,8 +141,8 @@
     </div>
 
     <div class="col-md-6 col-sm-12 mb-lg exam_marks_web">
-        <div class="panel-body">
-            <h4 class="panel-title chart-title mb-xs"><i class="fas fa-chart-line"></i> Student Performance</h4>
+        <div class="panel-body" style="height: 332px;">
+            <h4 class="panel-title chart-title mb-xs float_r"> أداء الطالب <i class="fas fa-chart-line"></i></h4>
             <div>
                 <canvas id="myChart1" class="new_chart"></canvas>
             </div>
@@ -166,7 +176,7 @@
                     options:
                     {          
                         maintainAspectRatio: true,
-                        responsive: true,
+                        responsive: false,
                         animation: {
                             duration: 2500
                         },
@@ -214,6 +224,7 @@
                         layout: {
                             padding: {
                                 top: 10,
+                                bottom: 20
                             }
                         }
                     }
@@ -227,7 +238,7 @@
             <!-- <div class="panel-heading">
                 <h4 class=" mb-xs"><i class="fa-brands fa-whatsapp"></i> WhatsApp Groups</h4>
             </div> -->
-            <h4 class="panel-title chart-title mb-xs"><i class="fas fa-chart-line"></i> WhatsApp Groups</h4>
+            <h4 class="panel-title chart-title mb-xs float_r"> جروبات الواتساب <i class="fab fa-whatsapp"></i> </h4>
             <div class="profile-head">
                 <ul>
                     <?php foreach($whatsapp as $single): ?>
@@ -239,9 +250,9 @@
     </div>
 
     <div class="col-md-12 col-lg-12 col-xl-12 exam_marks_web">
-        <section class="panel pg-fw">
+        <section class="pg-fw">
             <div class="panel-body">
-                <h4 class="panel-title chart-title mb-xs"><i class="fas fa-user-graduate"></i> Exam Marks</h4>
+                <h4 class="panel-title chart-title mb-xs float_r"> درجات الطالب <i class="fas fa-clipboard-list"></i></h4>
                 <div class="">
                     <table class="table table-bordered table-condensed table-hover table-export">
                         <thead>
@@ -283,7 +294,7 @@
     <div class="col-md-12 col-lg-12 col-xl-12 exam_marks_mob">
         <section class="pg-fw">
             <div class="panel-body">
-                <h4 class="panel-title chart-title mb-xs"><i class="fas fa-chart-line"></i> Student Performance</h4>
+                <h4 class="panel-title chart-title mb-xs float_r"> أداء الطالب <i class="fas fa-chart-line"></i></h4>
                 <div>
                     <canvas id="myChart"></canvas>
                 </div>
@@ -380,9 +391,10 @@
 
         <section class="pg-fw exam_marks_mob">
             <div class="panel-body">
-                <h4 class="panel-title chart-title mb-xs" style="width: 100%;"><i class="fas fa-user-graduate"></i> 
-                    Exam Marks
-                    <input type="text" class="form-control exam_date" style="width: 50%; float:right;background:#fff;" readonly name="date" id="attDate" value="<?=set_value('date', date('F Y'))?>" autocomplete="off"/>
+                <h4 class="panel-title chart-title mb-xs" style="width: 100%;">
+                    <input type="text" class="form-control exam_date" style="width: 45%; float:left;background:#fff;" readonly name="date" id="attDate" value="<?=set_value('date', date('F Y'))?>" autocomplete="off"/>
+                    <span style="float: right;">درجات الامتحان <i class="fas fa-clipboard-list"></i> </span>
+                    
                 </h4>
                 <div class="">
                     
@@ -416,7 +428,7 @@
             <!-- <div class="panel-heading">
                 <h4 class=" mb-xs"><i class="fa-brands fa-whatsapp"></i> WhatsApp Groups</h4>
             </div> -->
-            <h4 class="panel-title chart-title mb-xs"><i class="fas fa-chart-line"></i> WhatsApp Groups</h4>
+            <h4 class="panel-title chart-title mb-xs float_r"> جروبات الواتساب <i class="fab fa-whatsapp"></i> </h4>
             <div class="profile-head">
                 <ul>
                     <?php foreach($whatsapp as $single): ?>
