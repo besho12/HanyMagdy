@@ -65,52 +65,89 @@
 
 
 <?php if ($validation == true): ?>
-<section class="panel">
-	<header class="panel-heading">
-		<h4 class="panel-title"><i class="fas fa-qrcode"></i> <?=translate('qr_code') . " " . translate('attendance')?></h4>
-	</header>
-	<div class="panel-body">
-	<div class="row qrcode-scan">
-	    <!-- <div class="col-md-4 col-sm-12 mb-md">
-	    <div class="form-group box mt-md">
-	    	<span class="title"><?=translate('scan_qr_code')?></span>
-	        <div class="justify-content-md-center" id="reader" width="300px" height="300px"></div>
-	        <span class="text-center" id='qr_status'><?php echo translate('scanning')?></span>
-	    </div>
-	    </div> -->
+<div class="col-md-6 col-sm-12" style="padding-left: 0;">
+	<section class="panel">
 
-
-
-		<div class="col-md-4">
-			<div class="form-group">
-				<label class="control-label">Student ID</label>
-				<input type="text" class="form-control student_code" />
-				<button style="margin-top:5px;" type="button" class="add_barcode_manually btn btn btn-default">
-					<i class="fas fa-plus-circle"></i> <?=translate('add_manually') ?>							
+		<header class="panel-heading">
+			<h4 class="panel-title"><i class="fas fa-qrcode"></i> <?=translate('qr_code') . " " . translate('attendance')?>
+				<button style="float:right;margin-top:45px;" type="button" class="close_attendance btn btn btn-danger">
+					<i class="far fa-list-alt"></i> <?=translate('close_attendance') ?>							
 				</button>
-				
-				<span class="error"></span>
+			</h4>
+		</header>
+
+		<div class="panel-body">
+		<div class="row qrcode-scan">
+			<!-- <div class="col-md-4 col-sm-12 mb-md">
+			<div class="form-group box mt-md">
+				<span class="title"><?=translate('scan_qr_code')?></span>
+				<div class="justify-content-md-center" id="reader" width="300px" height="300px"></div>
+				<span class="text-center" id='qr_status'><?php echo translate('scanning')?></span>
+			</div>
+			</div> -->	
+	
+			<div class="col-md-4">
+				<div class="form-group">
+					<label class="control-label">Student ID</label>
+					<input type="text" class="form-control student_code" />
+					<button style="margin-top:5px;" type="button" class="add_barcode_manually btn btn btn-default">
+						<i class="fas fa-plus-circle"></i> <?=translate('add_manually') ?>							
+					</button>
+					
+					<span class="error"></span>
+				</div>
+			</div>
+			<br>
+	
+	
+	
+			<div class="col-md-12 col-sm-12  mt-md">
+				<table class="table table-bordered table-hover table-condensed table-question nowrap"  cellpadding="0" cellspacing="0" width="100%" >
+					<thead>
+						<tr>
+							<th>#</th>
+							<th><?=translate('name')?></th>
+							<th><?=translate('class')?></th>
+							<th><?=translate('student_id')?></th>
+							<th style="width: 120px;"><?=translate('date')?></th>
+							<th style="width: 50px;"><?=translate('exam')?></th>
+						</tr>
+					</thead>
+				</table>
 			</div>
 		</div>
+	</section>
+</div>
 
 
+<div class="col-md-6 col-sm-12" style="padding-right: 0;">
+	<section class="panel">
+		<header class="panel-heading">
+			<h4 class="panel-title"><i class="fas fa-qrcode"></i> <?=translate('student_absent')?></h4>
+		</header>
+		<div class="panel-body">
+		<div class="row qrcode-scan">
 
-	    <div class="col-md-12 col-sm-12  mt-md">
-			<table class="table table-bordered table-hover table-condensed table-question nowrap"  cellpadding="0" cellspacing="0" width="100%" >
-				<thead>
-					<tr>
-						<th>#</th>
-						<th><?=translate('name')?></th>
-						<th><?=translate('class')?></th>
-						<th><?=translate('student_id')?></th>
-						<th><?=translate('date')?></th>
-						<th><?=translate('exam')?></th>
-					</tr>
-				</thead>
-			</table>
-	    </div>
-	</div>
-</section>
+
+			<div class="col-md-12 col-sm-12  mt-md">
+				<table class="table table-bordered table-hover table-condensed table-studentabsent nowrap"  cellpadding="0" cellspacing="0" width="100%" >
+					<thead>
+						<tr>
+							<th>#</th>
+							<th><?=translate('name')?></th>
+							<th><?=translate('class')?></th>
+							<th style="width: 80px;"><?=translate('student_id')?></th>
+							<th style="width: 80px;"><?=translate('date')?></th>
+							<th style="width: 50px;"><?=translate('message')?></th>
+						</tr>
+					</thead>
+				</table>
+			</div>
+		</div>
+	</section>
+</div>
+
+
 <div class="zoom-anim-dialog modal-block modal-block-primary mfp-hide" id="qr_studentDetails">
 	<section class="panel">
 		<header class="panel-heading">
@@ -222,7 +259,13 @@
 	var statusScanning = "<?php echo translate('scanning')?>";
 	
 	$(document).ready(function() {
-		initDatatable('.table-question', 'qrcode_attendance/getStuListDT',{
+		var test1 = initDatatable('.table-question', 'qrcode_attendance/getStuListDT',{
+			'branch_id': '<?php echo $branch_id; ?>',
+			'class_id': '<?php echo $class_id; ?>',
+			'section_id': '<?php echo $section_id; ?>',
+			'date': '<?php echo $date; ?>',
+		});
+		var test2 = initDatatable('.table-studentabsent', 'qrcode_attendance/getStuListDTAbsent',{
 			'branch_id': '<?php echo $branch_id; ?>',
 			'class_id': '<?php echo $class_id; ?>',
 			'section_id': '<?php echo $section_id; ?>',
@@ -330,6 +373,28 @@
 
 <script type="text/javascript">
 	$(document).ready(function(){
+
+		check_closed_attendance();
+		function check_closed_attendance(){
+			$.ajax({
+				url: base_url + 'qrcode_attendance/checkCloseAttendance',
+				type: "POST",
+				dataType:'json',
+				data: {														
+					'branch_id': '<?php echo $branch_id; ?>',
+					'class_id': '<?php echo $class_id; ?>',
+					'section_id': '<?php echo $section_id; ?>',
+					'date': '<?php echo $date; ?>',	
+				},
+				success:function(res) {
+					if(res == '1'){
+						$('.close_attendance').hide();
+					}
+				}
+			});
+		}
+
+
 		$('.student_code').focus();
 		// setTimeout(function(){
 		// 	// Simulate barcode scanning by generating a random barcode value
@@ -378,6 +443,37 @@
 				saveAttendanceToDatabase();
 			}
 		});
+
+		$(document).on('click','.close_attendance',function(){
+			swal({
+				title: "Are You Sure?",
+				text: "<?=translate('close') . ' ' . translate('the_attendance');?>",
+				type: "warning",
+				showCancelButton: true,
+				confirmButtonClass: "btn btn-default swal2-btn-default",
+				cancelButtonClass: "btn btn-default swal2-btn-default",
+				confirmButtonText: "Yes, Continue",
+				cancelButtonText: "Cancel",
+				buttonsStyling: false,
+			}).then((result) => {
+				if (result.value) {
+					$.ajax({
+						url: base_url + 'qrcode_attendance/closeAttendance',
+						type: "POST",
+						data: {														
+							'branch_id': '<?php echo $branch_id; ?>',
+							'class_id': '<?php echo $class_id; ?>',
+							'section_id': '<?php echo $section_id; ?>',
+							'date': '<?php echo $date; ?>',	
+						},
+						success:function(data) {
+							$('.table-studentabsent').DataTable().ajax.reload();	
+							$('.close_attendance').hide();
+						}
+					});
+				}
+			});
+		})
 
 		$(document).on('click','.add_barcode_manually',function(){
 			saveAttendanceToDatabase();
@@ -472,7 +568,6 @@
 		})
 		$(document).on('click','.save_quiz_result',function(){
 			var parent = this;			
-			// var exam_id = $(this).closest('.modal-dialog').find('select.exam_option').val();
 			var exam_id = '<?php echo $keys[0]; ?>';
 			var mark = $(this).closest('.modal-dialog').find('.quiz_degree_input').val();
 			$.ajax({
@@ -489,37 +584,55 @@
 					$('.quiz_remark[data-recordid='+window.recordid+']').closest('td').find('.exam_result').html(' / ' + mark);
 					$(".modal").modal("hide");
                     $(".modal-backdrop").remove(); 
-					send_whatsapp_message(res);
+					send_attendence_whatsapp_message(res);
 				},
 			});
 
-			function send_whatsapp_message(res){
-				
-				var message = "السلام عليكم - تم حضور الامتحان اليوم بتاريخ "+res['exam_date']+" - وحصل الطالب/الطالبة "+res['student_name']+" على درجة "+res['student_mark']+" من "+res['exam_mark']+" - استاذ هاني مجدي";
+			function send_attendence_whatsapp_message(res){	
+				var message = ''
+				+'اسم الطالب: ' + '' +res['student_name']+''  + '%0a'				
+				+'ID: ' + '' +res['register_no']+''  + '%0a'				
+				+'الوقت: ' + '' +res['exam_date']+''  + '%0a'				
+				+'السنتر: ' + '' +res['center']+''  + '%0a'				
+				+'درجة الطالب: ' + '' +res['exam_mark']+''  + '%0a'				
+				+'برجاء حفظ الرقم لإستكمال متابعة الطالب' + '%0a'				
+				+'فريق عمل مستر هاني مجدي'			
+				;
 				var url = "https://wa.me/2"+res['parent_mobileno']+"?text="+message+"";
 				window.open(url, '_blank');
-
-
-				// $.ajax({
-				// 	url: 'http://127.0.0.1:5000/send_whatsapp',
-				// 	type: 'POST',
-				// 	contentType: 'application/json',
-				// 	data: JSON.stringify({
-				// 		'student_name': res['student_name'],
-				// 		'parent_mobileno': res['parent_mobileno'],
-				// 		'student_mark': res['student_mark'],
-				// 		'exam_mark': res['exam_mark'],
-				// 		'exam_date': res['exam_date'],
-				// 	}),
-				// 	success: function (res) {
-				// 		// Handle the success response
-				// 	},
-				// 	error: function (xhr, status, error) {
-				// 		// Handle the error response
-				// 	}
-				// });
 			}
+			
 		});
+
+		$(document).on('click','.message_absense',function(){			
+			var recordid = $(this).data('recordid');
+			$.ajax({
+				url: base_url + 'qrcode_attendance/get_student_details_notattend',
+				type: 'POST',
+				data: {
+					'recordid': recordid,
+				},
+				dataType: 'json',
+				success: function (res) {															
+					send_notAttend_whatsapp_message(res);
+				},
+			});
+
+			function send_notAttend_whatsapp_message(res){
+				var message = ''
+				+'اسم الطالب: ' + '' +res['student_name']+''  + '%0a'				
+				+'ID: ' + '' +res['register_no']+''  + '%0a'				
+				+'الوقت: ' + '' +res['exam_date']+''  + '%0a'				
+				+'السنتر: ' + '' +res['center']+''  + '%0a'				
+				+'لم يتم الحضور اليوم' + '%0a'				
+				+'برجاء حفظ الرقم لإستكمال متابعة الطالب' + '%0a'				
+				+'فريق عمل مستر هاني مجدي'			
+				;
+				var url = "https://wa.me/2"+res['parent_mobileno']+"?text="+message+"";
+				window.open(url, '_blank');
+			}
+		})
+
 	})
 
 </script>

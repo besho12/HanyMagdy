@@ -281,6 +281,66 @@ class Qrcode_attendance extends Admin_Controller
         }
     }
 
+    // close attendance for a specific date
+    public function closeAttendance()
+    {
+        if ($_POST) {
+            if (!get_permission('qr_code_student_attendance', 'is_add')) {
+                ajax_access_denied();
+            }
+            $branch_id = $this->input->post('branch_id');
+            $class_id = $this->input->post('class_id');
+            $section_id = $this->input->post('section_id');
+            $date = $this->input->post('date');                                            
+            $students = $this->qrcode_attendance_model->getStudentIDs($branch_id,$class_id,$section_id,$date);                                    
+            echo json_encode($students);
+        }
+    }
+
+    public function checkCloseAttendance()
+    {
+        if ($_POST) {
+            if (!get_permission('qr_code_student_attendance', 'is_add')) {
+                ajax_access_denied();
+            }
+            $branch_id = $this->input->post('branch_id');
+            $class_id = $this->input->post('class_id');
+            $section_id = $this->input->post('section_id');
+            $date = $this->input->post('date');             
+
+
+            $this->db->select('student_attendance.enroll_id');
+            $this->db->from('student_attendance');
+            $this->db->join('enroll', 'enroll.id = student_attendance.enroll_id', 'left');
+            $this->db->where('student_attendance.date', $date);
+            $this->db->where('student_attendance.status', 'A');
+            $this->db->where('enroll.class_id', $class_id);
+            $this->db->where('enroll.branch_id', $branch_id);
+            $this->db->where('enroll.section_id', $section_id);
+            $attendance = $this->db->get()->result_array();
+            if (!empty($attendance)) {
+                echo json_encode('1');
+            } else {
+                echo json_encode('0');
+            }
+                                                       
+        }
+    }
+
+    public function get_student_details_notattend()
+    {
+        if ($_POST) {
+            if (!get_permission('qr_code_student_attendance', 'is_add')) {
+                ajax_access_denied();
+            }
+
+            $recordid = $this->input->post('recordid');
+            $student = $this->get_student_data($recordid);
+           
+            echo json_encode($student);
+        }
+    }
+
     public function setStuExamMark()
     {
         if ($_POST) {
@@ -303,18 +363,21 @@ class Qrcode_attendance extends Admin_Controller
 
     public function get_student_data($recordid)
     {
-        $this->db->select('student.first_name,student.last_name,student.parent_mobileno,exam.total_mark');
+        $this->db->select('student_attendance.date as stdate,student.first_name,student.last_name,student.parent_mobileno,exam.total_mark,branch.name as center, student.register_no as registerno');
         $this->db->from('student_attendance');
         $this->db->where('student_attendance.id',$recordid);
         $this->db->join('student', 'student.id = student_attendance.enroll_id', 'left');
         $this->db->join('exam', 'exam.id = student_attendance.exam_id', 'left');
+        $this->db->join('branch', 'branch.id = student_attendance.branch_id', 'left');
         $row = $this->db->get()->row();        
 
         $data['student_name'] = $row->first_name . " " . $row->last_name;
         $data['parent_mobileno'] = $row->parent_mobileno;
         $data['student_mark'] = $row->mark;
         $data['exam_mark'] = $row->total_mark;
-        $data['exam_date'] = $row->date;        
+        $data['exam_date'] = $row->stdate;        
+        $data['center'] = $row->center;        
+        $data['register_no'] = $row->registerno;        
         return $data;
     }
 
@@ -343,6 +406,14 @@ class Qrcode_attendance extends Admin_Controller
         if ($_POST) {
             $postData = $this->input->post();
             echo $this->qrcode_attendance_model->getStuListDT($postData);
+        }
+    }
+
+    public function getStuListDTAbsent()
+    {
+        if ($_POST) {
+            $postData = $this->input->post();
+            echo $this->qrcode_attendance_model->getStuListDTAbsent($postData);
         }
     }
 
