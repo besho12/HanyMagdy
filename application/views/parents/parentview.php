@@ -173,6 +173,101 @@
                 </div>
             </div>
         </section>
+    </div>
+
+    <div class="col-md-12 col-lg-12 col-xl-12">
+        <section class="panel pg-fw exam_marks_mob">
+            <div class="panel-body">
+                <h4 class="panel-title chart-title mb-xs"><i class="fas fa-chart-line"></i> Student Performance</h4>
+                <div>
+                    <canvas id="myChart"></canvas>
+                </div>
+
+                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                <script>
+                    const ctx = document.getElementById('myChart').getContext('2d');
+
+                    const DATA_COUNT = 12;
+                    const labels = [];
+                    for (let i = 0; i < DATA_COUNT; ++i) {
+                        labels.push(i.toString());
+                    }
+                    const datapoints = [0, 20, 20, 60, 60, 120, 50, 26, 40, 60, 50, 120];
+                    const data = {
+                        labels: labels,
+                        datasets: [
+                            {
+                                data: datapoints,
+                                backgroundColor:'#ffbd2e45',
+                                borderColor: '#ffbd2e',
+                                fill: true,
+                                cubicInterpolationMode: 'monotone',
+                                tension: 0.4
+                            }
+                        ]
+                    };
+
+                    new Chart(ctx, {
+                        type: 'line',
+                        data: data,
+                        options:
+                        {          
+                            maintainAspectRatio: true,
+                            responsive: true,
+                            legend: {
+                                display: false
+                            },
+                            tooltips: { 
+                                mode: 'label', 
+                                label: 'mylabel', 
+                                callbacks: { 
+                                    label: function(tooltipItem, data) { 
+                                        return tooltipItem.xLabel.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                                    },
+                                }
+                            },                    
+                            responsive: true,
+                            plugins: {
+                                title: {
+                                    display: false,
+                                    text: ''
+                                },
+                                legend: {
+                                    display: false
+                                },
+                            },
+                            interaction: {
+                                intersect: false
+                            },
+                            scales: {
+                                x: {
+                                    display: false,
+                                },
+                                y: {
+                                    display: false,
+                                }
+                            },
+                            elements: {
+                                line: {
+                                    borderWidth: 2
+                                },
+                                point: {
+                                    radius: 0
+                                }
+                            },
+                            layout: {
+                                padding: {
+                                    top: 5
+                                }
+                            }
+                        }
+                    });
+                </script>
+            </div>
+        </section>
+
+
+
 
 
         <section class="panel pg-fw exam_marks_mob">
@@ -205,23 +300,7 @@
             </div>
         </section>
 
-        <?php foreach($marks as $row): ?>
-        <!-- <section class="panel pg-fw exam_marks_mob">
-            <h2><?php //echo $row['exam_name']; ?></h2>                                                                
-            <h2><?php //echo $row['exam_date']; ?></h2>                                                             
-            <h2><?php //echo $row['exam_period']; ?></h2>
-            <h2>
-                <?php
-                    // if($row['mark'] > ($row['total_mark'] / 2)) {
-                    //     $mark_status = '<span class="text-success">Succeeded</span>';
-                    // } else {
-                    //     $mark_status = '<span class="text-danger">Failed</span>';
-                    // }
-                ?>
-                <?php //echo $row['mark'] . '/' . $row['total_mark'] . ' - ' . $mark_status; ?>
-            </h2>
-        </section> -->
-        <?php endforeach; ?>
+        
     </div>
     
     <div class="col-md-6 mb-lg exam_marks_mob">
