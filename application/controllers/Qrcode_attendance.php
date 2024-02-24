@@ -69,7 +69,7 @@ class Qrcode_attendance extends Admin_Controller
         $this->data['title'] = translate('student_attendance');
         $this->data['sub_page'] = 'qrcode_attendance/student_entries';
         $this->data['main_menu'] = 'qr_attendance';
-        $this->data['exams'] = $this->get_available_exams();
+        $this->data['exams'] = $this->get_available_exams($branchID,$this->input->post('class_id'),$this->input->post('section_id'));
         $this->data['exams_dropdown'] = $this->prepare_exams_dropdown($this->data['exams']);
         $this->load->view('layout/index', $this->data);
     }
@@ -89,10 +89,15 @@ class Qrcode_attendance extends Admin_Controller
         return $arrayData;
     }
 
-    public function get_available_exams(){
+    public function get_available_exams($branch,$class,$section){
         // $exams = $this->db->where('exam_date >=', date('Y-m-d'))->order_by('exam_date','asc')
         // ->get('exam')->result();
-        $exams = $this->db->where('exam_date =', date('Y-m-d'))->order_by('exam_date','asc')
+        $exams = $this->db
+        ->where('exam_date =', date('Y-m-d'))
+        ->where('branch_id =',$branch)
+        ->where('class_id =',$class)
+        ->where('section_id =',$section)
+        ->order_by('exam_date','asc')
         ->get('exam')->row();
         return $exams;        
     }
