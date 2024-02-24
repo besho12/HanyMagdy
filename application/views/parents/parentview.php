@@ -103,9 +103,10 @@
 
     <div class="col-md-6 col-sm-12 mb-lg">
         <div class="panel-body">
-            <div class="panel-heading">
+            <h4 class="panel-title chart-title mb-xs"><i class="fas fa-chart-line"></i> Student Details</h4>
+            <!-- <div class="panel-heading">
                 <h4 class=" mb-xs"><i class="fas fa-user-graduate"></i> Student Details</h4>
-            </div>
+            </div> -->
             <div class="profile-head">
                 <!-- <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3 image_container">
                     <div class="image-content-center user-pro">
@@ -223,9 +224,10 @@
 
     <div class="col-md-6 mb-lg exam_marks_web">
         <div class="panel-body">
-            <div class="panel-heading">
+            <!-- <div class="panel-heading">
                 <h4 class=" mb-xs"><i class="fa-brands fa-whatsapp"></i> WhatsApp Groups</h4>
-            </div>
+            </div> -->
+            <h4 class="panel-title chart-title mb-xs"><i class="fas fa-chart-line"></i> WhatsApp Groups</h4>
             <div class="profile-head">
                 <ul>
                     <?php foreach($whatsapp as $single): ?>
@@ -411,9 +413,10 @@
     
     <div class="col-md-6 mb-lg exam_marks_mob">
         <div class="panel-body">
-            <div class="panel-heading">
+            <!-- <div class="panel-heading">
                 <h4 class=" mb-xs"><i class="fa-brands fa-whatsapp"></i> WhatsApp Groups</h4>
-            </div>
+            </div> -->
+            <h4 class="panel-title chart-title mb-xs"><i class="fas fa-chart-line"></i> WhatsApp Groups</h4>
             <div class="profile-head">
                 <ul>
                     <?php foreach($whatsapp as $single): ?>
