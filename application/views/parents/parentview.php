@@ -75,6 +75,13 @@
             max-height: 332px;
             width: 100%;
         }
+        .panel-body {
+            border-radius: 25px;
+            margin-bottom: 20px;
+        }
+        .panel-heading {
+            background: unset;
+        }
     </style>
 </header>
 
@@ -272,7 +279,7 @@
     </div>
 
     <div class="col-md-12 col-lg-12 col-xl-12 exam_marks_mob">
-        <section class="panel pg-fw">
+        <section class="pg-fw">
             <div class="panel-body">
                 <h4 class="panel-title chart-title mb-xs"><i class="fas fa-chart-line"></i> Student Performance</h4>
                 <div>
@@ -369,7 +376,7 @@
 
 
 
-        <section class="panel pg-fw exam_marks_mob">
+        <section class="pg-fw exam_marks_mob">
             <div class="panel-body">
                 <h4 class="panel-title chart-title mb-xs" style="width: 100%;"><i class="fas fa-user-graduate"></i> 
                     Exam Marks
