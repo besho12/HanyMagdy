@@ -128,7 +128,7 @@
             <div>
                 <canvas id="myChart1" class="new_chart"></canvas>
             </div>
-
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
             <script>
                 const ctx1 = document.getElementById('myChart1').getContext('2d');
 
@@ -142,7 +142,7 @@
                     labels: labels1,
                     datasets: [
                         {
-                            data: datapoints,
+                            data: datapoints1,
                             backgroundColor:'#ffbd2e45',
                             borderColor: '#ffbd2e',
                             fill: true,
@@ -154,7 +154,7 @@
 
                 new Chart(ctx1, {
                     type: 'line',
-                    data: data,
+                    data: data1,
                     options:
                     {          
                         maintainAspectRatio: true,
@@ -205,7 +205,7 @@
                         },
                         layout: {
                             padding: {
-                                top: 8
+                                top: 10,
                             }
                         }
                     }
