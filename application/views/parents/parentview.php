@@ -356,7 +356,7 @@
                             },
                             layout: {
                                 padding: {
-                                    top: 8
+                                    top: 10
                                 }
                             }
                         }
