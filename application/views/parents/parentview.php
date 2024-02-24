@@ -392,8 +392,8 @@
         <section class="pg-fw exam_marks_mob">
             <div class="panel-body">
                 <h4 class="panel-title chart-title mb-xs" style="width: 100%;">
-                    <input type="text" class="form-control exam_date" style="width: 45%; float:left;background:#fff;" readonly name="date" id="attDate" value="<?=set_value('date', date('F Y'))?>" autocomplete="off"/>
-                    <span style="float: right;">درجات الامتحان <i class="fas fa-clipboard-list"></i> </span>
+                    <span class="float_r">درجات الامتحان <i class="fas fa-clipboard-list"></i> </span>
+                    <input type="text" class="form-control exam_date" style="width: 100%; float:left;background:#fff;margin-top:10px;" readonly name="date" id="attDate" value="<?=set_value('date', date('F Y'))?>" autocomplete="off"/>
                     
                 </h4>
                 <div class="">
