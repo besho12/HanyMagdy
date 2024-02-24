@@ -1202,7 +1202,7 @@
                     </li>
                     <?php }} ?>
                     <?php
-                    if (moduleIsEnabled('bulk_sms_and_email')) {
+                    if (moduleIsEnabled('bulk_sms_and_email') && 1==2) {
                         if(get_permission('sendsmsmail', 'is_add') ||
                         get_permission('sendsmsmail_template', 'is_view') ||
                         get_permission('student_birthday_wishes', 'is_view') ||
@@ -1495,7 +1495,9 @@
                                             <?=translate('student') . ' ' . translate('daily_reports')?>
                                         </a>
                                     </li>
-                                    <?php } if(get_permission('employee_attendance_report', 'is_view')) { ?>
+
+                                    <?php } if(1==2): ?>
+                                    <?php if(get_permission('employee_attendance_report', 'is_view')) { ?>
                                     <li class="<?php if ($sub_page == 'attendance/employees_report') echo 'nav-active';?>">
                                         <a href="<?=base_url('attendance/employeewise_report')?>">
                                             <?=translate('employee') . ' ' . translate('reports')?>
@@ -1506,8 +1508,10 @@
                                         <a href="<?=base_url('attendance/examwise_report')?>">
                                             <?=translate('exam') . ' ' . translate('reports')?>
                                         </a>
-                                    </li>
-                                    <?php } ?>
+                                    </li>                                    
+                                    <?php } endif; ?>
+
+
                                 </ul>
                             </li>
                         <?php }} ?>
