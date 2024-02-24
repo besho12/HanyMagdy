@@ -87,7 +87,7 @@
 			</div> -->	
 	
 			<div class="col-md-4">
-				<div class="form-group">
+				<div class="form-group add_student_attendance_form">
 					<label class="control-label">Student ID</label>
 					<input type="text" class="form-control student_code" />
 					<button style="margin-top:5px;" type="button" class="add_barcode_manually btn btn btn-default">
@@ -387,6 +387,7 @@
 				success:function(res) {
 					if(res == '1'){
 						$('.close_attendance').hide();
+						$('.add_student_attendance_form').hide();
 					}
 				}
 			});
