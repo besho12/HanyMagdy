@@ -192,7 +192,6 @@ class Qrcode_attendance_model extends MY_Model
             $row = array();
             $row[] = $count++;
             $row[] = $record->fullname;
-            $row[] = $record->section_name;
             $row[] = $record->register_no;
             // $row[] = empty($record->roll) ? '-' : $record->roll;
             // $row[] = _d($record->created_at) . " " . date('h:i A', strtotime($record->created_at));
@@ -277,7 +276,7 @@ class Qrcode_attendance_model extends MY_Model
         $totalRecordwithFilter = count($records);
 
         // Fetch records
-        $sql = "SELECT `e`.`id` as `enroll_id`, `e`.`roll`, `s`.`register_no`, CONCAT_WS(' ', `s`.`first_name`, `s`.`last_name`) as `fullname`, `class`.`name` as `class_name`, `section`.`name` as `section_name`, `s`.`register_no`, `s`.`id` as `studentid` , `st`.`created_at`, `st`.`status` , `st`.`id` as `recordid`, `st`.`mark` as `studentmark` FROM `student_attendance` as `st` INNER JOIN `enroll` as `e` ON `e`.`id` = `st`.`enroll_id` INNER JOIN `student` as `s` ON `s`.`id` = `e`.`student_id` LEFT JOIN `class` ON `class`.`id` = `e`.`class_id` LEFT JOIN `section` ON `section`.`id` = `e`.`section_id` WHERE `e`.`session_id` = $sessionID AND `st`.`qr_code` = '1' AND `st`.`date` = '$date' AND `st`.`branch_id` = $branch_id AND `st`.`class_id` = $class_id AND `st`.`status` = 'A' AND `st`.`section_id` = $section_id AND date(st.date) = $today";
+        $sql = "SELECT `e`.`id` as `enroll_id`, `e`.`roll`, `s`.`register_no`, CONCAT_WS(' ', `s`.`first_name`, `s`.`last_name`) as `fullname`, `class`.`name` as `class_name`, `section`.`name` as `section_name`, `s`.`register_no`, `s`.`id` as `studentid` , `st`.`created_at`, `st`.`status`, `st`.`message` , `st`.`id` as `recordid`, `st`.`mark` as `studentmark` FROM `student_attendance` as `st` INNER JOIN `enroll` as `e` ON `e`.`id` = `st`.`enroll_id` INNER JOIN `student` as `s` ON `s`.`id` = `e`.`student_id` LEFT JOIN `class` ON `class`.`id` = `e`.`class_id` LEFT JOIN `section` ON `section`.`id` = `e`.`section_id` WHERE `e`.`session_id` = $sessionID AND `st`.`qr_code` = '1' AND `st`.`date` = '$date' AND `st`.`branch_id` = $branch_id AND `st`.`class_id` = $class_id AND `st`.`status` = 'A' AND `st`.`section_id` = $section_id AND date(st.date) = $today";
         if (!empty($searchQuery)) {
             $sql .= " AND " . $searchQuery;
         }
@@ -290,12 +289,15 @@ class Qrcode_attendance_model extends MY_Model
             $row = array();
             $row[] = $count++;
             $row[] = $record->fullname;
-            $row[] = $record->section_name;
             $row[] = $record->register_no;
             // $row[] = empty($record->roll) ? '-' : $record->roll;
             // $row[] = _d($record->created_at) . " " . date('h:i A', strtotime($record->created_at));
             $row[] = date('d/m/Y', strtotime($record->created_at));
-            $row[] = '<button class="btn btn-success message_absense" data-recordid="'.$record->recordid.'" data-studentid="'.$record->studentid.'" >'.translate('message').'</button>' . (!empty($record->studentmark) ? "<span class='exam_result'>  /  $record->studentmark</span>" : '<span class="exam_result"></span>');
+            $style='';
+            if($record->message){
+                $style = 'background: orange';
+            }
+            $row[] = '<button style="'.$style.'" class="btn btn-success message_absense" data-recordid="'.$record->recordid.'" data-studentid="'.$record->studentid.'" >'.translate('message').'</button>' . (!empty($record->studentmark) ? "<span class='exam_result'>  /  $record->studentmark</span>" : '<span class="exam_result"></span>');
             $data[] = $row;
         }
 

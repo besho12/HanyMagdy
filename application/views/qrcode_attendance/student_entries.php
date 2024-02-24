@@ -107,10 +107,9 @@
 						<tr>
 							<th>#</th>
 							<th><?=translate('name')?></th>
-							<th><?=translate('class')?></th>
 							<th><?=translate('student_id')?></th>
 							<th style="width: 120px;"><?=translate('date')?></th>
-							<th style="width: 50px;"><?=translate('exam')?></th>
+							<th style="width: 80px;"><?=translate('exam')?></th>
 						</tr>
 					</thead>
 				</table>
@@ -135,8 +134,7 @@
 						<tr>
 							<th>#</th>
 							<th><?=translate('name')?></th>
-							<th><?=translate('class')?></th>
-							<th style="width: 80px;"><?=translate('student_id')?></th>
+							<th style="width: 120px;"><?=translate('student_id')?></th>
 							<th style="width: 80px;"><?=translate('date')?></th>
 							<th style="width: 50px;"><?=translate('message')?></th>
 						</tr>
@@ -606,6 +604,7 @@
 
 		$(document).on('click','.message_absense',function(){			
 			var recordid = $(this).data('recordid');
+			$(this).css('background','orange');
 			$.ajax({
 				url: base_url + 'qrcode_attendance/get_student_details_notattend',
 				type: 'POST',
@@ -632,7 +631,6 @@
 				window.open(url, '_blank');
 			}
 		})
-
 	})
 
 </script>

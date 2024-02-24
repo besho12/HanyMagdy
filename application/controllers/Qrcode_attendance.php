@@ -336,7 +336,8 @@ class Qrcode_attendance extends Admin_Controller
 
             $recordid = $this->input->post('recordid');
             $student = $this->get_student_data($recordid);
-           
+            $this->db->where('id', $recordid)
+            ->update('student_attendance', ['message'=>date('Y-m-d H:i:s')]);
             echo json_encode($student);
         }
     }
