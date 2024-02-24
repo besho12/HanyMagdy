@@ -214,6 +214,9 @@
                         {          
                             maintainAspectRatio: true,
                             responsive: true,
+                            animation: {
+                                duration: 2500
+                            },
                             legend: {
                                 display: false
                             },
@@ -257,7 +260,7 @@
                             },
                             layout: {
                                 padding: {
-                                    top: 5
+                                    top: 8
                                 }
                             }
                         }
