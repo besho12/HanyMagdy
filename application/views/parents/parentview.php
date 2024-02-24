@@ -88,7 +88,7 @@
 <?php } ?>
 
 
-<div class="container2" style="margin-top: 100px;">
+<div class="container2" style="margin-top: 90px;">
 
     <div class="col-md-6 mb-lg">
         <div class="panel-body">
