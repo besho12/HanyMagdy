@@ -6,8 +6,8 @@
 
 <header class="header">
     <div class="logo-env">
-        <a href="http://localhost/HanyMagdy/dashboard" class="logo">
-            <img src="http://localhost/HanyMagdy/uploads/app_image/logo-small.png" height="40">
+        <a href="https://hanymagdy-thelegend.com/dashboard" class="logo">
+            <img src="https://hanymagdy-thelegend.com/uploads/app_image/logo-small.png" height="40">
 		</a>
 	</div>
 
