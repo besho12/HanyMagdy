@@ -369,7 +369,7 @@ class Qrcode_attendance extends Admin_Controller
 
     public function get_student_data($recordid)
     {
-        $this->db->select('student_attendance.date as stdate,student.first_name,student.last_name,student.parent_mobileno,exam.total_mark,branch.name as center, student.register_no as registerno');
+        $this->db->select('student_attendance.mark as stumark, student_attendance.date as stdate,student.first_name,student.last_name,student.parent_mobileno,exam.total_mark,branch.name as center, student.register_no as registerno');
         $this->db->from('student_attendance');
         $this->db->where('student_attendance.id',$recordid);
         $this->db->join('student', 'student.id = student_attendance.enroll_id', 'left');
@@ -379,7 +379,7 @@ class Qrcode_attendance extends Admin_Controller
 
         $data['student_name'] = $row->first_name . " " . $row->last_name;
         $data['parent_mobileno'] = $row->parent_mobileno;
-        $data['student_mark'] = $row->mark;
+        $data['student_mark'] = $row->stumark;
         $data['exam_mark'] = $row->total_mark;
         $data['exam_date'] = $row->stdate;        
         $data['center'] = $row->center;        
