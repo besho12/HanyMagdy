@@ -58,6 +58,9 @@ function studentQuickViewBarcode(id,date,section_id) {
 	            $('#quick_class_name').html(res.class_name);
 	            $('#quick_section_name').html(res.section_name);
 	            $('#quick_email').html(res.email);
+				setTimeout(function(){
+					$('#attendanceRemark').focus();
+				},200)
 	            mfp_modal('#qr_studentDetails');
         	} else {
 				swal({
