@@ -1417,9 +1417,13 @@
                             <li class="nav-parent <?php if ($main_menu == 'student_repots') echo 'nav-expanded nav-active'; ?>">
                                 <a><i class="fas fa-print"></i><span><?php echo translate('student') . " " . translate('reports'); ?></span></a>
                                 <ul class="nav nav-children">
+
+                                    <?php if(1==2): ?>
                                     <li class="<?php if ($sub_page == 'student/login_credential_reports') echo 'nav-active';?>">
                                         <a href="<?=base_url('student/login_credential_reports')?>"><?=translate('login_credential')?></a>
                                     </li>
+                                    <?php endif; ?>
+                                    
                                     <li class="<?php if ($sub_page == 'student/admission_reports') echo 'nav-active';?>">
                                         <a href="<?=base_url('student/admission_reports')?>"><?=translate('admission_report')?></a>
                                     </li>
@@ -1430,7 +1434,7 @@
                             </li>
                         <?php } ?>
                         <?php 
-                        if (moduleIsEnabled('student_accounting')) {
+                        if (moduleIsEnabled('student_accounting') && 1==2) {
                             if(get_permission('fees_reports', 'is_view')) { ?>
                             <li class="nav-parent <?php if ($main_menu == 'fees_repots') echo 'nav-expanded nav-active'; ?>">
                                 <a><i class="fas fa-print"></i><span><?php echo translate('fees_reports'); ?></span></a>
@@ -1451,7 +1455,7 @@
                             </li>
                         <?php }} ?>
                         <?php 
-                        if (moduleIsEnabled('office_accounting')) {
+                        if (moduleIsEnabled('office_accounting') && 1==2) {
                             if(get_permission('accounting_reports', 'is_view')){ ?>
                             <li class="nav-parent <?php if ($main_menu == 'accounting_repots') echo 'nav-expanded nav-active'; ?>">
                                 <a><i class="fas fa-print"></i><span><?php echo translate('financial_reports'); ?></span></a>
@@ -1516,7 +1520,7 @@
                             </li>
                         <?php }} ?>
                         <?php 
-                        if (moduleIsEnabled('human_resource')) {
+                        if (moduleIsEnabled('human_resource') && 1==2) {
                             if(get_permission('salary_summary_report', 'is_view') || get_permission('leave_reports', 'is_view')){ ?>
                             <li class="nav-parent <?php if ($main_menu == 'payroll_reports' || $main_menu == 'leave_reports') echo 'nav-expanded nav-active'; ?>">
                                 <a><i class="fas fa-print"></i><span><?php echo translate('hrm'); ?></span></a>
@@ -1537,6 +1541,8 @@
                                 </ul>
                             </li>
                         <?php }} ?>
+
+                        <?php if(1==2): ?>
                         <?php if(get_permission('report_card', 'is_view') || get_permission('tabulation_sheet', 'is_view') || get_permission('progress_reports', 'is_view')) { ?>
                             <li class="nav-parent <?php if ($main_menu == 'exam_reports') echo 'nav-expanded nav-active'; ?>">
                                 <a><i class="fas fa-print"></i><span><?php echo translate('examination'); ?></span></a>
@@ -1563,6 +1569,7 @@
                                 </ul>
                             </li>
                         <?php } ?>
+                        
 
                         <?php if(get_permission('inventory_report', 'is_view')){  ?>
                             <!-- Reports -->
@@ -1592,6 +1599,8 @@
                                 </ul>
                             </li>
                         <?php } ?>
+
+                        <?php endif; ?>
 
 
                         </ul>

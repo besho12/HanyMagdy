@@ -29,6 +29,8 @@ class Exam_model extends CI_Model
         $arrayExam = array(
             'name' => $data['name'],
             'branch_id' => $this->application_model->get_branch_id(),
+            'class_id' => $data['class_id'],
+            'section_id' => $data['section_id'],
             'term_id' => $data['term_id'],
             'type_id' => $data['type_id'],
             'mark_distribution' => json_encode(['1']),

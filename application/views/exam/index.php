@@ -84,19 +84,44 @@
 			<div class="tab-pane" id="create">
 				<?php echo form_open($this->uri->uri_string(), array('class' => 'frm-submit'));?>
 					<div class="form-horizontal form-bordered mb-lg">
-						<?php if (is_superadmin_loggedin()): ?>
+						
 						<div class="form-group">
 							<label class="col-md-3 control-label"><?=translate('branch')?> <span class="required">*</span></label>
 							<div class="col-md-6">
 								<?php
 									$arrayBranch = $this->app_lib->getSelectList('branch');
-									echo form_dropdown("branch_id", $arrayBranch, $branch_id, "class='form-control' id='branch_id'
-									id='branch_id' data-plugin-selectTwo data-width='100%' data-minimum-results-for-search='Infinity'");
+									echo form_dropdown("branch_id", $arrayBranch, set_value('branch_id'), "class='form-control' onchange='getClassByBranch(this.value)' id='branchID'
+									data-plugin-selectTwo data-width='100%' data-minimum-results-for-search='Infinity'");
+								?>
+								<span class="error"></span>
+							</div>
+						</div>				
+
+						<div class="form-group">
+							<label class="col-md-3 control-label"><?=translate('class')?> <span class="required">*</span></label>
+							<div class="col-md-6">
+								<?php
+									$arrayClass = $this->app_lib->getClass($branch_id);
+									echo form_dropdown("class_id", $arrayClass, set_value('class_id'), "class='form-control' id='class_id' onchange='getSectionByClass(this.value,0)'
+									data-plugin-selectTwo data-width='100%' data-minimum-results-for-search='Infinity' ");
 								?>
 								<span class="error"></span>
 							</div>
 						</div>
-						<?php endif; ?>
+
+						<div class="form-group">
+							<label class="col-md-3 control-label"><?=translate('section')?> <span class="required">*</span></label>
+							<div class="col-md-6">
+								<?php
+									$arraySection = $this->app_lib->getSections(set_value('class_id'), false);
+									echo form_dropdown("section_id", $arraySection, set_value('section_id'), "class='form-control' id='section_id'
+									data-plugin-selectTwo data-width='100%' data-minimum-results-for-search='Infinity' ");
+								?>
+								<span class="error"></span>
+							</div>
+						</div>
+
+
 						<div class="form-group">
 							<label class="col-md-3 control-label"><?=translate('name')?> <span class="required">*</span></label>
 							<div class="col-md-6">

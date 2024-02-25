@@ -6,8 +6,8 @@
 
 <header class="header">
     <div class="logo-env">
-        <a href="http://localhost/HanyMagdy/dashboard" class="logo">
-            <img src="http://localhost/HanyMagdy/uploads/app_image/logo-small.png" height="40">
+        <a href="https://hanymagdy-thelegend.com/dashboard" class="logo">
+            <img src="https://hanymagdy-thelegend.com/uploads/app_image/logo-small.png" height="40">
 		</a>
 	</div>
 
@@ -23,6 +23,7 @@
         }
         .profile-head {
             background-image: unset;
+            float: left;
             /* background: #fff; */
             /* box-shadow: 3px 5px 10px rgb(0 0 0 / 28%) !important; */
         }
@@ -71,6 +72,30 @@
             background: none;
             display: none;
         }
+        .new_chart {
+            max-height: 100%;
+            width: 100%;
+        }
+        .new_chart canvas{
+            max-height: 100%;
+            width: 100%;
+        }
+        .panel-body {
+            border-radius: 25px;
+            margin-bottom: 20px;
+        }
+        .panel-heading {
+            background: unset;
+        }
+        .panel-title {
+            font-size: 26px;
+            font-weight: bold;
+            /* float: right; */
+        }
+        .float_r {
+            float: right;
+            padding-bottom: 10px;
+        }
     </style>
 </header>
 
@@ -88,14 +113,14 @@
 <?php } ?>
 
 
-<div class="container2" style="margin-top: 100px;">
-
-    <div class="col-md-6 mb-lg">
+<div class="container2" style="margin-top: 90px;">
+    <div class="col-md-6 col-sm-12 mb-lg">
         <div class="panel-body">
-            <div class="panel-heading">
-                <h4 class=" mb-xs"><i class="fas fa-user-graduate"></i> Student Details</h4>
-            </div>
-            <div class="profile-head">
+            <h4 class="panel-title chart-title mb-xs float_r"> تفاصيل الطالب  <i class="fas fa-user-graduate"></i></h4>
+            <!-- <div class="panel-heading">
+                <h4 class=" mb-xs"><i class="fas fa-user-graduate"></i> تفاصيل الطالب</h4>
+            </div> -->
+            <div class="profile-head" style="float:left;">
                 <!-- <div class="col-sm-12 col-md-3 col-lg-3 col-xl-3 image_container">
                     <div class="image-content-center user-pro">
                         <div class="preview">
@@ -118,11 +143,142 @@
         </div>
     </div>
 
+    <div class="col-md-6 col-sm-12 mb-lg exam_marks_web">
+        <div class="panel-body" style="height: 332px;">
+            <h4 class="panel-title chart-title mb-xs float_r"> أداء الطالب <i class="fas fa-chart-line"></i></h4>
+            <canvas id="myChart1" class="new_chart"></canvas>
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+            <script>
+                const ctx1 = document.getElementById('myChart1').getContext('2d');
+
+                const DATA_COUNT1 = 12;
+                const labels1 = [];
+                for (let i = 0; i < DATA_COUNT1; ++i) {
+                    labels1.push(i.toString());
+                }
+                const datapoints1 = <?php echo json_encode($marks_chart); ?>;
+                const data1 = {
+                    labels: labels1,
+                    datasets: [
+                        {
+                            data: datapoints1,
+                            backgroundColor:'#ffbd2e45',
+                            borderColor: '#ffbd2e',
+                            fill: true,
+                            cubicInterpolationMode: 'monotone',
+                            tension: 0.4
+                        }
+                    ]
+                };
+
+                new Chart(ctx1, {
+                    type: 'line',
+                    data: data1,
+                    options:
+                    {          
+                        maintainAspectRatio: false,
+                        responsive: true,
+                        animation: {
+                            duration: 2500
+                        },
+                        legend: {
+                            display: false
+                        },
+                        tooltips: { 
+                            mode: 'label', 
+                            label: 'mylabel', 
+                            callbacks: { 
+                                label: function(tooltipItem, data) { 
+                                    return tooltipItem.xLabel.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                                },
+                            }
+                        },                    
+                        responsive: true,
+                        plugins: {
+                            title: {
+                                display: false,
+                                text: ''
+                            },
+                            legend: {
+                                display: false
+                            },
+                        },
+                        interaction: {
+                            intersect: false
+                        },
+                        scales: {
+                            x: {
+                                display: false,
+                            },
+                            y: {
+                                display: false,
+                            }
+                        },
+                        elements: {
+                            line: {
+                                borderWidth: 2
+                            },
+                            point: {
+                                radius: 0
+                            }
+                        },
+                        layout: {
+                            padding: {
+                                top: 10,
+                                bottom: 40
+                            }
+                        }
+                    }
+                });
+            </script>
+        </div>
+    </div>
+
+
+    <div class="col-md-6 mb-lg exam_marks_web">
+        <section class="pg-fw" style="margin-bottom: 80px;">
+            <div class="panel-body">
+                <h4 class="panel-title chart-title mb-xs float_r"> درجات الطالب <i class="fas fa-clipboard-list"></i></h4>
+                <div class="">
+                    <table class="table table-bordered table-condensed table-hover table-export">
+                        <thead>
+                            <tr>
+                                <th>Exam Name</th>
+                                <th>Date</th>
+                                <th>Exam Type</th>
+                                <th>Marks</th>                                                            
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach($marks as $row): ?>
+                            <tr>                       
+                                <td><?php echo $row['exam_name']; ?></td>                                                                
+                                <td><?php echo date_format(date_create($row['exam_date']), 'd/m/Y') ?></td>                                                                
+                                <td><?php echo $row['exam_period']; ?></td>   
+                                
+                                <?php
+                                    // if($row['mark'] > ($row['total_mark'] / 2)) {
+                                    //     $mark_status = '<span class="text-success">Succeeded</span>';
+                                    // } else {
+                                    //     $mark_status = '<span class="text-danger">Failed</span>';
+                                    // }
+                                ?>
+                                <td><?php echo $row['mark'] . '/' . $row['total_mark'] /* . ' - ' . $mark_status;*/ ?></td>                                                                
+                            </tr>
+                            <?php endforeach;?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </div>
+
     <div class="col-md-6 mb-lg exam_marks_web">
         <div class="panel-body">
-            <div class="panel-heading">
+            <!-- <div class="panel-heading">
                 <h4 class=" mb-xs"><i class="fa-brands fa-whatsapp"></i> WhatsApp Groups</h4>
-            </div>
+            </div> -->
+            <h4 class="panel-title chart-title mb-xs float_r"> جروبات الواتساب <i class="fab fa-whatsapp"></i> </h4>
             <div class="profile-head">
                 <ul>
                     <?php foreach($whatsapp as $single): ?>
@@ -133,53 +289,114 @@
         </div>
     </div>
 
-    <div class="col-md-12 col-lg-12 col-xl-12">
-        <section class="panel pg-fw exam_marks_web">
+  
+
+    <div class="col-md-12 col-lg-12 col-xl-12 exam_marks_mob">
+        <section class="pg-fw">
             <div class="panel-body">
-                <h4 class="panel-title chart-title mb-xs"><i class="fas fa-user-graduate"></i> Exam Marks</h4>
-                <div class="">
-                    <table class="table table-bordered table-condensed table-hover table-export">
-                        <thead>
-                            <tr>
-                                <th>Student ID</th>
-                                <th>Student Name</th>
-                                <th>Exam Name</th>
-                                <th>Date</th>
-                                <th>Exam Type</th>
-                                <th>Marks</th>                                                            
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach($marks as $row): ?>
-                            <tr>                       
-                                <td><?php echo $row['register_no']; ?></td>                                                                
-                                <td><?php echo $row['first_name']; ?></td>                                                                
-                                <td><?php echo $row['exam_name']; ?></td>                                                                
-                                <td><?php echo $row['exam_date']; ?></td>                                                                
-                                <td><?php echo $row['exam_period']; ?></td>   
-                                
-                                <?php
-                                    if($row['mark'] > ($row['total_mark'] / 2)) {
-                                        $mark_status = '<span class="text-success">Succeeded</span>';
-                                    } else {
-                                        $mark_status = '<span class="text-danger">Failed</span>';
-                                    }
-                                ?>
-                                <td><?php echo $row['mark'] . '/' . $row['total_mark'] . ' - ' . $mark_status; ?></td>                                                                
-                            </tr>
-                            <?php endforeach;?>
-                        </tbody>
-                    </table>
+                <h4 class="panel-title chart-title mb-xs float_r"> أداء الطالب <i class="fas fa-chart-line"></i></h4>
+                <div>
+                    <canvas id="myChart"></canvas>
                 </div>
+
+                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                <script>
+                    const ctx = document.getElementById('myChart').getContext('2d');
+
+                    const DATA_COUNT = 12;
+                    const labels = [];
+                    for (let i = 0; i < DATA_COUNT; ++i) {
+                        labels.push(i.toString());
+                    }
+                   
+                    
+                    const datapoints = <?php echo json_encode($marks_chart); ?>;
+                    const data = {
+                        labels: labels,
+                        datasets: [
+                            {
+                                data: datapoints,
+                                backgroundColor:'#ffbd2e45',
+                                borderColor: '#ffbd2e',
+                                fill: true,
+                                cubicInterpolationMode: 'monotone',
+                                tension: 0.4
+                            }
+                        ]
+                    };
+
+                    new Chart(ctx, {
+                        type: 'line',
+                        data: data,
+                        options:
+                        {          
+                            maintainAspectRatio: true,
+                            responsive: true,
+                            animation: {
+                                duration: 2500
+                            },
+                            legend: {
+                                display: false
+                            },
+                            tooltips: { 
+                                mode: 'label', 
+                                label: 'mylabel', 
+                                callbacks: { 
+                                    label: function(tooltipItem, data) { 
+                                        return tooltipItem.xLabel.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                                    },
+                                }
+                            },                    
+                            responsive: true,
+                            plugins: {
+                                title: {
+                                    display: false,
+                                    text: ''
+                                },
+                                legend: {
+                                    display: false
+                                },
+                            },
+                            interaction: {
+                                intersect: false
+                            },
+                            scales: {
+                                x: {
+                                    display: false,
+                                },
+                                y: {
+                                    display: false,
+                                }
+                            },
+                            elements: {
+                                line: {
+                                    borderWidth: 2
+                                },
+                                point: {
+                                    radius: 0
+                                }
+                            },
+                            layout: {
+                                padding: {
+                                    top: 10
+                                }
+                            }
+                        }
+                    });
+                </script>
             </div>
         </section>
 
 
-        <section class="panel pg-fw exam_marks_mob">
+
+
+
+        <section class="pg-fw exam_marks_mob">
             <div class="panel-body">
-                <h4 class="panel-title chart-title mb-xs" style="width: 100%;"><i class="fas fa-user-graduate"></i> 
-                    Exam Marks
-                    <input type="text" class="form-control exam_date" style="width: 50%; float:right;" name="date" id="attDate" value="<?=set_value('date', date('F Y'))?>" autocomplete="off"/>
+                <h4 class="panel-title chart-title mb-xs" style="width: 100%;">
+                    <span class="float_r">درجات الامتحان <i class="fas fa-clipboard-list"></i> </span>
+                    <input type="text" class="form-control exam_date" style="width: 100%; float:left;background:#fff;margin-top:10px;" readonly name="date" id="attDate" value="<?=set_value('date', date('F Y'))?>" autocomplete="off"/>
+                    
                 </h4>
                 <div class="">
                     
@@ -194,7 +411,7 @@
                         <tbody>
                             <?php foreach($marks as $row): ?>
                             <tr>                       
-                                <td><?php echo $row['exam_date']; ?></td>                                                                
+                                <td><?php echo date_format(date_create($row['exam_date']), 'd/m/Y'); ?></td>                                                               
                                 <td><?php echo $row['exam_period']; ?></td>   
                                 <td><?php echo $row['mark'] . '/' . $row['total_mark']; ?></td>                                                                
                             </tr>
@@ -205,30 +422,15 @@
             </div>
         </section>
 
-        <?php foreach($marks as $row): ?>
-        <!-- <section class="panel pg-fw exam_marks_mob">
-            <h2><?php //echo $row['exam_name']; ?></h2>                                                                
-            <h2><?php //echo $row['exam_date']; ?></h2>                                                             
-            <h2><?php //echo $row['exam_period']; ?></h2>
-            <h2>
-                <?php
-                    // if($row['mark'] > ($row['total_mark'] / 2)) {
-                    //     $mark_status = '<span class="text-success">Succeeded</span>';
-                    // } else {
-                    //     $mark_status = '<span class="text-danger">Failed</span>';
-                    // }
-                ?>
-                <?php //echo $row['mark'] . '/' . $row['total_mark'] . ' - ' . $mark_status; ?>
-            </h2>
-        </section> -->
-        <?php endforeach; ?>
+        
     </div>
     
     <div class="col-md-6 mb-lg exam_marks_mob">
         <div class="panel-body">
-            <div class="panel-heading">
+            <!-- <div class="panel-heading">
                 <h4 class=" mb-xs"><i class="fa-brands fa-whatsapp"></i> WhatsApp Groups</h4>
-            </div>
+            </div> -->
+            <h4 class="panel-title chart-title mb-xs float_r"> جروبات الواتساب <i class="fab fa-whatsapp"></i> </h4>
             <div class="profile-head">
                 <ul>
                     <?php foreach($whatsapp as $single): ?>
