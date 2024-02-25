@@ -170,7 +170,7 @@ class Qrcode_attendance extends Admin_Controller
             $enrollID = $this->qrcode_attendance_model->getStudentIDByBarcode($barcode,$section_id); 
 
             $data = [];
-            $attendance = $this->db->where(array('enroll_id' => $enrollID, 'date' => date('Y-m-d')))
+            $attendance = $this->db->where(array('enroll_id' => $enrollID, 'date' => $date))
             ->where('date',$date)->get('student_attendance')->row();
             if (!empty($attendance)) {
                 $data['status'] = 'failed';
@@ -263,7 +263,7 @@ class Qrcode_attendance extends Admin_Controller
            
             $attendanceRemark = $this->input->post('attendanceRemark');
             // $stuDetail = $this->qrcode_attendance_model->getStudentDetailsByEid($enrollID);
-            $attendance = $this->db->where(array('enroll_id' => $enrollID, 'date' => date('Y-m-d')))->get('student_attendance')->row();
+            $attendance = $this->db->where(array('enroll_id' => $enrollID, 'date' => $date))->get('student_attendance')->row();
             if (empty($attendance)) {
                 $data['status'] = 1;
                 $attendance = (isset($_POST['late']) ? 'L' : 'P');
