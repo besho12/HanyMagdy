@@ -47,7 +47,7 @@ class Qrcode_attendance extends Admin_Controller
             $this->form_validation->set_rules('class_id', translate('class'), 'required');
             $this->form_validation->set_rules('section_id', translate('section'), 'required');
             // $this->form_validation->set_rules('date', translate('date'), 'trim|required|callback_check_weekendday|callback_check_holiday|callback_get_valid_date');
-            $this->form_validation->set_rules('date', translate('date'), 'trim|required|callback_get_valid_date');
+            $this->form_validation->set_rules('date', translate('date'), 'trim|required');
             if ($this->form_validation->run() == true) {
                 $this->data['validation'] = true;
             }
@@ -581,7 +581,7 @@ class Qrcode_attendance extends Admin_Controller
             if (is_superadmin_loggedin()) {
                 $this->form_validation->set_rules('branch_id', translate('branch'), 'required');
             }
-            $this->form_validation->set_rules('date', translate('date'), 'trim|required|callback_get_valid_date');
+            $this->form_validation->set_rules('date', translate('date'), 'trim|required');
             if ($this->form_validation->run() == true) {
                 $this->data['class_id'] = $this->input->post('class_id');
                 $this->data['section_id'] = $this->input->post('section_id');
@@ -642,7 +642,7 @@ class Qrcode_attendance extends Admin_Controller
             if (is_superadmin_loggedin()) {
                 $this->form_validation->set_rules('branch_id', translate('branch'), 'required');
             }
-            $this->form_validation->set_rules('date', translate('date'), 'trim|required|callback_get_valid_date');
+            $this->form_validation->set_rules('date', translate('date'), 'trim|required');
             if ($this->form_validation->run() == true) {
                 $this->data['staff_role'] = $this->input->post('staff_role');
                 $this->data['date'] = $this->input->post('date');
