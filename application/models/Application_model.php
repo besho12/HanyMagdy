@@ -128,8 +128,9 @@ class Application_model extends CI_Model
         // $query = $this->db->get();
         // return $query->result_array();
 
-        $this->db->select('s.*,s.id as student_id,s.class_id,s.section_id,c.name as class_name,se.name as section_name');
+        $this->db->select('s.*,s.id as student_id,s.class_id,s.section_id, stf.name as staff_name,c.name as class_name,se.name as section_name');
         $this->db->from('student as s');
+        $this->db->join('staff as stf', 'stf.id = s.created_by', 'left');
         $this->db->join('enroll as e', 's.id = e.student_id', 'left');
         $this->db->join('class as c', 's.class_id = c.id', 'left');
         $this->db->join('section as se', 's.section_id = se.id', 'left');

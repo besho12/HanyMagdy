@@ -78,6 +78,7 @@
 							<th><?=translate('class')?></th>
 							<th><?=translate('section')?></th>
 							<th><?=translate('register_no')?></th>
+							<th><?=translate('added_by')?></th>
 							<th><?=translate('action')?></th>
 						</tr>
 					</thead>
@@ -99,6 +100,7 @@
 							<td><?php echo $row['class_name'];?></td>
 							<td><?php echo $row['section_name'];?></td>
 							<td><?php echo $row['register_no'];?></td>
+							<td><?php echo $row['staff_name'] ?></td>
 							<td class="action">
 								<!-- quick view -->
 								<a href="javascript:void(0);" onclick="studentQuickView('<?=$row['id']?>');" class="btn btn-default btn-circle icon" data-toggle="tooltip"

@@ -272,6 +272,7 @@ class Qrcode_attendance extends Admin_Controller
                     'branch_id' => $branch_id,
                     'class_id' => $class_id,
                     'section_id' => $section_id,
+                    'created_by' => get_loggedin_user_id(),
                 );
                 $this->db->insert('student_attendance', $arrayAttendance);
             } else {

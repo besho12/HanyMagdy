@@ -59,6 +59,8 @@ class Student_model extends MY_Model
             'center' => $this->input->post('center'),
             'class_id' => $this->input->post('class_id'),
             'section_id' => $this->input->post('section_id'),
+            'created_by' => get_loggedin_user_id(),
+            'updated_by' => get_loggedin_user_id(),
         );
 
         // moderator guardian all information
@@ -294,7 +296,9 @@ class Student_model extends MY_Model
             'photo' => 'defualt.png',
             'email' => $row['StudentEmail'],
             'school' => $row['school'],
-            'center' => $row['center']
+            'center' => $row['center'],
+            'created_by' => get_loggedin_user_id(),
+            'updated_by' => get_loggedin_user_id(),
         );
 
         //save all student information in the database file
