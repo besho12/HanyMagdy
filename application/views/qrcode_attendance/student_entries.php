@@ -629,7 +629,7 @@
 				+'برجاء حفظ الرقم لإستكمال متابعة الطالب' + '%0a'				
 				+'فريق عمل مستر هاني مجدي'			
 				;
-				var url = "whatsapp://send?phone=" + res['parent_mobileno'] + "&text=" + (message);
+				var url = "whatsapp://send?phone=2" + res['parent_mobileno'] + "&text=" + (message);
 				window.open(url);
 			}
 			
@@ -660,7 +660,7 @@
 				+'برجاء حفظ الرقم لإستكمال متابعة الطالب' + '%0a'				
 				+'فريق عمل مستر هاني مجدي'			
 				;
-				var url = "whatsapp://send?phone=" + res['parent_mobileno'] + "&text=" + (message);
+				var url = "whatsapp://send?phone=2" + res['parent_mobileno'] + "&text=" + (message);
 				window.open(url, '_blank');
 			}
 		})
