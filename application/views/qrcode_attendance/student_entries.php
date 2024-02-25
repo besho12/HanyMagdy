@@ -394,10 +394,7 @@
 		}
 
 
-		setTimeout(function(){
-			$('.student_code').focus();
-		},200)
-
+		$('.student_code').focus();
 		// setTimeout(function(){
 		// 	// Simulate barcode scanning by generating a random barcode value
 		// 	const barcodeValue = Math.floor(Math.random() * 1000000000).toString();
@@ -438,38 +435,13 @@
 		$(document).on('keydown', function(event) {
 			// Check if the key pressed is the Enter key (key code 13)
 			if (event.keyCode === 13) {
-				if (!isEventInPopupMarks(event) && !isEventInPopupAttendance(event)) {
-					// Prevent the default behavior of the Enter key
-					event.preventDefault();	
-					// Do something with the barcode value (e.g., display it, send it to a server, etc.)
-					saveAttendanceToDatabase();
-				}
-
-				//if inside the popup it means inside the mark popup
-				if (isEventInPopupMarks(event)) {
-					// Prevent the default behavior of the Enter key
-					event.preventDefault();
-					// Trigger the click event of the save button inside the popup
-					$('.save_quiz_result').click();
-				}
-
-				//if inside the popup it means inside the mark popup
-				if (isEventInPopupAttendance(event)) {
-					// Prevent the default behavior of the Enter key
-					event.preventDefault();
-					// Trigger the click event of the save button inside the popup
-					$('.btn-confirm').click();
-				}
+				// Prevent the default behavior of the Enter key
+				event.preventDefault();
+								
+				// Do something with the barcode value (e.g., display it, send it to a server, etc.)
+				saveAttendanceToDatabase();
 			}
 		});
-
-		function isEventInPopupMarks(event) {
-			return $(event.target).closest('.modal-dialog').length > 0;
-		}
-
-		function isEventInPopupAttendance(event) {
-			return $(event.target).closest('.mfp-content').length > 0;
-		}
 
 		$(document).on('click','.close_attendance',function(){
 			swal({
@@ -590,10 +562,6 @@
 					$('#quiz_remark_modal').modal("show");
 					$('.quiz_degree_input').val(res['mark']);
 					$('.exam_option').val(res['exam_id']);
-
-					setTimeout(function(){
-						$('.quiz_degree_input').focus();
-					},500)
 				},
 			});						
 		})
