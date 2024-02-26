@@ -85,8 +85,9 @@ function studentQuickViewBarcode(id,date,section_id) {
 function after_finish_barcode_scan(){
 	$('.student_code').val('');
 	setTimeout(function() {
-		$('.student_code').focus();
-	}, 400);
+		$('.student_code_2').focus();
+		$('.student_code_2').val('24HM');
+	}, 300);
 }
 
 function staffQuickView(id) {

@@ -86,10 +86,13 @@
 			</div>
 			</div> -->	
 	
-			<div class="col-md-4">
+			<div class="col-md-12">
 				<div class="form-group add_student_attendance_form">
 					<label class="control-label">Student ID</label>
-					<input type="text" class="form-control student_code" />
+					<div class="input_fields">
+						<input type="text" class="form-control student_code" style="width: 45%; float:left;" />
+						<input type="text" class="form-control student_code_2" style="width: 45%; float:right"/>
+					</div>
 					<button style="margin-top:5px;" type="button" class="add_barcode_manually btn btn btn-default">
 						<i class="fas fa-plus-circle"></i> <?=translate('add_manually') ?>							
 					</button>
@@ -395,7 +398,8 @@
 
 
 		setTimeout(function(){
-			$('.student_code').focus();
+			$('.student_code_2').focus();
+			$('.student_code_2').val("24HM");
 		},200)
 
 		// setTimeout(function(){
@@ -511,7 +515,11 @@
 			modalOpen = 1;
 			$('#attendanceRemark').val('');
 			$('#chkAttendance').prop('checked', false);
-			studentQuickViewBarcode($('.student_code').val(),'<?php echo $date; ?>', '<?php echo $section_id; ?>');
+			if($('.student_code').val() != ''){
+				studentQuickViewBarcode($('.student_code').val(),'<?php echo $date; ?>', '<?php echo $section_id; ?>');
+			} else {
+				studentQuickViewBarcode($('.student_code_2').val(),'<?php echo $date; ?>', '<?php echo $section_id; ?>');
+			}
 		}
 	})
 
@@ -519,12 +527,16 @@
 	$('.btn-confirm').on('click', function() {
 		var chkAttendance = $("#chkAttendance:checked").val();
 		var attendanceRemark = $("#attendanceRemark").val();
+		var student_code = $('.student_code').val();
+		if(student_code == ''){
+			student_code = $('.student_code_2').val();
+		}
 	    var btn = $(this);
 	    $.ajax({
 	        url: base_url + 'qrcode_attendance/setStuAttendanceBybarcode',
 	        type: 'POST',
 	        data: {
-	        	'data': $('.student_code').val(),
+	        	'data': student_code,
 	        	'late': chkAttendance,
 	        	'attendanceRemark' : attendanceRemark,
 				'branch_id': '<?php echo $branch_id; ?>',
@@ -627,7 +639,7 @@
 				+'السنتر: ' + '' +res['center']+''  + '%0a'				
 				+'درجة الطالب: ' + '' +res['student_mark']+'/' + res['exam_mark'] + '%0a'				
 				+'برجاء حفظ الرقم لإستكمال متابعة الطالب' + '%0a'				
-				+'فريق عمل مستر هاني مجدي'			
+				+'فريق عمل مستر هاني مجدي English'			
 				;
 				var url = "whatsapp://send?phone=2" + res['parent_mobileno'] + "&text=" + (message);
 				window.open(url);
@@ -658,7 +670,7 @@
 				+'السنتر: ' + '' +res['center']+''  + '%0a'				
 				+'لم يتم الحضور اليوم' + '%0a'				
 				+'برجاء حفظ الرقم لإستكمال متابعة الطالب' + '%0a'				
-				+'فريق عمل مستر هاني مجدي'			
+				+'فريق عمل مستر هاني مجدي English'			
 				;
 				var url = "whatsapp://send?phone=2" + res['parent_mobileno'] + "&text=" + (message);
 				window.open(url, '_blank');
