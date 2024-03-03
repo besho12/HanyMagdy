@@ -45,7 +45,7 @@ class Qrcode_attendance_model extends MY_Model
         $this->db->join('student_category', 'student_category.id = s.category_id', 'left');
         $this->db->where('enroll.id', $enrollID);
         if($section_id)
-            $this->db->where('s.section_id', intval($section_id));
+            // $this->db->where('s.section_id', intval($section_id));
         
         if (!is_superadmin_loggedin())
             $this->db->where('enroll.branch_id', get_loggedin_branch_id());
