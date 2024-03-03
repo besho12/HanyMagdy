@@ -67,17 +67,17 @@ class Qrcode_attendance_model extends MY_Model
         $this->db->join('student', 'student.id = student_attendance.enroll_id', 'left');
         $this->db->where('student_attendance.date', $date);
         $this->db->where_in('student_attendance.status', ['P', 'L']);
-        $this->db->where('student.class_id', $class_id);
+        $this->db->where('enroll.class_id', $class_id);
         $this->db->where('enroll.branch_id', $branch_id);
-        $this->db->where('student.section_id', $section_id);
+        $this->db->where('enroll.section_id', $section_id);
         $attendance = $this->db->get()->result_array();
           
-        $this->db->select('student.id,enroll.branch_id as branch,student.class_id as class, student.section_id as section');
+        $this->db->select('student.id,enroll.branch_id as branch,enroll.class_id as class, enroll.section_id as section');
         $this->db->from('student');
         $this->db->join('enroll', 'enroll.student_id = student.id', 'left');
         $this->db->where('enroll.branch_id', $branch_id);
-        $this->db->where('student.class_id', $class_id);
-        $this->db->where('student.section_id', $section_id);
+        $this->db->where('enroll.class_id', $class_id);
+        $this->db->where('enroll.section_id', $section_id);
         if (!empty($attendance)) {
             $this->db->where_not_in('student.id', array_column($attendance, 'enroll_id'));
         }
