@@ -37,6 +37,7 @@ class Qrcode_attendance_model extends MY_Model
         // error_reporting(0);
         // error_reporting(E_ALL);
         // ini_set('display_errors',1);
+        var_dump($enrollID,$section_id);
         $this->db->select('s.section_id,enroll.section_id,s.first_name,s.last_name,s.register_no,s.email,s.photo,admission_date,birthday,enroll.student_id,enroll.branch_id,enroll.roll,class.name as class_name,section.name as section_name,student_category.name as cname');
         $this->db->from('enroll');
         $this->db->join('student as s', 's.id = enroll.student_id', 'inner');
