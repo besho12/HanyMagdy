@@ -185,6 +185,7 @@ class Qrcode_attendance extends Admin_Controller
 
             $row = $this->qrcode_attendance_model->getStudentDetailsByEid($enrollID,$section_id);
             if (empty($row)) {
+                var_dump($enrollID,$section_id);
                 $data['status'] = 'failed';
                 $data['message'] = "<i class='fas fa-exclamation-triangle'></i> Barcode is invalid / student not found.";
             } else {
