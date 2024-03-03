@@ -17,12 +17,12 @@ class Qrcode_attendance_model extends MY_Model
         // error_reporting(0);
         // error_reporting(E_ALL);
         // ini_set('display_errors',1);
-        $this->db->select('student.id as id, student.section_id, enroll.branch_id');
+        $this->db->select('student.id as id, enroll.section_id, enroll.branch_id');
         $this->db->from('student');
         $this->db->join('enroll', 'enroll.student_id = student.id', 'left');
         $this->db->where('register_no', $barcode);
         if($section_id){
-            $this->db->where('student.section_id', $section_id);
+            $this->db->where('enroll.section_id', $section_id);
         }
         if (!is_superadmin_loggedin()) {
             $this->db->where('enroll.branch_id', get_loggedin_branch_id());
@@ -37,7 +37,7 @@ class Qrcode_attendance_model extends MY_Model
         // error_reporting(0);
         // error_reporting(E_ALL);
         // ini_set('display_errors',1);
-        var_dump($enrollID,$section_id);
+        // var_dump($enrollID,$section_id);
         $this->db->select('s.section_id,enroll.section_id,s.first_name,s.last_name,s.register_no,s.email,s.photo,admission_date,birthday,enroll.student_id,enroll.branch_id,enroll.roll,class.name as class_name,section.name as section_name,student_category.name as cname');
         $this->db->from('enroll');
         $this->db->join('student as s', 's.id = enroll.student_id', 'inner');
