@@ -37,15 +37,15 @@ class Qrcode_attendance_model extends MY_Model
         // error_reporting(0);
         // error_reporting(E_ALL);
         // ini_set('display_errors',1);
-        $this->db->select('s.section_id,s.first_name,s.last_name,s.register_no,s.email,s.photo,admission_date,birthday,enroll.student_id,enroll.branch_id,enroll.roll,class.name as class_name,section.name as section_name,student_category.name as cname');
+        $this->db->select('s.section_id,s.first_name,s.last_name,s.register_no,s.email,student.section_id,student.class_id,s.photo,admission_date,birthday,enroll.student_id,enroll.branch_id,enroll.roll,class.name as class_name,section.name as section_name,student_category.name as cname');
         $this->db->from('enroll');
         $this->db->join('student as s', 's.id = enroll.student_id', 'inner');
-        $this->db->join('class', 'class.id = enroll.class_id', 'left');
-        $this->db->join('section', 'section.id = enroll.section_id', 'left');
+        $this->db->join('class', 'class.id = student.class_id', 'left');
+        $this->db->join('section', 'section.id = student.section_id', 'left');
         $this->db->join('student_category', 'student_category.id = s.category_id', 'left');
         $this->db->where('enroll.id', $enrollID);
         if($section_id)
-            // $this->db->where('s.section_id', intval($section_id));
+            $this->db->where('s.section_id', intval($section_id));
         
         if (!is_superadmin_loggedin())
             $this->db->where('enroll.branch_id', get_loggedin_branch_id());
